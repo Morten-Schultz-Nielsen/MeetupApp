@@ -36,7 +36,51 @@ namespace Meetup.Entities.Tests
         [TestMethod()]
         public void CalculateHappinessScoreTest()
         {
-            Assert.Fail();
+            //Create test user
+            User user = new User()
+            {
+                Id = 1,
+                UsersInterests = new List<UsersInterest>()
+                {
+                    new UsersInterest() { InterestId = 0 },
+                    new UsersInterest() { InterestId = 1 },
+                    new UsersInterest() { InterestId = 2 },
+                    new UsersInterest() { InterestId = 3 },
+                    new UsersInterest() { InterestId = 4 },
+                    new UsersInterest() { InterestId = 5 }
+                },
+                UsersBusinesses = new List<UsersBusiness>()
+                {
+                    new UsersBusiness() { BusinessId = 0 },
+                    new UsersBusiness() { BusinessId = 1 },
+                    new UsersBusiness() { BusinessId = 2 },
+                    new UsersBusiness() { BusinessId = 3 },
+                    new UsersBusiness() { BusinessId = 4 },
+                    new UsersBusiness() { BusinessId = 5 }
+                }
+            };
+
+            //Create wish list
+            List<Wish> wishList = new List<Wish>()
+            {
+                new Wish()
+                {
+                    WishInterests = new List<WishInterests>()
+                    {
+                        new WishInterests() { InterestId = 0 },
+                        new WishInterests() { InterestId = 1 },
+                        new WishInterests() { InterestId = 2 },
+                        new WishInterests() { InterestId = 3 },
+                        new WishInterests() { InterestId = 4 },
+                        new WishInterests() { InterestId = 5 }
+                    }
+                },
+                new Wish()
+                {
+                    WishUserId = 1
+                }
+            };
+            Assert.AreEqual(1000, user.CalculateHappinessScore(wishList), "Happiness score was supposed to be the highest score of all the wishes.");
         }
 
         [TestMethod()]
@@ -48,21 +92,21 @@ namespace Meetup.Entities.Tests
                 Id = 1,
                 UsersInterests = new List<UsersInterest>()
                 {
-                    new UsersInterest() { Interest = new Interest() { Name = "a", Id = 0 } },
-                    new UsersInterest() { Interest = new Interest() { Name = "b", Id = 1 } },
-                    new UsersInterest() { Interest = new Interest() { Name = "c", Id = 2 } },
-                    new UsersInterest() { Interest = new Interest() { Name = "d", Id = 3 } },
-                    new UsersInterest() { Interest = new Interest() { Name = "e", Id = 4 } },
-                    new UsersInterest() { Interest = new Interest() { Name = "f", Id = 5 } }
+                    new UsersInterest() { InterestId = 0 },
+                    new UsersInterest() { InterestId = 1 },
+                    new UsersInterest() { InterestId = 2 },
+                    new UsersInterest() { InterestId = 3 },
+                    new UsersInterest() { InterestId = 4 },
+                    new UsersInterest() { InterestId = 5 }
                 },
                 UsersBusinesses = new List<UsersBusiness>()
                 {
-                    new UsersBusiness() { Business = new Business() { Name = "a", Id = 0 } },
-                    new UsersBusiness() { Business = new Business() { Name = "b", Id = 1 } },
-                    new UsersBusiness() { Business = new Business() { Name = "c", Id = 2 } },
-                    new UsersBusiness() { Business = new Business() { Name = "d", Id = 3 } },
-                    new UsersBusiness() { Business = new Business() { Name = "e", Id = 4 } },
-                    new UsersBusiness() { Business = new Business() { Name = "f", Id = 5 } }
+                    new UsersBusiness() { BusinessId = 0 },
+                    new UsersBusiness() { BusinessId = 1 },
+                    new UsersBusiness() { BusinessId = 2 },
+                    new UsersBusiness() { BusinessId = 3 },
+                    new UsersBusiness() { BusinessId = 4 },
+                    new UsersBusiness() { BusinessId = 5 }
                 }
             };
 
@@ -71,12 +115,12 @@ namespace Meetup.Entities.Tests
             {
                 WishInterests = new List<WishInterests>()
                 {
-                    new WishInterests() { Interest = new Interest() { Name = "a", Id = 0 } },
-                    new WishInterests() { Interest = new Interest() { Name = "b", Id = 1 } },
-                    new WishInterests() { Interest = new Interest() { Name = "c", Id = 2 } },
-                    new WishInterests() { Interest = new Interest() { Name = "d", Id = 3 } },
-                    new WishInterests() { Interest = new Interest() { Name = "e", Id = 4 } },
-                    new WishInterests() { Interest = new Interest() { Name = "f", Id = 5 } }
+                    new WishInterests() { InterestId = 0 },
+                    new WishInterests() { InterestId = 1 },
+                    new WishInterests() { InterestId = 2 },
+                    new WishInterests() { InterestId = 3 },
+                    new WishInterests() { InterestId = 4 },
+                    new WishInterests() { InterestId = 5 }
                 }
             };
             Assert.AreEqual(700, user.CalculateHappinessScore(wish), "Happiness score got the wrong result");
@@ -86,39 +130,90 @@ namespace Meetup.Entities.Tests
             {
                 WishInterests = new List<WishInterests>()
                 {
-                    new WishInterests() { Interest = new Interest() { Name = "a" } },
-                    new WishInterests() { Interest = new Interest() { Name = "b" } },
-                    new WishInterests() { Interest = new Interest() { Name = "c" } }
+                    new WishInterests() { InterestId = 0 },
+                    new WishInterests() { InterestId = 1 },
+                    new WishInterests() { InterestId = 2 }
                 },
                 WishBusinesses = new List<WishBusinesses>()
                 {
-                    new WishBusinesses() { Business = new Business() { Name = "a" } },
-                    new WishBusinesses() { Business = new Business() { Name = "b" } },
-                    new WishBusinesses() { Business = new Business() { Name = "c" } },
-                    new WishBusinesses() { Business = new Business() { Name = "q" } }
+                    new WishBusinesses() { BusinessId = 0 },
+                    new WishBusinesses() { BusinessId = 1 },
+                    new WishBusinesses() { BusinessId = 2 },
+                    new WishBusinesses() { BusinessId = 101 }
                 }
             };
             //business score = 600/725
             //interest score = 725/725
-            Assert.AreEqual(639, user.CalculateHappinessScore(wish), "Happiness score got the wrong result");
+            Assert.AreEqual(639, user.CalculateHappinessScore(wish), "Happiness score was not supposed to be 700");
+
+            //Test if user wishes outputs correct score
+            wish = new Wish()
+            {
+                WishUserId = 1
+            };
+            Assert.AreEqual(1000, user.CalculateHappinessScore(wish), "Happiness score was not supposed to be 1000 because it was a user wish");
         }
 
         [TestMethod()]
         public void GetInterestsTest()
         {
-            Assert.Fail();
+            //Create test user
+            User user = new User()
+            {
+                Id = 1,
+                UsersInterests = new List<UsersInterest>()
+                {
+                    new UsersInterest() { Interest = new Interest() {Name = "a"} },
+                    new UsersInterest() { Interest = new Interest() {Name = "b"} },
+                    new UsersInterest() { Interest = new Interest() {Name = "c"} },
+                    new UsersInterest() { Interest = new Interest() {Name = "d"} },
+                    new UsersInterest() { Interest = new Interest() {Name = "e"} },
+                    new UsersInterest() { Interest = new Interest() {Name = "f"} }
+                }
+            };
+
+            List<Interest> interestList = user.GetInterests().ToList();
+            Assert.AreEqual(6, interestList.Count, "GetInterests is supposed to output all the user's interests");
+            Assert.AreEqual("a", interestList[0].Name, "The first interest is supposed to be the \"a\" interest");
         }
 
         [TestMethod()]
         public void GetBusinessesTest()
         {
-            Assert.Fail();
+            User user = new User()
+            {
+                Id = 1,
+                UsersBusinesses = new List<UsersBusiness>()
+                {
+                    new UsersBusiness() { Business = new Business() {Name = "a"} },
+                    new UsersBusiness() { Business = new Business() {Name = "b"} },
+                    new UsersBusiness() { Business = new Business() {Name = "c"} },
+                    new UsersBusiness() { Business = new Business() {Name = "d"} }
+                }
+            };
+
+            List<Business> businessList = user.GetBusinesses().ToList();
+            Assert.AreEqual(4, businessList.Count, "GetBusinesses is supposed to output all the user's businesses");
+            Assert.AreEqual("d", businessList[3].Name, "The last business is supposed to be the \"d\" business");
         }
 
         [TestMethod()]
         public void GetOrganizationsTest()
         {
-            Assert.Fail();
+            User user = new User()
+            {
+                Id = 1,
+                UsersOrganizations = new List<UsersOrganizations>()
+                {
+                    new UsersOrganizations() { StartDate = new DateTime(2010,10,30), Organization = new Organization() { Name = "TestOrganization" } },
+                    new UsersOrganizations() { StartDate = new DateTime(2005,5,4), Organization = new Organization() { Name = "MyOrganization" } },
+                    new UsersOrganizations() { StartDate = new DateTime(2008,6,19), Organization = new Organization() { Name = "TheirOrganization" } }
+                }
+            };
+
+            List<Organization> organizationList = user.GetOrganizations().ToList();
+            Assert.AreEqual(3, organizationList.Count, "GetOrganizations is supposed to output all the user's organization");
+            Assert.AreEqual("MyOrganization", organizationList[1].Name, "the 2nd organization in the last is supposed to be \"MyOrganization\"");
         }
     }
 }
