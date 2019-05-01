@@ -1,0 +1,103 @@
+﻿@model Meetup.Websites.Models.EventPageModel
+@using Meetup.Entities;
+@{
+    ViewBag.Title = Model.Event.Name;
+}
+
+<section class="event-information white-box">
+    @if(Model.EventOwner)
+    {
+        <div class="box-edit-buttons">
+            <a class="button" href="@Url.Action("Edit","Events",new { Id = Model.Event.Id })">Edit this event</a>
+        </div>
+    }
+
+    <h2>@Model.Event.Name</h2>
+    <p>@Model.Event.Address</p>
+    <p>@Model.Event.BeginningTime.ToString("dd-MM-yyyy HH:mm")</p>
+
+    <p class="event-information-item">@Model.Event.Description</p>
+</section>
+
+<section class="event-wishes white-box">
+    @if(Model.Invited)
+    {
+        <p>You have @Model.UserWishes.Count wishes for this event.</p>
+        <a href="@Url.Action("List","Wishes",new { Id = Model.Event.Id})">Click here to view your wish list.</a>
+    }
+    else
+    {
+        <p>You have not invited yourself to this event.</p>
+        using(Html.BeginForm("Invite", "Events", FormMethod.Post, new
+        {
+            @class = "post-simple",
+            role = "form",
+            enctype = "multipart/form-data"
+        }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("TheEvent", Model.Event.Id)
+            @Html.Hidden("User", Model.UserID)
+
+            <input type="submit" value="Click here to invite yourself." />
+        }
+    }
+</section>
+
+@if(Model.Event.Seances.Count == 0)
+{
+    <section class="meeting-line">
+        <h3>Seance list:</h3>
+        <p>No list has been made yet.</p>
+        @if(Model.EventOwner)
+        {
+            <a href="@Url.Action("CreateList", new { Id = Model.Event.Id })" class="button">Create the list</a>
+        }
+    </section>
+}
+else
+{
+    <section class="meeting-line">
+        <a class="seance-collapse-button button" href="@Url.Action("Seances","Events", new { Id = Model.Event.Id })">All meetings</a>
+        <h3>Seance list:</h3>
+        @if(Model.EventOwner)
+        {
+            <a href="@Url.Action("CreateList", new { Id = Model.Event.Id })" target="_blank" class="button">Create new list</a>
+        }
+    </section>
+    <div class="horizontal-scroll">
+        @if(Model.Meetings.Count != 0)
+        {
+        <table class="seance-holder">
+            <tr>
+                @foreach(Meeting meeting in Model.Meetings)
+                {
+                    <th class="seance-time">
+                        <p><time datetime="@meeting.Seance.BeginningTime">@meeting.Seance.BeginningTime.ToString("HH:mm")</time>-<time datetime="@meeting.Seance.EndTime">@meeting.Seance.EndTime.ToString("HH:mm")</time></p>
+                    </th>
+                }
+            </tr>
+            <tr>
+                @foreach(Meeting meeting in Model.Meetings)
+                {
+                    <td class="meeting">
+                        <a href="@Url.Action("UserProfile", "Users", new { User = meeting.UserOne.Id })">@meeting.UserOne.FullName</a>
+                        <br />
+                        <a href="@Url.Action("UserProfile", "Users", new { User = meeting.UserTwo.Id })">@meeting.UserTwo.FullName</a>
+                    </td>
+
+                }
+            </tr>
+        </table>
+        }
+        else
+        {
+        <p>You have no meetings for this event.</p>
+        }
+    </div>
+}
+
+<div class="white-box spaced-box">
+    <h2>People in this event:</h2>
+</div>
+@Html.DisplayFor(m => m.InvitedUsers, "Users")

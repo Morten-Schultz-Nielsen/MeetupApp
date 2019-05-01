@@ -1,0 +1,26 @@
+﻿@model Meetup.Websites.Models.WishesViewModel
+@using Meetup.Entities;
+@{
+    ViewBag.Title = "Wish List for " + Model.TheEvent.Name;
+}
+
+<div class="white-box">
+    <h3>Wish list for <a href="@Url.Action("Page","Events",new { eventId = Model.TheEvent.Id })">&quot;@Model.TheEvent.Name&quot;</a></h3>
+    <ul>
+        @for (int i = 0; i < Model.WishList.Count; i++)
+        {
+            <li class="item item-split">
+                <div class="item-name">
+                    <p class="wish-number">Wish @(i+1)</p>
+                    <p class="wish-description">@Model.WishList[i].ToString()</p>
+                </div>
+                <div class="item-edit">
+                    <a href="@Url.Action("Edit", new { Id = Model.WishList[i].Id })">Edit</a>
+                    <a href="@Url.Action("Delete", new { Id = Model.WishList[i].Id })">Delete</a>
+                </div>
+            </li>
+        }
+    </ul>
+    <a href="@Url.Action("Create", new { eventId = Model.TheEvent.Id })" class="button end-button">Create new wish</a>
+</div>
+

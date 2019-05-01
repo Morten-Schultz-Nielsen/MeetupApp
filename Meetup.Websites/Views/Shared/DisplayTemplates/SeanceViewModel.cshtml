@@ -1,0 +1,21 @@
+﻿@model Meetup.Websites.Models.SeanceViewModel
+@using Meetup.Entities;
+<table class="seance-holder">
+    @for(int i = 0; i < Model.Seances.Count; i++)
+    {
+        <tr class="seance">
+            <th class="seance-time">
+                <time datetime="@Model.Seances[i].BeginningTime.ToString()">Start: @Model.Seances[i].BeginningTime.ToString("HH:mm")</time>
+                <time datetime="@Model.Seances[i].EndTime.ToString()">End: @Model.Seances[i].EndTime.ToString("HH:mm")</time>
+            </th>
+            @foreach(Meeting meeting in Model.Seances[i].Meetings)
+            {
+                <td class="meeting @(meeting.MeetingContainsUser(Model.UserId) ? "your-meeting" : "not-your-meeting")">
+                    <a href="@Url.Action("UserProfile","Users",new {User = meeting.UserOne.Id})">@meeting.UserOne.FullName</a>
+                    <br />
+                    <a href="@Url.Action("UserProfile","Users",new {User = meeting.UserTwo.Id})">@meeting.UserTwo.FullName</a>
+                </td>
+            }
+        </tr>
+    }
+</table>

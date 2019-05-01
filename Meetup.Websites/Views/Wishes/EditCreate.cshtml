@@ -1,0 +1,111 @@
+﻿@model Meetup.Websites.Models.WishEditCreateModel
+@using Meetup.Entities;
+@using Meetup.Websites.Models;
+@{
+    ViewBag.Title = (Model.EditingWish ? "Edit Wish" : "Create Wish");
+}
+
+<div class="white-box">
+    <h2>@(Model.EditingWish ? "Editing wish" : "Creating wish") for the event <a href="@Url.Action("Page","Events",new { Id = Model.TheEvent.Id})">&quot;@Model.TheEvent.Name&quot;</a></h2>
+    <button id="wish-business-button" class="@((string.IsNullOrWhiteSpace(Model.ChosenName) ? "selected" : "") + " wish-choise-button")">Business</button>
+    <button id="wish-person-button" class="@((!string.IsNullOrWhiteSpace(Model.ChosenName) ? "selected" : "") + " wish-choise-button")">Person</button>
+
+    @using(Html.BeginForm("EditCreate", "Wishes", FormMethod.Post, new { role = "form", id = "wish-person", @class = (string.IsNullOrWhiteSpace(Model.ChosenName) ? "hidden" : "") + " wish-choise normal", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.TheEvent.Id)
+        @Html.ValidationSummary(true, "", new { @class = "invalid" })
+
+        if(Model.EditingWish)
+        {
+            @Html.HiddenFor(m => m.EditWish.Id)
+        }
+        <div class="form-group">
+            @Html.ValidationMessageFor(m => m.ChosenName, "", new { @class = "invalid" })
+            @Html.LabelFor(m => m.ChosenName)
+            @Html.DropDownListFor(m => m.ChosenName, Model.UsersInEvent, new { @class = "input-line" })
+        </div>
+        <input type="submit" value="@(Model.EditingWish ? "Save Changes" : "Create Wish")" class="button" />
+    }
+    @using(Html.BeginForm("EditCreate", "Wishes", FormMethod.Post, new { role = "form", id = "wish-business", @class = (!string.IsNullOrWhiteSpace(Model.ChosenName) ? "hidden" : "") + " wish-choise normal", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "invalid" })
+
+        @Html.HiddenFor(m => m.TheEvent.Id)
+        @Html.HiddenFor(m => m.SelectedOrganizationIndex)
+        if(Model.EditingWish)
+        {
+            @Html.HiddenFor(m => m.EditWish.Id)
+        }
+        <div class="selection-list-pair">
+            <div class="selection-list">
+                <p>Businesses:</p>
+                <select multiple="multiple" id="business-list-unselected">
+                    @foreach(Business business in Model.UnchosenBusinesses)
+                    {
+                        <option value="@business.Name">@business.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="selection-list">
+                <p>Selected businesses:</p>
+                <select multiple="multiple" id="business-list-selected">
+                    @foreach(Business business in Model.ChosenBusinessesList)
+                    {
+                        <option value="@business.Name">@business.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="selection-list-pair">
+            <div class="selection-list">
+                <p>Interests:</p>
+                <select multiple="multiple" id="interest-list-unselected">
+                    @foreach(Interest interest in Model.UnchosenInterests)
+                    {
+                        <option value="@interest.Name">@interest.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="selection-list">
+                <p>Selected interests:</p>
+                <select multiple="multiple" id="interest-list-selected">
+                    @foreach(Interest interest in Model.ChosenInterestsList)
+                    {
+                        <option value="@interest.Name">@interest.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.ValidationMessageFor(m => m.OrganizationWish.Name, "", new { @class = "invalid" })
+            @Html.LabelFor(m => m.OrganizationWish.Name)
+            <select name="OrganizationWish.Name" id="OrganizationWish.Name" class="input-line">
+                <option value="NULL"> </option>
+                @for(int i = 0; i < Model.Organizations.Count; i++)
+                {
+                    if(i == Model.SelectedOrganizationIndex)
+                    {
+                        <option value="@Model.Organizations[i].Name" selected>@Model.Organizations[i].Name</option>
+                    }
+                    else
+                    {
+                        <option value="@Model.Organizations[i].Name">@Model.Organizations[i].Name</option>
+                    }
+                }
+            </select>
+            @Html.ValidationMessageFor(m => m.OrganizationWish.WorkYears, "", new { @class = "invalid" })
+            @Html.LabelFor(m => m.OrganizationWish.WorkYears)
+            @Html.TextBoxFor(m => m.OrganizationWish.WorkYears)
+        </div>
+        <input type="submit" value="@(Model.EditingWish ? "Save Changes" : "Create Wish")" id="wish-business-submit" class="button" />
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Wishes/creation.js")
+    @Scripts.Render("~/Scripts/Shared/bus-int-list.js")
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

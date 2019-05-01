@@ -1,0 +1,56 @@
+﻿@model Meetup.Websites.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="white-box">
+    <h3>Register</h3>
+    @using(Html.BeginForm("Register", "Account", FormMethod.Post, new
+    {
+        role = "form",
+        enctype = "multipart/form-data"
+    }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "invalid" })
+
+        <div class="form-group">
+            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "invalid" })
+            @Html.LabelFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.FirstName)<br />
+
+            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "invalid" })
+            @Html.LabelFor(m => m.LastName)
+            @Html.TextBoxFor(m => m.LastName)<br />
+
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "invalid" })
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email)<br />
+
+            @Html.ValidationMessageFor(m => m.Picture, "", new { @class = "invalid" })
+            @Html.LabelFor(m => m.Picture)
+            @Html.TextBoxFor(m => m.Picture, new {type = "file"})<br />
+
+            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "invalid" })
+            @Html.LabelFor(m => m.Description)
+            @Html.TextAreaFor(m => m.Description)
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(m => m.Address)
+        </div>
+        <div class="form-group">
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "invalid" })
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password)<br />
+
+            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "invalid" })
+            @Html.LabelFor(m => m.ConfirmPassword)
+            @Html.PasswordFor(m => m.ConfirmPassword)<br />
+        </div>
+        <input type="submit" value="Register" class="button" />
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

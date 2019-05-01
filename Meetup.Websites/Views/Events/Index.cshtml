@@ -1,0 +1,39 @@
+﻿@model Meetup.Websites.Models.ViewEventsModel
+@using Meetup.Entities
+@{
+    ViewBag.Title = "Events List";
+    int? user = ViewBag.Inviting;
+}
+
+@if(!(Model.InvitedToEvents is null))
+{
+<section class="white-box">
+    <h3>Invited to:</h3>
+    <ul>
+        @foreach(EventsUser invitedEvent in Model.InvitedToEvents)
+        {
+            <li class="item">
+                <a href="@Url.Action("Page", new { Id = invitedEvent.EventId })" class="item-name">@invitedEvent.Event.Name</a>
+                <div class="item-edit">
+                    <a href="@Url.Action("List","Wishes", new { Id = invitedEvent.EventId })">Wishes</a>
+                    <a href="@Url.Action("Leave","Events", new { Id = invitedEvent.EventId })">Leave</a>
+                </div>
+            </li>
+        }
+    </ul>
+</section>
+}
+<section class="white-box">
+    <h3>Your events:</h3>
+    <ul>
+        @foreach(Event hostedEvent in Model.OwnedEvents)
+        {
+        <li class="item">
+            <a href="@Url.Action("Page", new { Id = hostedEvent.Id })" class="item-name">@hostedEvent.Name</a>
+            <a href="@Url.Action("Edit", new { Id = hostedEvent.Id })" class="item-edit">Edit</a>
+        </li>
+        }
+    </ul>
+    <a href="@Url.Action("Create")" class="button end-button">Create new event</a>
+</section>
+

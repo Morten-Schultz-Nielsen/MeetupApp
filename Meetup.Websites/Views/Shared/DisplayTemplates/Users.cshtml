@@ -1,0 +1,11 @@
+﻿@model System.Collections.Generic.List<Meetup.Entities.User>
+@using Meetup.Entities;
+<section class="user-list">
+@foreach(User user in Model)
+{
+    <a href="@Url.Action("Profile","Users",new { Id = user.Id })" class="user-box">
+        <img src="@user.PictureUri" alt="@user.FullName" />
+        <h3>@user.FullName</h3>
+    </a>
+}
+</section>

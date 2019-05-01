@@ -1,0 +1,24 @@
+﻿@model Meetup.Websites.Models.UserListModel
+@using Meetup.Entities;
+@{
+    ViewBag.Title = "Users";
+}
+@using(Html.BeginForm("Index", "Users", FormMethod.Get, new { role = "form", @class="line-form white-box" }))
+{
+    @Html.LabelFor(m => m.SearchString)
+    @Html.TextBoxFor(m => m.SearchString)
+    <input type="submit" value="Search" class="button line-form-item" />
+}
+@Html.DisplayFor(m => m.Users, "Users")
+<div class="white-box spaced-box page-button-holder">
+    <a class="button page-button page-move-button" href="@Url.Action("Index", new { PageNumber = 1 })">&lt;&lt;</a>
+    <a class="button page-button page-move-button" href="@Url.Action("Index", new { PageNumber = Model.PageNumber - (Model.PageNumber > 1 ? 1 : 0) })">&lt;</a>
+
+    @for(int i = Model.FirstShownPage; i < Model.LastShownPage; i++)
+    {
+        <a class="button page-button page-shown @(i == Model.PageNumber ? "page-selected" : "page-unselected")" href="@Url.Action("Index", new { PageNumber = i })">@i</a>
+    }
+
+    <a class="button page-button page-move-button" href="@Url.Action("Index", new { PageNumber = Model.PageNumber + (Model.PageNumber < Model.MaxPages ? 1 : 0) })">&gt;</a>
+    <a class="button page-button page-move-button" href="@Url.Action("Index", new { PageNumber = Model.MaxPages })">&gt;&gt;</a>
+</div>

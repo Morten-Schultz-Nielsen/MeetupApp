@@ -1,0 +1,22 @@
+﻿@model Meetup.Websites.Models.AddressModel
+
+@Html.ValidationMessageFor(m => m.Country, "", new { @class = "invalid" })
+@Html.LabelFor(m => m.Country)
+@Html.TextBoxFor(m => m.Country)
+
+@Html.ValidationMessageFor(m => m.City, "", new { @class = "invalid" })
+@Html.LabelFor(m => m.City)
+@Html.TextBoxFor(m => m.City)
+
+@Html.ValidationMessageFor(m => m.StreetName, "", new { @class = "invalid" })
+@Html.LabelFor(m => m.StreetName)
+@Html.TextBoxFor(m => m.StreetName)
+
+@Html.ValidationMessageFor(m => m.StreetName, "", new { @class = "invalid" })
+@Html.LabelFor(m => m.StreetNumber)
+@Html.TextBoxFor(m => m.StreetNumber)
+
+@Html.ValidationMessageFor(m => m.CityZipCode, "", new { @class = "invalid" })
+@Html.LabelFor(m => m.CityZipCode)
+@Html.TextBoxFor(m => m.CityZipCode)
+

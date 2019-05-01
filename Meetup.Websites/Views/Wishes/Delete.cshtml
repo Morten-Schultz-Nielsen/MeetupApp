@@ -1,0 +1,15 @@
+﻿@model Meetup.Websites.Models.WishViewModel
+@{
+    ViewBag.Title = "Delete Wish";
+}
+
+<h2>Are you sure you want to delete the following wish?</h2>
+<p>&quot;@Model.TheWish.ToString()&quot;</p>
+@using(Html.BeginForm("Delete", "Wishes", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", @class = "normal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.TheEvent.Id)
+    @Html.HiddenFor(m => m.TheWish.Id)
+    <input type="submit" value="Delete Wish" class="button" />
+}
+

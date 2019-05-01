@@ -1,0 +1,60 @@
+﻿@model Meetup.Websites.Models.InviteToEventModel
+@using Meetup.Entities
+@{
+    ViewBag.Title = "Invite to event";
+}
+
+@if (Model.CanInviteTo.Count != 0)
+{
+<div class="white-box">
+    <h3>Invite</h3>
+    <ul>
+        @foreach(Event hostedEvent in Model.CanInviteTo)
+        {
+            <li class="item">
+                <p class="item-name">@hostedEvent.Name</p>
+                @using(Html.BeginForm("Invite", "Events", FormMethod.Post, new {@class = "post-simple item-edit", role = "form", enctype = "multipart/form-data"}))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("TheEvent", hostedEvent.Id)
+                    @Html.Hidden("User", Model.Inviting.Id)
+    
+                    <input type="submit" value="Invite" />
+                }
+            </li>
+        }
+    </ul>
+</div>
+}
+
+@if (Model.IsInvitedTo.Count != 0)
+{
+<div class="white-box">
+    <h3>Uninvite</h3>
+    <ul>
+        @foreach(Event hostedEvent in Model.IsInvitedTo)
+        {
+            <li class="item">
+                <p class="item-name">@hostedEvent.Name</p>
+                @using(Html.BeginForm("Uninvite", "Events", FormMethod.Post, new { @class = "post-simple item-edit", role = "form", enctype = "multipart/form-data"}))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("TheEvent", hostedEvent.Id)
+                    @Html.Hidden("User", Model.Inviting.Id)
+    
+                    <input type="submit" value="Uninvite" />
+                }
+            </li>
+        }
+    </ul>
+</div>
+}
+
+@if (Model.IsInvitedTo.Count == 0 && Model.CanInviteTo.Count == 0)
+{
+<div class="white-box">
+    <h2>You do not own any events</h2>
+    <a href="@Url.Action("Create")" class="button">Create new event</a>
+</div>
+}
+
