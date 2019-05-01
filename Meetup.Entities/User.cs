@@ -39,6 +39,14 @@ namespace Meetup.Entities
         private string description;
         private string pictureUri;
         private string email;
+        private ICollection<Event> events;
+        private ICollection<EventsUser> eventsUsers;
+        private ICollection<Meeting> meetings;
+        private ICollection<Meeting> meetings1;
+        private ICollection<UsersBusiness> usersBusinesses;
+        private ICollection<UsersInterest> usersInterests;
+        private ICollection<UsersOrganizations> usersOrganizations;
+        private ICollection<Wish> wishes;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
@@ -50,6 +58,7 @@ namespace Meetup.Entities
             UsersBusinesses = new HashSet<UsersBusiness>();
             UsersInterests = new HashSet<UsersInterest>();
             UsersOrganizations = new HashSet<UsersOrganizations>();
+            Wishes = new HashSet<Wish>();
         }
 
         /// <summary>
@@ -218,7 +227,18 @@ namespace Meetup.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events
         {
-            get; set;
+            get
+            {
+                return events;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                events = value;
+            }
         }
 
         /// <summary>
@@ -227,7 +247,18 @@ namespace Meetup.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EventsUser> EventsUsers
         {
-            get; set;
+            get
+            {
+                return eventsUsers;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                eventsUsers = value;
+            }
         }
 
         /// <summary>
@@ -236,7 +267,18 @@ namespace Meetup.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Meeting> Meetings
         {
-            get; set;
+            get
+            {
+                return meetings;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                meetings = value;
+            }
         }
 
         /// <summary>
@@ -245,7 +287,18 @@ namespace Meetup.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Meeting> Meetings1
         {
-            get; set;
+            get
+            {
+                return meetings1;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                meetings1 = value;
+            }
         }
 
         /// <summary>
@@ -255,7 +308,18 @@ namespace Meetup.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsersBusiness> UsersBusinesses
         {
-            get; set;
+            get
+            {
+                return usersBusinesses;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                usersBusinesses = value;
+            }
         }
 
         /// <summary>
@@ -264,7 +328,18 @@ namespace Meetup.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsersInterest> UsersInterests
         {
-            get; set;
+            get
+            {
+                return usersInterests;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                usersInterests = value;
+            }
         }
 
         /// <summary>
@@ -273,7 +348,18 @@ namespace Meetup.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsersOrganizations> UsersOrganizations
         {
-            get; set;
+            get
+            {
+                return usersOrganizations;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                usersOrganizations = value;
+            }
         }
 
         /// <summary>
@@ -282,7 +368,18 @@ namespace Meetup.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wish> Wishes
         {
-            get; set;
+            get
+            {
+                return wishes;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                wishes = value;
+            }
         }
 
         /// <summary>

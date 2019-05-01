@@ -17,22 +17,32 @@ namespace Meetup.Entities.Tests
             //test country name
             new Address() { Country = "Denmark" };
             Assert.ThrowsException<ArgumentException>(() => { new Address() { Country = "D3nm4rk" }; }, "Invalid country name");
+            Assert.ThrowsException<ArgumentException>(() => { new Address() { Country = "" }; }, "Country cannot be empty");
 
             //Test city name
             new Address() { CityName = "Vejle" };
             Assert.ThrowsException<ArgumentException>(() => { new Address() { CityName = "Vejle The City" }; }, "Invalid city name");
+            Assert.ThrowsException<ArgumentException>(() => { new Address() { CityName = "" }; }, "CityName cannot be empty");
 
             //Test Street name
             new Address() { StreetName = "My Street" };
-            Assert.ThrowsException<ArgumentException>(() => { new Address() { CityName = "My 2nd Street" }; }, "Invalid street name");
+            Assert.ThrowsException<ArgumentException>(() => { new Address() { StreetName = "My 2nd Street" }; }, "Invalid street name");
+            Assert.ThrowsException<ArgumentException>(() => { new Address() { StreetName = "" }; }, "StreetName cannot be empty");
 
             //Test Street number
             new Address() { StreetNumber = "100ab32" };
             Assert.ThrowsException<ArgumentException>(() => { new Address() { StreetNumber = "One" }; }, "Invalid street number");
+            Assert.ThrowsException<ArgumentException>(() => { new Address() { StreetNumber = "" }; }, "StreetNumber cannot be empty");
 
             //Test Street number
             new Address() { ZipCode = 1785 };
             Assert.ThrowsException<ArgumentException>(() => { new Address() { ZipCode = 23432 }; }, "Invalid zip code");
+
+            //Test event list
+            Assert.ThrowsException<ArgumentNullException>(() => { new Address() { Events = null }; }, "Events cannot be null");
+
+            //Test user list
+            Assert.ThrowsException<ArgumentNullException>(() => { new Address() { Users = null }; }, "Users cannot be null");
         }
 
         [TestMethod()]

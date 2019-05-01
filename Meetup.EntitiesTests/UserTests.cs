@@ -17,18 +17,32 @@ namespace Meetup.Entities.Tests
             //Test if naming works correct
             new User() { FirstName = "Bob", LastName = "Bob" };
             Assert.ThrowsException<ArgumentException>(() => { new User() { FirstName = "Bob1", LastName = "Bob1" }; }, "Names were supposed to throw an argument exception");
+            Assert.ThrowsException<ArgumentException>(() => { new User() { FirstName = "" }; }, "FirstName cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { new User() { LastName = "" }; }, "LastName cannot be empty");
 
             //Test descritption
             new User() { Description = "Hello world." };
             Assert.ThrowsException<ArgumentException>(() => { new User() { Description = "   " }; }, "Description is not supposed to be able to be empty");
+            Assert.ThrowsException<ArgumentException>(() => { new User() { Description = "" }; }, "Description cannot be empty");
 
             //Test picture uri
             new User() { PictureUri = @"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAssAAALLCAYAAAAPCM/bAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsM%E2%80%A6" };
             Assert.ThrowsException<ArgumentException>(() => { new User() { PictureUri = @"data:image;base64,aaa" }; }, "Picture URI should not be able to contain invalid pictures");
+            Assert.ThrowsException<ArgumentException>(() => { new User() { PictureUri = "" }; }, "PictureUri cannot be empty");
 
             //Test null address
             new User() { Address = new Address() };
-            Assert.ThrowsException<ArgumentNullException>(() => { new User() { Address = null }; }, "Users should be unable to have null adress");
+            Assert.ThrowsException<ArgumentNullException>(() => { new User() { Address = null }; }, "Events cannot be null");
+
+            //Test if lists can be null
+            Assert.ThrowsException<ArgumentNullException>(() => { new User() { Events = null }; }, "Events cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new User() { EventsUsers = null }; }, "EventsUsers cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new User() { Meetings = null }; }, "Meetings cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new User() { Meetings1 = null }; }, "Meetings1 cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new User() { UsersBusinesses = null }; }, "UsersBusinesses cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new User() { UsersInterests = null }; }, "UsersInterests cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new User() { UsersOrganizations = null }; }, "UsersOrganizations cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new User() { Wishes = null }; }, "Wishes cannot be null");
         }
 
         [TestMethod()]

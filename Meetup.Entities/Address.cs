@@ -37,6 +37,8 @@ namespace Meetup.Entities
         private string streetNumber;
         private string cityName;
         private int zipCode;
+        private ICollection<Event> events;
+        private ICollection<User> users;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Address()
@@ -175,7 +177,18 @@ namespace Meetup.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events
         {
-            get; set;
+            get
+            {
+                return events;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                events = value;
+            }
         }
 
         /// <summary>
@@ -184,7 +197,18 @@ namespace Meetup.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users
         {
-            get; set;
+            get
+            {
+                return users;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                users = value;
+            }
         }
 
         /// <summary>

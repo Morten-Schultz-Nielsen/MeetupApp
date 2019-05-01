@@ -27,6 +27,8 @@ namespace Meetup.Entities
         private string description;
         private Address address;
         private User user;
+        private ICollection<EventsUser> eventsUsers;
+        private ICollection<Seance> seances;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Event()
@@ -160,16 +162,38 @@ namespace Meetup.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EventsUser> EventsUsers
         {
-            get; set;
+            get
+            {
+                return eventsUsers;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("Value cannot be null");
+                }
+                eventsUsers = value;
+            }
         }
 
         /// <summary>
-        /// A list over all connections to <see cref="Entities.Seance"/>s for this event
+        /// A list over all connections to <see cref="Seance"/>s for this event
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Seance> Seances
         {
-            get; set;
+            get
+            {
+                return seances;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("Value cannot be null");
+                }
+                seances = value;
+            }
         }
 
         /// <summary>
