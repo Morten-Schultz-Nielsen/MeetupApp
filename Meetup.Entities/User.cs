@@ -16,7 +16,7 @@ namespace Meetup.Entities
         /// <summary>
         /// A pattern to check if a name is valid
         /// </summary>
-        public const string NamePattern = @"^([a-øA-Ø])+([a-øA-Ø\s])*$";
+        public const string NamePattern = @"^([a-zA-ZæøåÆØÅ])+([a-zA-ZæøåÆØÅ\s])*$";
 
         /// <summary>
         /// A pattern to check if a description is valid
@@ -31,7 +31,7 @@ namespace Meetup.Entities
         /// <summary>
         /// A pattern to check is an email is valid
         /// </summary>
-        public const string EmailPattern = @"^[\w\-0-9]+@([\w\-0-9]+[.]{0,1})+.[\w]+$";
+        public const string EmailPattern = @"^[\w\-]+@([\w\-]+[.]{0,1})+.[\w]+$";
 
         private Address address;
         private string firstName;

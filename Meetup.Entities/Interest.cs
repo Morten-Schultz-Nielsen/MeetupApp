@@ -15,7 +15,7 @@ namespace Meetup.Entities
         /// <summary>
         /// Pattern to check is a interest is valid
         /// </summary>
-        public const string InterestPattern = @"^([a-øA-Ø0-9])+([a-øA-Ø0-9\s])*$";
+        public const string InterestPattern = @"^([\w])+([\w\s])*$";
         private string name;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

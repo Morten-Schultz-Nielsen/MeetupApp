@@ -15,22 +15,22 @@ namespace Meetup.Entities
         /// <summary>
         /// Pattern for checking if a country name is correct
         /// </summary>
-        public const string CountryPattern = @"^([a-øA-Ø])+$";
+        public const string CountryPattern = @"^([a-zA-ZæøåÆØÅ])+$";
 
         /// <summary>
         /// Pattern to check if a street name is correct
         /// </summary>
-        public const string StreetPattern = @"^([a-øA-Ø])+[\sa-øA-Ø]*$";
+        public const string StreetPattern = @"^([a-zA-ZæøåÆØÅ])+[\sa-zA-ZæøåÆØÅ]*$";
 
         /// <summary>
         /// Pattern to check if a city name is correct
         /// </summary>
-        public const string CityPattern = @"^([a-øA-Ø])+$";
+        public const string CityPattern = @"^([a-zA-ZæøåÆØÅ])+$";
 
         /// <summary>
         /// Pattern to check if a street number is correct
         /// </summary>
-        public const string StreetNumberPattern = @"^[0-9]+[\sa-øA-Ø0-9]*$";
+        public const string StreetNumberPattern = @"^[0-9]+[0-9a-zA-ZæøåÆØÅ]*$";
 
         private string country;
         private string streetName;

@@ -15,7 +15,7 @@ namespace Meetup.Entities
         /// <summary>
         /// Pattern to check if a business name is correct
         /// </summary>
-        public const string BusinessPattern = @"^([a-øA-Ø0-9])+([a-øA-Ø0-9\s])*$";
+        public const string BusinessPattern = @"^([\w])+([\w\s])*$";
 
         private string name;
 

@@ -15,22 +15,27 @@ namespace Meetup.Entities.Tests
         public void UserTest()
         {
             //Test if naming works correct
-            User user = new User() { FirstName = "Bob", LastName = "Bob" };
+            new User() { FirstName = "Bob", LastName = "Bob" };
             Assert.ThrowsException<ArgumentException>(() => { new User() { FirstName = "Bob1", LastName = "Bob1" }; }, "Names were supposed to throw an argument exception");
-
-            //Check if full name property works correct
-            Assert.AreEqual("Bob Bob", user.FullName, "FullName property failed to output correct name");
 
             //Test descritption
             new User() { Description = "Hello world." };
             Assert.ThrowsException<ArgumentException>(() => { new User() { Description = "   " }; }, "Description is not supposed to be able to be empty");
 
-            //Test descritption
+            //Test picture uri
             new User() { PictureUri = @"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAssAAALLCAYAAAAPCM/bAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsM%E2%80%A6" };
             Assert.ThrowsException<ArgumentException>(() => { new User() { PictureUri = @"data:image;base64,aaa" }; }, "Picture URI should not be able to contain invalid pictures");
 
+            //Test null address
             new User() { Address = new Address() };
             Assert.ThrowsException<ArgumentNullException>(() => { new User() { Address = null }; }, "Users should be unable to have null adress");
+        }
+
+        [TestMethod()]
+        public void FullNameTest()
+        {
+            User user = new User() { FirstName = "Bob", LastName = "Bob" };
+            Assert.AreEqual("Bob Bob", user.FullName, "FullName property failed to output correct name");
         }
 
         [TestMethod()]
