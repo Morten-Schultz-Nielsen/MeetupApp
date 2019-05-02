@@ -23,8 +23,11 @@
                 <div class="nav-list nav-item">
                     @Html.ActionLink("Home", "Index", "Home")
                     @Html.ActionLink("Users", "Index", "Users")
-                    @Html.ActionLink("Your Events", "Index", "Events")
-                </div>
+                    @if(Request.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Your Events", "Index", "Events")
+                    }
+                    </div>
                 @Html.Partial("_LoginPartial")
             </div>
         </nav>

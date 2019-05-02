@@ -8,13 +8,16 @@
     <figcaption>
         <h2>@Model.User.FullName</h2>
         <p>@Model.User.Email</p>
-        <section class="box-edit-buttons">
-            <a href="@Url.Action("Invite","Events",new { Id = Model.User.Id })" class="button">Invite</a>
-            @if(Model.IsYou)
-            {
-                <a href="@Url.Action("Edit", "Users")" class="button">Edit</a>
-            }
-        </section>
+        @if(Request.IsAuthenticated)
+        {
+            <section class="box-edit-buttons">
+                <a href="@Url.Action("Invite","Events",new { Id = Model.User.Id })" class="button">Invite</a>
+                @if(Model.IsYou)
+                {
+                    <a href="@Url.Action("Edit", "Users")" class="button">Edit</a>
+                }
+            </section>
+        }
     </figcaption>
 </figure>
 <div class="white-box">

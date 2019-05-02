@@ -7,7 +7,7 @@
 <div class="side-boxes">
     <section class="white-box">
         <h3>Log in</h3>
-        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", @class = "centerform" }))
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", @class = "centerform normal" }))
         {
             @Html.AntiForgeryToken()
     
