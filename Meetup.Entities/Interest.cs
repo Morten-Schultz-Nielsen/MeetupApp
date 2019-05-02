@@ -15,8 +15,9 @@ namespace Meetup.Entities
         /// <summary>
         /// Pattern to check is a interest is valid
         /// </summary>
-        public const string InterestPattern = @"^([\w])+([\w\s])*$";
+        public const string InterestPattern = @"^([\S])+([\S\s])*$";
         private string name;
+        private ICollection<UsersInterest> usersInterests;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Interest()
@@ -64,7 +65,18 @@ namespace Meetup.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsersInterest> UsersInterests
         {
-            get; set;
+            get
+            {
+                return usersInterests;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                usersInterests = value;
+            }
         }
     }
 }

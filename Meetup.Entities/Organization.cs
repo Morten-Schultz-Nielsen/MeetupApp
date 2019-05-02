@@ -12,6 +12,7 @@ namespace Meetup.Entities
     public partial class Organization
     {
         private string name;
+        private ICollection<UsersOrganizations> usersOrganizations;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Organization()
@@ -53,7 +54,18 @@ namespace Meetup.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsersOrganizations> UsersOrganizations
         {
-            get; set;
+            get
+            {
+                return usersOrganizations;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                usersOrganizations = value;
+            }
         }
     }
 }

@@ -81,7 +81,7 @@ namespace Meetup.Entities
         /// </summary>
         /// <param name="meeting1">the <see cref="MeetingScore"/> to check against</param>
         /// <param name="meeting2">the <see cref="MeetingScore"/> to check with</param>
-        /// <returns>-1 if <paramref name="meeting1"/> is higher than <paramref name="meeting2"/>. 0 if they are equel and 1 if <paramref name="meeting1"/> is the smallest</returns>
+        /// <returns>-1 if <paramref name="meeting1"/> is higher than <paramref name="meeting2"/>. 0 if they are equel. 1 if <paramref name="meeting1"/> is the smallest</returns>
         public static int Sort(MeetingScore meeting1, MeetingScore meeting2)
         {
             if(meeting1 is null)

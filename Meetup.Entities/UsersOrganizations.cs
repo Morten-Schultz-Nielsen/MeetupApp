@@ -52,7 +52,7 @@ namespace Meetup.Entities
             }
             set
             {
-                if(!(endDate is null) && StartDate >= EndDate)
+                if(!(endDate is null) && value >= EndDate)
                 {
                     throw new ArgumentException("Value cannot be after " + nameof(EndDate), nameof(StartDate));
                 }
@@ -126,11 +126,11 @@ namespace Meetup.Entities
         {
             if(EndDate is null)
             {
-                return Organization.Name + " From: " + StartDate.ToString("dd-MM-yyyy");
+                return Organization.Name + ": Hirid " + StartDate.ToString("dd-MM-yyyy");
             }
             else
             {
-                return Organization.Name + " " + StartDate.ToString("dd-MM-yyyy") + " - " + EndDate.Value.ToString("dd-MM-yyyy");
+                return Organization.Name + ": " + StartDate.ToString("dd-MM-yyyy") + " - " + EndDate.Value.ToString("dd-MM-yyyy");
             }
         }
 

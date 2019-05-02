@@ -11,41 +11,99 @@ namespace Meetup.Entities
     /// </summary>
     public partial class Meeting
     {
+        private Seance seance;
+        private User userTwo;
+        private User userOne;
+
         /// <summary>
         /// The id of this meeting
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int Id
+        {
+            get; set;
+        }
 
         /// <summary>
         /// The id of the <see cref="Entities.Seance"/> this meeting is a part of
         /// </summary>
-        public int SeanceId { get; set; }
+        public int SeanceId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// The id of one of the <see cref="User"/>s in this meeting
         /// </summary>
-        public int UserOneId { get; set; }
+        public int UserOneId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// The id of one of the <see cref="User"/>s in this meeting
         /// </summary>
-        public int UserTwoId { get; set; }
+        public int UserTwoId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// The <see cref="Entities.Seance"/> this meeting is a part of
         /// </summary>
-        public virtual Seance Seance { get; set; }
+        public virtual Seance Seance
+        {
+            get
+            {
+                return seance;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                seance = value;
+            }
+        }
 
         /// <summary>
         /// One of the <see cref="User"/>s in this meeting
         /// </summary>
-        public virtual User UserTwo { get; set; }
+        public virtual User UserOne
+        {
+            get
+            {
+                return userOne;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                userOne = value;
+            }
+        }
 
         /// <summary>
         /// One of the <see cref="User"/>s in this meeting
         /// </summary>
-        public virtual User UserOne { get; set; }
+        public virtual User UserTwo
+        {
+            get
+            {
+                return userTwo;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                userTwo = value;
+            }
+        }
 
         /// <summary>
         /// Checks if a user is in this meeting

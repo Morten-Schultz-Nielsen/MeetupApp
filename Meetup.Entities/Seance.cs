@@ -13,6 +13,8 @@
     {
         private DateTime beginningTime;
         private DateTime endTime;
+        private Event @event;
+        private ICollection<Meeting> meetings;
 
         public Seance()
         {
@@ -79,7 +81,18 @@
         /// </summary>
         public virtual Event Event
         {
-            get; set;
+            get
+            {
+                return @event;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(Event));
+                }
+                @event = value;
+            }
         }
 
         /// <summary>
@@ -88,7 +101,18 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Meeting> Meetings
         {
-            get; set;
+            get
+            {
+                return meetings;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(Event));
+                }
+                meetings = value;
+            }
         }
     }
 }

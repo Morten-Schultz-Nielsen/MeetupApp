@@ -11,31 +11,71 @@ namespace Meetup.Entities
     /// </summary>
     public partial class UsersBusiness
     {
+        private Business business;
+        private User user;
+
         /// <summary>
         /// The id of this connection
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int Id
+        {
+            get; set;
+        }
 
         /// <summary>
         /// The id of the <see cref="Entities.User"/> who has the <see cref="Entities.Business"/>
         /// </summary>
-        public int UserId { get; set; }
+        public int UserId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// The id of the <see cref="Entities.Business"/> the <see cref="Entities.User"/> has
         /// </summary>
-        public int BusinessId { get; set; }
+        public int BusinessId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// The <see cref="Entities.Business"/> the <see cref="Entities.User"/> has
         /// </summary>
-        public virtual Business Business { get; set; }
+        public virtual Business Business
+        {
+            get
+            {
+                return business;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                business = value;
+            }
+        }
 
         /// <summary>
         /// The <see cref="Entities.User"/> who has the <see cref="Entities.Business"/>
         /// </summary>
-        public virtual User User { get; set; }
+        public virtual User User
+        {
+            get
+            {
+                return user;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                user = value;
+            }
+        }
 
         /// <summary>
         /// Converts a list of <see cref="Business"/> objects into a list of <see cref="UsersBusiness"/> objects

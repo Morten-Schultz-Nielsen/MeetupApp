@@ -14,6 +14,10 @@
     {
         private User user;
         private Event @event;
+        private User wishUser;
+        private Organization wishOrganization;
+        private ICollection<WishBusinesses> wishBusinesses;
+        private ICollection<WishInterests> wishInterests;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Wish()
@@ -114,7 +118,14 @@
         /// </summary>
         public virtual User WishUser
         {
-            get; set;
+            get
+            {
+                return wishUser;
+            }
+            set
+            {
+                wishUser = value;
+            }
         }
 
         /// <summary>
@@ -122,7 +133,14 @@
         /// </summary>
         public virtual Organization WishOrganization
         {
-            get; set;
+            get
+            {
+                return wishOrganization;
+            }
+            set
+            {
+                wishOrganization = value;
+            }
         }
 
         /// <summary>
@@ -131,7 +149,18 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WishBusinesses> WishBusinesses
         {
-            get; set;
+            get
+            {
+                return wishBusinesses;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                wishBusinesses = value;
+            }
         }
 
         /// <summary>
@@ -140,7 +169,18 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WishInterests> WishInterests
         {
-            get; set;
+            get
+            {
+                return wishInterests;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                wishInterests = value;
+            }
         }
 
         /// <summary>
@@ -167,7 +207,7 @@
                 {
                     if(!(WishOrganizationId is null))
                     {
-                        parts.Add(" worked in the organization " + WishOrganization.Name);
+                        parts.Add(" worked in the organization \"" + WishOrganization.Name + "\"");
                     }
                 }
                 else
@@ -192,7 +232,7 @@
                 {
                     returnString += "," + parts[i];
                 }
-                if(parts.Count != 0)
+                if(parts.Count > 1)
                 {
                     returnString += " and" + parts[parts.Count - 1];
                 }
@@ -201,7 +241,7 @@
             else
             {
                 //If the wish is for a specific user
-                return "Wishing to talk with " + WishUser.FullName;
+                return "Wishing to talk with " + WishUser.FullName + ".";
             }
         }
 

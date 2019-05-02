@@ -498,6 +498,10 @@ namespace Meetup.Entities
                 }
 
                 //Calculate how good the scores are and return
+                if(maxScore == 0)
+                {
+                    return 0;
+                }
                 return 700 * (organizationScore + businessScore + interestScore) / maxScore;
             }
             return 0;

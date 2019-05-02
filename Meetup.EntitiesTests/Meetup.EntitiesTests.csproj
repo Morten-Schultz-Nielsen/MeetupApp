@@ -57,9 +57,22 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AddressTests.cs" />
+    <Compile Include="EventsUserTests.cs" />
+    <Compile Include="BusinessTests.cs" />
     <Compile Include="EventTests.cs" />
+    <Compile Include="InterestTests.cs" />
+    <Compile Include="MeetingScoreTests.cs" />
+    <Compile Include="MeetingTests.cs" />
+    <Compile Include="OrganizationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SeanceTests.cs" />
+    <Compile Include="UsersBusinessTests.cs" />
+    <Compile Include="UsersInterestTests.cs" />
+    <Compile Include="UsersOrganizationsTests.cs" />
     <Compile Include="UserTests.cs" />
+    <Compile Include="WishBusinessesTests.cs" />
+    <Compile Include="WishInterestsTests.cs" />
+    <Compile Include="WishTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

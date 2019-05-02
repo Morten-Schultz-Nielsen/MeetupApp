@@ -11,30 +11,70 @@ namespace Meetup.Entities
     /// </summary>
     public partial class EventsUser
     {
+        private Event @event;
+        private User user;
+
         /// <summary>
         /// The id of this connection
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int Id
+        {
+            get; set;
+        }
 
         /// <summary>
         /// The id of the <see cref="Entities.User"/> invited to the <see cref="Entities.Event"/>
         /// </summary>
-        public int UserId { get; set; }
+        public int UserId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// the id of the <see cref="Entities.Event"/> the <see cref="Entities.User"/> is invited to
         /// </summary>
-        public int EventId { get; set; }
+        public int EventId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// the <see cref="Entities.Event"/> the <see cref="Entities.User"/> is invited to
         /// </summary>
-        public virtual Event Event { get; set; }
+        public virtual Event Event
+        {
+            get
+            {
+                return @event;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                @event = value;
+            }
+        }
 
         /// <summary>
         /// The <see cref="Entities.User"/> invited to the <see cref="Entities.Event"/>
         /// </summary>
-        public virtual User User { get; set; }
+        public virtual User User
+        {
+            get
+            {
+                return user;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                user = value;
+            }
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace Meetup.Entities
         public const string BusinessPattern = @"^([\w])+([\w\s])*$";
 
         private string name;
+        private ICollection<UsersBusiness> usersBusinesses;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Business()
@@ -65,7 +66,18 @@ namespace Meetup.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsersBusiness> UsersBusinesses
         {
-            get; set;
+            get
+            {
+                return usersBusinesses;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                usersBusinesses = value;
+            }
         }
 
     }

@@ -11,31 +11,71 @@ namespace Meetup.Entities
     /// </summary>
     public partial class UsersInterest
     {
+        private Interest interest;
+        private User user;
+
         /// <summary>
         /// The interest's id
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int Id
+        {
+            get; set;
+        }
 
         /// <summary>
         /// The id of the <see cref="Entities.User"/> who has the <see cref="Entities.Interest"/>
         /// </summary>
-        public int UserId { get; set; }
+        public int UserId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// The id of the <see cref="Entities.Interest"/> the <see cref="Entities.User"/> has
         /// </summary>
-        public int InterestId { get; set; }
+        public int InterestId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// The <see cref="Entities.Interest"/> the <see cref="Entities.User"/> has
         /// </summary>
-        public virtual Interest Interest { get; set; }
+        public virtual Interest Interest
+        {
+            get
+            {
+                return interest;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                interest = value;
+            }
+        }
 
         /// <summary>
         /// The <see cref="Entities.User"/> who has the <see cref="Entities.Interest"/>
         /// </summary>
-        public virtual User User { get; set; }
+        public virtual User User
+        {
+            get
+            {
+                return user;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                user = value;
+            }
+        }
 
         /// <summary>
         /// Converts a list of <see cref="Interest"/> objects into a list of <see cref="UsersInterest"/> objects

@@ -11,31 +11,71 @@ namespace Meetup.Entities
     /// </summary>
     public partial class WishInterests
     {
+        private Interest interest;
+        private Wish wish;
+
         /// <summary>
         /// The id of this connection
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int Id
+        {
+            get; set;
+        }
 
         /// <summary>
         /// The id of the <see cref="Entities.Wish"/> who wished the <see cref="Entities.Interest"/>
         /// </summary>
-        public int WishId { get; set; }
+        public int WishId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// The id of the <see cref="Entities.Interest"/> the <see cref="Entities.Wish"/> wished for
         /// </summary>
-        public int InterestId { get; set; }
+        public int InterestId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// The <see cref="Entities.Interest"/> the <see cref="Entities.Wish"/> wished for
         /// </summary>
-        public virtual Interest Interest { get; set; }
+        public virtual Interest Interest
+        {
+            get
+            {
+                return interest;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                interest = value;
+            }
+        }
 
         /// <summary>
         /// The <see cref="Entities.Wish"/> who wished the <see cref="Entities.Interest"/>
         /// </summary>
-        public virtual Wish Wish { get; set; }
+        public virtual Wish Wish
+        {
+            get
+            {
+                return wish;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException("value may not be null", nameof(User));
+                }
+                wish = value;
+            }
+        }
 
         /// <summary>
         /// Converts a list of <see cref="Interest"/> objects into a list of <see cref="WishInterests"/> objects
