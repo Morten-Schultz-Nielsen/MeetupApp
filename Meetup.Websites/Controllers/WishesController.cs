@@ -198,7 +198,7 @@ namespace Meetup.Websites.Controllers
                     theWish = model.Wishes.SingleOrDefault(w => w.Id == viewModel.EditWish.Id && w.UserId == infoID);
                     if(theWish is null)
                     {
-                        return RedirectToAction("List", new { Id = viewModel.TheEvent.Id });
+                        return RedirectToAction("List", new { viewModel.TheEvent.Id });
                     }
                 }
                 else
@@ -287,7 +287,7 @@ namespace Meetup.Websites.Controllers
                 }
                 model.SaveChanges();
 
-                return RedirectToAction("List", new { Id = viewModel.TheEvent.Id });
+                return RedirectToAction("List", new { viewModel.TheEvent.Id });
             }
         }
 
@@ -363,7 +363,7 @@ namespace Meetup.Websites.Controllers
             Wish theWish = model.Wishes.SingleOrDefault(w => w.Id == viewModel.TheWish.Id && w.UserId == infoID);
             if(theWish is null)
             {
-                return RedirectToAction("List", new { Id = viewModel.TheEvent.Id });
+                return RedirectToAction("List", new { viewModel.TheEvent.Id });
             }
 
             //Delete the wish
@@ -372,7 +372,7 @@ namespace Meetup.Websites.Controllers
             model.Wishes.Remove(theWish);
             model.SaveChanges();
 
-            return RedirectToAction("List", new { Id = viewModel.TheEvent.Id });
+            return RedirectToAction("List", new { viewModel.TheEvent.Id });
         }
 
         /// <summary>
