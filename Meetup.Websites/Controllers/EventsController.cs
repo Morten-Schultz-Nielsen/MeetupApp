@@ -237,7 +237,7 @@ namespace Meetup.Websites.Controllers
                 model.SaveChanges();
             }
 
-            return RedirectToAction("Page", "Events", new { eventId = theEvent });
+            return RedirectToAction("Page", "Events", new { Id = theEvent });
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace Meetup.Websites.Controllers
                 model.SaveChanges();
             }
 
-            return RedirectToAction("Page", "Events", new { eventId = theEvent });
+            return RedirectToAction("Page", "Events", new { Id = theEvent });
         }
 
         /// <summary>
