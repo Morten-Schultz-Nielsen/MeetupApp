@@ -229,7 +229,11 @@ namespace Meetup.Websites.Controllers
             Event inviteToEvent = model.Events.SingleOrDefault(e => e.Id == theEvent && e.HostUserId == infoID);
             if(!(inviteToEvent is null) && model.Users.Any(u => u.Id == user))
             {
-                inviteToEvent.Invites.Add(new Invite() { UserId = user });
+                inviteToEvent.Invites.Add(new Invite()
+                {
+                    UserId = user,
+                    Time = DateTime.Now
+                });
                 model.SaveChanges();
             }
 
