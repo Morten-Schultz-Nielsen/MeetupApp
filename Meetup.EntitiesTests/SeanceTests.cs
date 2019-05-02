@@ -14,9 +14,6 @@ namespace Meetup.Entities.Tests
         [TestMethod()]
         public void SeanceTest()
         {
-            new Seance() { Event = new Event() };
-            Assert.ThrowsException<ArgumentNullException>(() => { new Seance() { Event = null }; }, "Event cannot be null");
-
             Assert.ThrowsException<ArgumentNullException>(() => { new Seance() { Meetings = null }; }, "Meetings cannot be null");
         }
     }

@@ -50,10 +50,6 @@ namespace Meetup.Entities
             }
             set
             {
-                if(value is null)
-                {
-                    throw new ArgumentNullException(nameof(Interest), "value may not be null");
-                }
                 interest = value;
             }
         }
@@ -69,10 +65,6 @@ namespace Meetup.Entities
             }
             set
             {
-                if(value is null)
-                {
-                    throw new ArgumentNullException(nameof(User), "value may not be null");
-                }
                 user = value;
             }
         }

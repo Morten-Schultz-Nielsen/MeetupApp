@@ -324,7 +324,7 @@ namespace Meetup.Websites.Controllers
                 editUser.Address.ZipCode = Convert.ToInt32(viewModel.Address.CityZipCode);
 
                 model.SaveChanges();
-                return RedirectToAction("UserProfile", "Users", new {User = editUser.Id});
+                return RedirectToAction("Profile", "Users", new {User = editUser.Id});
             }
         }
 

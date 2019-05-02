@@ -87,10 +87,6 @@
             }
             set
             {
-                if(value is null)
-                {
-                    throw new ArgumentNullException(nameof(Event), "value may not be null");
-                }
                 @event = value;
             }
         }

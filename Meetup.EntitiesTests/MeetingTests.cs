@@ -12,22 +12,6 @@ namespace Meetup.Entities.Tests
     public class MeetingTests
     {
         [TestMethod()]
-        public void MeetingTest()
-        {
-            //Test seance
-            new Meeting() { Seance = new Seance() };
-            Assert.ThrowsException<ArgumentNullException>(() => { new Meeting() { Seance = null }; }, "Seance cannot be null");
-
-            //Test user one
-            new Meeting() { UserOne = new User() };
-            Assert.ThrowsException<ArgumentNullException>(() => { new Meeting() { UserOne = null }; }, "UserOne cannot be null");
-
-            //Test user two
-            new Meeting() { UserTwo = new User() };
-            Assert.ThrowsException<ArgumentNullException>(() => { new Meeting() { UserTwo = null }; }, "UserTwo cannot be null");
-        }
-
-        [TestMethod()]
         public void MeetingContainsUserTest()
         {
             User userOne = new User() { Id = 1 };

@@ -12,18 +12,6 @@ namespace Meetup.Entities.Tests
     public class UsersBusinessTests
     {
         [TestMethod()]
-        public void UsersBusinessTest()
-        {
-            //Test business
-            new UsersBusiness() { Business = new Business() };
-            Assert.ThrowsException<ArgumentNullException>(() => { new UsersBusiness() { Business = null }; }, "Business cannot be empty");
-
-            //Test user
-            new UsersBusiness() { User = new User() };
-            Assert.ThrowsException<ArgumentNullException>(() => { new UsersBusiness() { User = null }; }, "User cannot be empty");
-        }
-
-        [TestMethod()]
         public void ConvertTest()
         {
             List<UsersBusiness> convertResult = UsersBusiness.Convert(new List<Business>()

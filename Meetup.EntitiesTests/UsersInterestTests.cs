@@ -11,17 +11,6 @@ namespace Meetup.Entities.Tests
     [TestClass()]
     public class UsersInterestTests
     {
-        [TestMethod()]
-        public void UsersInterestTest()
-        {
-            //Test interest
-            new UsersInterest() { Interest = new Interest() };
-            Assert.ThrowsException<ArgumentNullException>(() => { new UsersInterest() { Interest = null }; }, "Interest cannot be empty");
-
-            //Test user
-            new UsersInterest() { User = new User() };
-            Assert.ThrowsException<ArgumentNullException>(() => { new UsersInterest() { User = null }; }, "User cannot be empty");
-        }
 
         [TestMethod()]
         public void ConvertTest()

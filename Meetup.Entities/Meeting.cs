@@ -59,10 +59,6 @@ namespace Meetup.Entities
             }
             set
             {
-                if(value is null)
-                {
-                    throw new ArgumentNullException(nameof(Seance), "value may not be null");
-                }
                 seance = value;
             }
         }
@@ -78,10 +74,6 @@ namespace Meetup.Entities
             }
             set
             {
-                if(value is null)
-                {
-                    throw new ArgumentNullException(nameof(UserOne), "value may not be null");
-                }
                 userOne = value;
             }
         }
@@ -97,10 +89,6 @@ namespace Meetup.Entities
             }
             set
             {
-                if(value is null)
-                {
-                    throw new ArgumentNullException(nameof(UserTwo), "value may not be null");
-                }
                 userTwo = value;
             }
         }
