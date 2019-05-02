@@ -14,14 +14,6 @@ namespace Meetup.Entities.Tests
         [TestMethod()]
         public void UsersOrganizationsTest()
         {
-            //Test business
-            new UsersOrganizations() { Organization = new Organization() };
-            Assert.ThrowsException<ArgumentNullException>(() => { new UsersOrganizations() { Organization = null }; }, "Organization cannot be empty");
-
-            //Test user
-            new UsersOrganizations() { User = new User() };
-            Assert.ThrowsException<ArgumentNullException>(() => { new UsersOrganizations() { User = null }; }, "User cannot be empty");
-
             //Test hiring date
             UsersOrganizations usersOrganizations = new UsersOrganizations() { StartDate = new DateTime(2000, 10, 10) };
             Assert.ThrowsException<ArgumentException>(() => { usersOrganizations.EndDate = new DateTime(1999, 10, 10); }, "EndDate cannot be less than StartDate");
@@ -33,7 +25,7 @@ namespace Meetup.Entities.Tests
         public void ToStringTest()
         {
             UsersOrganizations usersOrganizations = new UsersOrganizations() { Organization = new Organization() {Name = "Test" }, StartDate = new DateTime(2000, 10, 10) };
-            Assert.AreEqual("Test: Hirid 10-10-2000", usersOrganizations.ToString(), "ToString returned wrong string");
+            Assert.AreEqual("Test: Began 10-10-2000", usersOrganizations.ToString(), "ToString returned wrong string");
             usersOrganizations.EndDate = new DateTime(2001, 10, 10);
             Assert.AreEqual("Test: 10-10-2000 - 10-10-2001", usersOrganizations.ToString(), "ToString with 2 datetimes returned wrong string");
         }

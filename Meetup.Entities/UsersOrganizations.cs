@@ -91,10 +91,6 @@ namespace Meetup.Entities
             }
             set
             {
-                if(value is null)
-                {
-                    throw new ArgumentNullException(nameof(Organization), "Value may not be null");
-                }
                 organization = value;
             }
         }
@@ -110,10 +106,6 @@ namespace Meetup.Entities
             }
             set
             {
-                if(value is null)
-                {
-                    throw new ArgumentNullException(nameof(User), "Value may not be null");
-                }
                 user = value;
             }
         }
@@ -126,7 +118,7 @@ namespace Meetup.Entities
         {
             if(EndDate is null)
             {
-                return Organization.Name + ": Hirid " + StartDate.ToString("dd-MM-yyyy");
+                return Organization.Name + ": Began " + StartDate.ToString("dd-MM-yyyy");
             }
             else
             {

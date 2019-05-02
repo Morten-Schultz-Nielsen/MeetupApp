@@ -11,9 +11,9 @@
             @foreach(Meeting meeting in Model.Seances[i].Meetings)
             {
                 <td class="meeting @(meeting.MeetingContainsUser(Model.UserId) ? "your-meeting" : "not-your-meeting")">
-                    <a href="@Url.Action("UserProfile","Users",new {User = meeting.UserOne.Id})">@meeting.UserOne.FullName</a>
+                    <a href="@Url.Action("Profile","Users",new {Id = meeting.UserOne.Id})">@meeting.UserOne.FullName</a>
                     <br />
-                    <a href="@Url.Action("UserProfile","Users",new {User = meeting.UserTwo.Id})">@meeting.UserTwo.FullName</a>
+                    <a href="@Url.Action("Profile","Users",new {Id = meeting.UserTwo.Id})">@meeting.UserTwo.FullName</a>
                 </td>
             }
         </tr>

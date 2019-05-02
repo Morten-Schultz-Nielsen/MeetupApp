@@ -25,8 +25,9 @@ namespace Meetup.Entities.Tests
         [TestMethod()]
         public void NameExistsTest()
         {
-            //Test API connection
-            Organization.NameExists("LEGO Group");
+            //Test API
+            Assert.IsTrue(Organization.NameExists("LEGO Group"));
+            Assert.IsFalse(Organization.NameExists("hsjdkfhsjdkfdshjkfhsk"));
 
             //Test API null parameter
             Assert.ThrowsException<ArgumentException>(() => { Organization.NameExists(null); });
