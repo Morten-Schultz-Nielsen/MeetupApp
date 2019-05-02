@@ -1,11 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Spatial;
+using Newtonsoft.Json;
+using System.Net;
+using System.Linq;
+
 namespace Meetup.Entities
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
-
     /// <summary>
     /// An <see cref="object"/> for an organization a <see cref="User"/> can have
     /// </summary>
@@ -65,6 +68,40 @@ namespace Meetup.Entities
                     throw new ArgumentNullException(nameof(UsersOrganizations), "value may not be null");
                 }
                 usersOrganizations = value;
+            }
+        }
+
+        /// <summary>
+        /// Checks if an organization name exists or not
+        /// </summary>
+        /// <param name="name">The name of the organization to check</param>
+        /// <returns>true if the organization exists</returns>
+        public static bool NameExists(string name)
+        {
+            if(string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("parameter may not be null or empty", nameof(name));
+            }
+
+            using(WebClient client = new WebClient())
+            {
+                string nameList = client.DownloadString("https://autocomplete.clearbit.com/v1/companies/suggest?query=" + name);
+                OrganizationNamesFromJSON[] names = JsonConvert.DeserializeObject<OrganizationNamesFromJSON[]>(nameList);
+                return names.Any(n => n.Name == name);
+            }
+        }
+
+        /// <summary>
+        /// Class used for deserializing json from api
+        /// </summary>
+        private class OrganizationNamesFromJSON
+        {
+            /// <summary>
+            /// The name
+            /// </summary>
+            public string Name
+            {
+                get; set;
             }
         }
     }

@@ -21,5 +21,15 @@ namespace Meetup.Entities.Tests
             //Test if list can be null
             Assert.ThrowsException<ArgumentNullException>(() => { new Organization() { UsersOrganizations = null }; }, "UsersOrganizations cannot be null");
         }
+
+        [TestMethod()]
+        public void NameExistsTest()
+        {
+            //Test API connection
+            Organization.NameExists("LEGO Group");
+
+            //Test API null parameter
+            Assert.ThrowsException<ArgumentException>(() => { Organization.NameExists(null); });
+        }
     }
 }

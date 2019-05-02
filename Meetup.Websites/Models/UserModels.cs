@@ -41,12 +41,6 @@ namespace Meetup.Websites.Models
         public int Id { get; set; }
     }
 
-    public class OrganizationInputModel
-    {
-        public string Name { get; set; }
-
-    }
-
     public class UserEditorModel
     {
         public List<OrganizationModel> Organizations { get; set; }

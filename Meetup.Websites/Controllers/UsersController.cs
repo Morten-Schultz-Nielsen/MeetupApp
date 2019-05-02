@@ -255,7 +255,7 @@ namespace Meetup.Websites.Controllers
                                 {
                                     try
                                     {
-                                        if(OrganizationNameExists(organization.Name))
+                                        if(Organization.NameExists(organization.Name))
                                         {
                                             editOrganization.Organization = new Organization() { Name = organization.Name };
                                         }
@@ -267,7 +267,7 @@ namespace Meetup.Websites.Controllers
                                     }
                                     catch(WebException)
                                     {
-                                        ModelState.AddModelError("Organizations[" + i + "].Name", "Failed to connect to name API and check if organization name exists.");
+                                        ModelState.AddModelError("Organizations[" + i + "].Name", "Failed to connect to name API and check if organization name exists. Please try again later");
                                         return ReturnEdit(viewModel, editUser, model);
                                     }
                                 }
@@ -368,21 +368,6 @@ namespace Meetup.Websites.Controllers
             viewModel.Organizations = viewModel.Organizations.Where(o => o.State != "removed" && o.State != "new-removed").ToList();
 
             return View("Edit", viewModel);
-        }
-
-        /// <summary>
-        /// Checks if a organization name exists or not
-        /// </summary>
-        /// <param name="name">The name of the organization to check</param>
-        /// <returns>true if the organization exists</returns>
-        private static bool OrganizationNameExists(string name)
-        {
-            using(WebClient client = new WebClient())
-            {
-                string nameList = client.DownloadString("https://autocomplete.clearbit.com/v1/companies/suggest?query=" + name);
-                OrganizationInputModel[] names = JsonConvert.DeserializeObject<OrganizationInputModel[]>(nameList);
-                return names.Any(n => n.Name == name);
-            }
         }
     }
 }
