@@ -10,7 +10,7 @@
 <section class="white-box">
     <h3>Invited to:</h3>
     <ul>
-        @foreach(EventsUser invitedEvent in Model.InvitedToEvents)
+        @foreach(Invite invitedEvent in Model.InvitedToEvents)
         {
             <li class="item">
                 <a href="@Url.Action("Page", new { Id = invitedEvent.EventId })" class="item-name">@invitedEvent.Event.Name</a>
