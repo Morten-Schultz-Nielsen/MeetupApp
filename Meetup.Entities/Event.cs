@@ -204,5 +204,33 @@ namespace Meetup.Entities
         {
             return from Invite invite in Invites select invite.User;
         }
+
+        /// <summary>
+        /// A static method outputing which <see cref="Event"/> begginingtime is smallest
+        /// </summary>
+        /// <param name="event1">the <see cref="Event"/> to check against</param>
+        /// <param name="event2">the <see cref="Event"/> to check with</param>
+        /// <returns>1 if <paramref name="event1"/> is higher than <paramref name="event2"/>. 0 if they are equel. -1 if <paramref name="event1"/> is the smallest</returns>
+        public static int Sort(Event event1, Event event2)
+        {
+            if(event1 is null)
+            {
+                throw new ArgumentNullException(nameof(event1), "Parameter may not be null");
+            }
+            if(event2 is null)
+            {
+                throw new ArgumentNullException(nameof(event2), "Parameter may not be null");
+            }
+
+            if(event1.BeginningTime == event2.BeginningTime)
+            {
+                return 0;
+            }
+            if(event1.BeginningTime > event2.BeginningTime)
+            {
+                return 1;
+            }
+            return -1;
+        }
     }
 }

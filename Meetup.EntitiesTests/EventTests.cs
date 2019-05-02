@@ -51,5 +51,17 @@ namespace Meetup.Entities.Tests
             Assert.AreEqual(2, eventUsers.Count, "The list doesnt contain all the users in the event");
             Assert.AreEqual("Person", eventUsers[1].FirstName, "The users arent correct");
         }
+
+        [TestMethod()]
+        public void SortTest()
+        {
+            Event event1 = new Event() { BeginningTime = new DateTime(2001, 10, 13) };
+            Event event2 = new Event() { BeginningTime = new DateTime(2001, 10, 13) };
+            Event event3 = new Event() { BeginningTime = new DateTime(2003, 10, 13) };
+
+            Assert.AreEqual(0, Event.Sort(event1, event2));
+            Assert.AreEqual(-1, Event.Sort(event1, event3));
+            Assert.AreEqual(1, Event.Sort(event3, event1));
+        }
     }
 }

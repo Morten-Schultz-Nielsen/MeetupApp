@@ -5,7 +5,7 @@
 }
 
 <div class="white-box">
-    <h3>Wish list for <a href="@Url.Action("Page","Events",new { eventId = Model.TheEvent.Id })">&quot;@Model.TheEvent.Name&quot;</a></h3>
+    <h3>Wish list for <a href="@Url.Action("Page","Events",new { Id = Model.TheEvent.Id })">&quot;@Model.TheEvent.Name&quot;</a></h3>
     <ul>
         @for (int i = 0; i < Model.WishList.Count; i++)
         {
@@ -21,6 +21,6 @@
             </li>
         }
     </ul>
-    <a href="@Url.Action("Create", new { eventId = Model.TheEvent.Id })" class="button end-button">Create new wish</a>
+    <a href="@Url.Action("Create", new { Id = Model.TheEvent.Id })" class="button end-button">Create new wish</a>
 </div>
 

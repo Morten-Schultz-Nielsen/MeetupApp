@@ -199,6 +199,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\EventModels.cs" />
+    <Compile Include="Models\HomeModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\UserModels.cs" />
@@ -273,6 +274,7 @@
     <Content Include="Views\Shared\EditorTemplates\AddressModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SeanceViewModel.cshtml" />
     <Content Include="Views\Events\Seances.cshtml" />
+    <Content Include="Views\Home\UserIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

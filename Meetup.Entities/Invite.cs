@@ -88,5 +88,33 @@ namespace Meetup.Entities
                 time = value;
             }
         }
+
+        /// <summary>
+        /// A static method outputing which <see cref="Invite"/> time is highest
+        /// </summary>
+        /// <param name="invite1">the <see cref="Invite"/> to check against</param>
+        /// <param name="invite2">the <see cref="Invite"/> to check with</param>
+        /// <returns>-1 if <paramref name="invite1"/> is higher than <paramref name="invite2"/>. 0 if they are equel. 1 if <paramref name="invite1"/> is the smallest</returns>
+        public static int Sort(Invite invite1, Invite invite2)
+        {
+            if(invite1 is null)
+            {
+                throw new ArgumentNullException(nameof(invite1), "Parameter may not be null");
+            }
+            if(invite2 is null)
+            {
+                throw new ArgumentNullException(nameof(invite2), "Parameter may not be null");
+            }
+
+            if(invite1.Time == invite2.time)
+            {
+                return 0;
+            }
+            if(invite1.Time > invite2.time)
+            {
+                return -1;
+            }
+            return 1;
+        }
     }
 }

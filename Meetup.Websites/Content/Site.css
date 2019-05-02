@@ -537,6 +537,7 @@ footer {
         margin: -5px 0;
     }
 
+    .side-boxes .side-box,
     .side-boxes .white-box {
         width: 47.3%;
     }
