@@ -43,7 +43,7 @@ namespace Meetup.Entities
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("Value may not be null.", nameof(Person1));
+                    throw new ArgumentNullException(nameof(Person1), "Value may not be null.");
                 }
                 person1 = value;
             }
@@ -62,7 +62,7 @@ namespace Meetup.Entities
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("Value may not be null.", nameof(Person2));
+                    throw new ArgumentNullException(nameof(Person2), "Value may not be null.");
                 }
                 person2 = value;
             }
@@ -86,11 +86,11 @@ namespace Meetup.Entities
         {
             if(meeting1 is null)
             {
-                throw new ArgumentNullException("paramter may not be null.", nameof(meeting1));
+                throw new ArgumentNullException(nameof(meeting1), "paramter may not be null.");
             }
             if(meeting2 is null)
             {
-                throw new ArgumentNullException("paramter may not be null.", nameof(meeting2));
+                throw new ArgumentNullException(nameof(meeting2), "paramter may not be null.");
             }
 
             if(meeting1.Score > meeting2.Score)

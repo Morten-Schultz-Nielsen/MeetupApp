@@ -62,7 +62,7 @@ namespace Meetup.Entities
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("value may not be null", nameof(User));
+                    throw new ArgumentNullException(nameof(UsersOrganizations), "value may not be null");
                 }
                 usersOrganizations = value;
             }

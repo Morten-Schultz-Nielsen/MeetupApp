@@ -88,7 +88,7 @@
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("Value may not be null", nameof(User));
+                    throw new ArgumentNullException(nameof(User), "Value may not be null");
                 }
                 user = value;
             }
@@ -107,7 +107,7 @@
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("Value may not be null", nameof(Event));
+                    throw new ArgumentNullException(nameof(Event), "Value may not be null");
                 }
                 @event = value;
             }
@@ -157,7 +157,7 @@
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("value may not be null", nameof(User));
+                    throw new ArgumentNullException(nameof(WishBusinesses), "value may not be null");
                 }
                 wishBusinesses = value;
             }
@@ -177,7 +177,7 @@
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("value may not be null", nameof(User));
+                    throw new ArgumentNullException(nameof(WishInterests), "value may not be null");
                 }
                 wishInterests = value;
             }

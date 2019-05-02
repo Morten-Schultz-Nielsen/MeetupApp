@@ -89,7 +89,7 @@
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("value may not be null", nameof(Event));
+                    throw new ArgumentNullException(nameof(Event), "value may not be null");
                 }
                 @event = value;
             }
@@ -109,7 +109,7 @@
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("value may not be null", nameof(Event));
+                    throw new ArgumentNullException(nameof(Meetings), "value may not be null");
                 }
                 meetings = value;
             }

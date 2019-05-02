@@ -215,7 +215,7 @@ namespace Meetup.Entities
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("value may not be null", nameof(Address));
+                    throw new ArgumentNullException(nameof(Address), "value may not be null");
                 }
                 address = value;
             }
@@ -235,7 +235,7 @@ namespace Meetup.Entities
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("value may not be null", nameof(User));
+                    throw new ArgumentNullException(nameof(Events), "value may not be null");
                 }
                 events = value;
             }
@@ -255,7 +255,7 @@ namespace Meetup.Entities
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("value may not be null", nameof(User));
+                    throw new ArgumentNullException(nameof(EventsUsers), "value may not be null");
                 }
                 eventsUsers = value;
             }
@@ -275,7 +275,7 @@ namespace Meetup.Entities
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("value may not be null", nameof(User));
+                    throw new ArgumentNullException(nameof(Meetings), "value may not be null");
                 }
                 meetings = value;
             }
@@ -295,7 +295,7 @@ namespace Meetup.Entities
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("value may not be null", nameof(User));
+                    throw new ArgumentNullException(nameof(Meetings1), "value may not be null");
                 }
                 meetings1 = value;
             }
@@ -316,7 +316,7 @@ namespace Meetup.Entities
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("value may not be null", nameof(User));
+                    throw new ArgumentNullException(nameof(UsersBusinesses), "value may not be null");
                 }
                 usersBusinesses = value;
             }
@@ -336,7 +336,7 @@ namespace Meetup.Entities
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("value may not be null", nameof(User));
+                    throw new ArgumentNullException(nameof(UsersInterests), "value may not be null");
                 }
                 usersInterests = value;
             }
@@ -356,7 +356,7 @@ namespace Meetup.Entities
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("value may not be null", nameof(User));
+                    throw new ArgumentNullException(nameof(UsersOrganizations), "value may not be null");
                 }
                 usersOrganizations = value;
             }
@@ -376,7 +376,7 @@ namespace Meetup.Entities
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException("value may not be null", nameof(User));
+                    throw new ArgumentNullException(nameof(Wishes), "value may not be null");
                 }
                 wishes = value;
             }
@@ -403,7 +403,7 @@ namespace Meetup.Entities
         {
             if(wishes is null)
             {
-                throw new ArgumentNullException("Parameter may not be null", nameof(wishes));
+                throw new ArgumentNullException(nameof(wishes), "Parameter may not be null");
             }
 
             int highestScore = 0;
@@ -424,7 +424,7 @@ namespace Meetup.Entities
         {
             if(wish is null)
             {
-                throw new ArgumentNullException("parameter may not be null", nameof(wish));
+                throw new ArgumentNullException(nameof(wish), "parameter may not be null");
             }
 
             if(wish.WishUserId == Id)
