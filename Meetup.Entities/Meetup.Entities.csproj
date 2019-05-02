@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="Seance.cs" />
-    <Compile Include="EventsUser.cs" />
+    <Compile Include="Invite.cs" />
     <Compile Include="Interest.cs" />
     <Compile Include="Business.cs" />
     <Compile Include="Event.cs" />

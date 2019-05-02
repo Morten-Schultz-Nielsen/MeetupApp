@@ -20,7 +20,7 @@ namespace Meetup.Websites.Models
     {
         public List<Event> OwnedEvents { get; set; }
 
-        public List<EventsUser> InvitedToEvents { get; set; }
+        public List<Invite> InvitedToEvents { get; set; }
     }
 
     public class InviteToEventModel

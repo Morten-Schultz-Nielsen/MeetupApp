@@ -36,7 +36,7 @@ namespace Meetup.Entities.Tests
 
             //Test if lists can be null
             Assert.ThrowsException<ArgumentNullException>(() => { new User() { Events = null }; }, "Events cannot be null");
-            Assert.ThrowsException<ArgumentNullException>(() => { new User() { EventsUsers = null }; }, "EventsUsers cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new User() { Invites = null }; }, "EventsUsers cannot be null");
             Assert.ThrowsException<ArgumentNullException>(() => { new User() { Meetings = null }; }, "Meetings cannot be null");
             Assert.ThrowsException<ArgumentNullException>(() => { new User() { Meetings1 = null }; }, "Meetings1 cannot be null");
             Assert.ThrowsException<ArgumentNullException>(() => { new User() { UsersBusinesses = null }; }, "UsersBusinesses cannot be null");

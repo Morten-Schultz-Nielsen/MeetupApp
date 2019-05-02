@@ -27,13 +27,13 @@ namespace Meetup.Entities
         private string description;
         private Address address;
         private User user;
-        private ICollection<EventsUser> eventsUsers;
+        private ICollection<Invite> invites;
         private ICollection<Seance> seances;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Event()
         {
-            EventsUsers = new HashSet<EventsUser>();
+            Invites = new HashSet<Invite>();
             Seances = new HashSet<Seance>();
         }
 
@@ -160,19 +160,19 @@ namespace Meetup.Entities
         /// A list over all connections to <see cref="Entities.User"/>s who are invited to this event
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EventsUser> EventsUsers
+        public virtual ICollection<Invite> Invites
         {
             get
             {
-                return eventsUsers;
+                return invites;
             }
             set
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException(nameof(EventsUsers), "Value cannot be null");
+                    throw new ArgumentNullException(nameof(Invites), "Value cannot be null");
                 }
-                eventsUsers = value;
+                invites = value;
             }
         }
 
@@ -202,7 +202,7 @@ namespace Meetup.Entities
         /// <returns>A list of all users in this event</returns>
         public IEnumerable<User> GetUsers()
         {
-            return from EventsUser invite in EventsUsers select invite.User;
+            return from Invite invite in Invites select invite.User;
         }
     }
 }

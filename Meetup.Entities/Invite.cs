@@ -9,10 +9,11 @@ namespace Meetup.Entities
     /// <summary>
     /// An <see cref="object"/> connecting <see cref="Entities.User"/>s to <see cref="Entities.Event"/>s
     /// </summary>
-    public partial class EventsUser
+    public partial class Invite
     {
         private Event @event;
         private User user;
+        private DateTime time;
 
         /// <summary>
         /// The id of this connection
@@ -74,6 +75,25 @@ namespace Meetup.Entities
                     throw new ArgumentNullException(nameof(User), "value may not be null");
                 }
                 user = value;
+            }
+        }
+
+        /// <summary>
+        /// The time the invite was made
+        /// </summary>
+        public virtual DateTime Time
+        {
+            get
+            {
+                return time;
+            }
+            set
+            {
+                if(value > DateTime.Now)
+                {
+                    throw new ArgumentException("Invite cannot be from the future", nameof(Time));
+                }
+                time = value;
             }
         }
     }

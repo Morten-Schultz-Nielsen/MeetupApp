@@ -32,7 +32,7 @@ namespace Meetup.Entities.Tests
             Assert.ThrowsException<ArgumentNullException>(() => { new Event() { User = null }; }, "User cannot be null");
 
             //Test user list
-            Assert.ThrowsException<ArgumentNullException>(() => { new Event() { EventsUsers = null }; }, "EventsUsers cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new Event() { Invites = null }; }, "EventsUsers cannot be null");
         }
 
         [TestMethod()]
@@ -40,10 +40,10 @@ namespace Meetup.Entities.Tests
         {
             Event testEvent = new Event()
             {
-                EventsUsers = new List<EventsUser>()
+                Invites = new List<Invite>()
                 {
-                    new EventsUser() { User = new User() { FirstName = "Name" } },
-                    new EventsUser() { User = new User() { FirstName = "Person" } }
+                    new Invite() { User = new User() { FirstName = "Name" } },
+                    new Invite() { User = new User() { FirstName = "Person" } }
                 }
             };
 

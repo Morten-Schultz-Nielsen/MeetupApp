@@ -40,7 +40,7 @@ namespace Meetup.Entities
         private string pictureUri;
         private string email;
         private ICollection<Event> events;
-        private ICollection<EventsUser> eventsUsers;
+        private ICollection<Invite> invite;
         private ICollection<Meeting> meetings;
         private ICollection<Meeting> meetings1;
         private ICollection<UsersBusiness> usersBusinesses;
@@ -52,7 +52,7 @@ namespace Meetup.Entities
         public User()
         {
             Events = new HashSet<Event>();
-            EventsUsers = new HashSet<EventsUser>();
+            Invites = new HashSet<Invite>();
             Meetings = new HashSet<Meeting>();
             Meetings1 = new HashSet<Meeting>();
             UsersBusinesses = new HashSet<UsersBusiness>();
@@ -245,19 +245,19 @@ namespace Meetup.Entities
         /// A list over all the connections for the <see cref="Event"/>s this user is invited to
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EventsUser> EventsUsers
+        public virtual ICollection<Invite> Invites
         {
             get
             {
-                return eventsUsers;
+                return invite;
             }
             set
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException(nameof(EventsUsers), "value may not be null");
+                    throw new ArgumentNullException(nameof(Invites), "value may not be null");
                 }
-                eventsUsers = value;
+                invite = value;
             }
         }
 

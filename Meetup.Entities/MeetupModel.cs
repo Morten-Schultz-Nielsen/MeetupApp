@@ -29,7 +29,7 @@ namespace Meetup.Entities
         {
             get; set;
         }
-        public virtual DbSet<EventsUser> EventsUsers
+        public virtual DbSet<Invite> Invites
         {
             get; set;
         }
@@ -95,7 +95,7 @@ namespace Meetup.Entities
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Event>()
-                .HasMany(e => e.EventsUsers)
+                .HasMany(e => e.Invites)
                 .WithRequired(e => e.Event)
                 .WillCascadeOnDelete(false);
 
@@ -131,7 +131,7 @@ namespace Meetup.Entities
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
-                .HasMany(e => e.EventsUsers)
+                .HasMany(e => e.Invites)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
 

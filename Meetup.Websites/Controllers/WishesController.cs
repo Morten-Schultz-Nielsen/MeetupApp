@@ -55,7 +55,7 @@ namespace Meetup.Websites.Controllers
 
             MeetupModel model = new MeetupModel();
             Wish editingWish = model.Wishes.SingleOrDefault(w => w.UserId == infoID && w.Id == id);
-            if(editingWish is null || !editingWish.Event.EventsUsers.Any(u => u.UserId == infoID))
+            if(editingWish is null || !editingWish.Event.Invites.Any(u => u.UserId == infoID))
             {
                 return RedirectToAction("index");
             }
@@ -148,7 +148,7 @@ namespace Meetup.Websites.Controllers
             User editUser = model.Users.SingleOrDefault(userInfo => userInfo.Id == infoID);
 
             //Check if user is in the event
-            viewModel.TheEvent = model.Events.SingleOrDefault(e => e.Id == viewModel.TheEvent.Id && e.EventsUsers.Any(u => u.UserId == infoID));
+            viewModel.TheEvent = model.Events.SingleOrDefault(e => e.Id == viewModel.TheEvent.Id && e.Invites.Any(u => u.UserId == infoID));
             if(viewModel.TheEvent is null)
             {
                 return RedirectToAction("Index", "Home");
@@ -328,7 +328,7 @@ namespace Meetup.Websites.Controllers
                 return RedirectToAction("Index", "Home");
             }
             viewModel.TheEvent = viewModel.TheWish.Event;
-            if(!viewModel.TheEvent.EventsUsers.Any(u => u.UserId == infoID))
+            if(!viewModel.TheEvent.Invites.Any(u => u.UserId == infoID))
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -353,7 +353,7 @@ namespace Meetup.Websites.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            Event theEvent = model.Events.SingleOrDefault(e => e.Id == viewModel.TheEvent.Id && e.EventsUsers.Any(u => u.UserId == infoID));
+            Event theEvent = model.Events.SingleOrDefault(e => e.Id == viewModel.TheEvent.Id && e.Invites.Any(u => u.UserId == infoID));
             if(theEvent is null)
             {
                 return RedirectToAction("Index", "Home");

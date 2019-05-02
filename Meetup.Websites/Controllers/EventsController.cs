@@ -31,7 +31,7 @@ namespace Meetup.Websites.Controllers
             User thisUser = model.Users.SingleOrDefault(userInfo => userInfo.Id == infoID);
 
             viewModel.OwnedEvents = model.Events.Where(e => e.HostUserId == thisUser.Id).ToList();
-            viewModel.InvitedToEvents = thisUser.EventsUsers.ToList();
+            viewModel.InvitedToEvents = thisUser.Invites.ToList();
 
             return View(viewModel);
         }
@@ -197,8 +197,8 @@ namespace Meetup.Websites.Controllers
             //Finds the user and the events the user is in and isnt in
             MeetupModel model = new MeetupModel();
             InviteToEventModel viewModel = new InviteToEventModel();
-            viewModel.IsInvitedTo = model.Events.Where(e => e.HostUserId == infoID && e.EventsUsers.Any(u => u.UserId == id)).ToList();
-            viewModel.CanInviteTo = model.Events.Where(e => e.HostUserId == infoID && !e.EventsUsers.Any(u => u.UserId == id)).ToList();
+            viewModel.IsInvitedTo = model.Events.Where(e => e.HostUserId == infoID && e.Invites.Any(u => u.UserId == id)).ToList();
+            viewModel.CanInviteTo = model.Events.Where(e => e.HostUserId == infoID && !e.Invites.Any(u => u.UserId == id)).ToList();
             viewModel.Inviting = model.Users.SingleOrDefault(u => u.Id == id);
             if(viewModel.Inviting is null)
             {
@@ -229,7 +229,7 @@ namespace Meetup.Websites.Controllers
             Event inviteToEvent = model.Events.SingleOrDefault(e => e.Id == theEvent && e.HostUserId == infoID);
             if(!(inviteToEvent is null) && model.Users.Any(u => u.Id == user))
             {
-                inviteToEvent.EventsUsers.Add(new EventsUser() { UserId = user });
+                inviteToEvent.Invites.Add(new Invite() { UserId = user });
                 model.SaveChanges();
             }
 
@@ -255,10 +255,10 @@ namespace Meetup.Websites.Controllers
             }
 
             Event uninviteToEvent = model.Events.SingleOrDefault(e => e.Id == theEvent && e.HostUserId == infoID);
-            EventsUser invite = model.EventsUsers.SingleOrDefault(i => i.EventId == theEvent && i.UserId == user);
+            Invite invite = model.Invites.SingleOrDefault(i => i.EventId == theEvent && i.UserId == user);
             if(!(uninviteToEvent is null) && !(invite is null))
             {
-                model.EventsUsers.Remove(invite);
+                model.Invites.Remove(invite);
                 model.SaveChanges();
             }
 
@@ -276,7 +276,7 @@ namespace Meetup.Websites.Controllers
             int? infoID = this.UserId();
             MeetupModel model = new MeetupModel();
             EventPageModel viewModel = new EventPageModel();
-            viewModel.Event = model.Events.SingleOrDefault(e => e.Id == id && (e.EventsUsers.Any(i => i.UserId == infoID) || e.HostUserId == infoID));
+            viewModel.Event = model.Events.SingleOrDefault(e => e.Id == id && (e.Invites.Any(i => i.UserId == infoID) || e.HostUserId == infoID));
             if(viewModel.Event is null)
             {
                 return RedirectToAction("Index", "Home");
@@ -290,7 +290,7 @@ namespace Meetup.Websites.Controllers
             }
 
             //Creates the list of all users invited to the event
-            viewModel.Invited = viewModel.Event.EventsUsers.Any(i => i.UserId == infoID);
+            viewModel.Invited = viewModel.Event.Invites.Any(i => i.UserId == infoID);
             viewModel.InvitedUsers = viewModel.Event.GetUsers().ToList();
 
             //Creates the list of all seances/meetings with this user
@@ -360,7 +360,7 @@ namespace Meetup.Websites.Controllers
             }
 
             //Creates a list of all users in the event
-            List<EventsUser> eventsUser = theEvent.EventsUsers.ToList();
+            List<Invite> eventsUser = theEvent.Invites.ToList();
             List<User> UsersInEvent = theEvent.GetUsers().ToList();
 
             //Clear old meeting list
@@ -429,7 +429,7 @@ namespace Meetup.Websites.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            Event theEvent = model.Events.SingleOrDefault(e => e.Id == id && e.EventsUsers.Any(u => u.UserId == infoId));
+            Event theEvent = model.Events.SingleOrDefault(e => e.Id == id && e.Invites.Any(u => u.UserId == infoId));
             if(theEvent is null)
             {
                 return RedirectToAction("Index", "Home");
@@ -454,14 +454,14 @@ namespace Meetup.Websites.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            theEvent = model.Events.SingleOrDefault(e => e.Id == theEvent.Id && e.EventsUsers.Any(u => u.UserId == infoId));
+            theEvent = model.Events.SingleOrDefault(e => e.Id == theEvent.Id && e.Invites.Any(u => u.UserId == infoId));
             if(theEvent is null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
             //Remove invite
-            model.EventsUsers.Remove(theEvent.EventsUsers.SingleOrDefault(u => u.UserId == infoId));
+            model.Invites.Remove(theEvent.Invites.SingleOrDefault(u => u.UserId == infoId));
 
             model.SaveChanges();
             return RedirectToAction("Index");
@@ -482,7 +482,7 @@ namespace Meetup.Websites.Controllers
                 return RedirectToAction("Index", "Home");
             }
             SeanceViewModel viewModel = new SeanceViewModel();
-            viewModel.Event = model.Events.SingleOrDefault(e => e.Id == id && e.EventsUsers.Any(u => u.UserId == infoId));
+            viewModel.Event = model.Events.SingleOrDefault(e => e.Id == id && e.Invites.Any(u => u.UserId == infoId));
             if(viewModel.Event is null)
             {
                 return RedirectToAction("Index", "Home");
