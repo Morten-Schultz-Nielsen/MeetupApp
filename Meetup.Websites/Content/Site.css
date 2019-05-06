@@ -419,6 +419,11 @@ form.line-form input {
 .highlight .your-meeting {
     background: yellow;
 }
+
+.all-meetings {
+    width: 100%;
+    overflow-x: scroll;
+}
 /*Events end*/
 /*List Start*/
 .item:first-of-type {

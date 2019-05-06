@@ -32,9 +32,16 @@
             </div>
         </nav>
     </header>
-    <main>
+    @if(ViewBag.FullSize == true)
+    {
         @RenderBody()
-    </main>
+    }
+    else
+    {
+        <main>
+            @RenderBody()
+        </main>
+    }
     <footer>
         <p>&copy; @DateTime.Now.Year - Meetup</p>
     </footer>

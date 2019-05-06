@@ -1,18 +1,12 @@
 ﻿@model Meetup.Websites.Models.SeanceViewModel
 @{
-    Layout = null;
+    ViewBag.FullSize = true;
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Seances</title>
-    @Styles.Render("~/Content/css")
-</head>
-<body class="highlight">
-    <h1>Seances for the event &quot;<a href="@Url.Action("Page","Events",new { id = Model.Event.Id })">@Model.Event.Name</a>&quot;</h1>
-    <p>Address: @Model.Event.Address</p><br />
-    @Html.DisplayFor(m => m)
-</body>
-</html>
+
+<div class="highlight white-box">
+    <h3>Seances for the event &quot;<a href="@Url.Action("Page","Events",new { id = Model.Event.Id })">@Model.Event.Name</a>&quot;</h3>
+    <div class="all-meetings">
+        @Html.DisplayFor(m => m)
+    </div>
+</div>
