@@ -6,7 +6,7 @@
 }
 
 <div class="white-box">
-    <h2>@(Model.EditingWish ? "Rediger ønske" : "Lav ønske") for the event <a href="@Url.Action("Page","Events",new { Id = Model.TheEvent.Id})">&quot;@Model.TheEvent.Name&quot;</a></h2>
+    <h2>@(Model.EditingWish ? "Rediger ønske" : "Lav ønske") for eventen <a href="@Url.Action("Page","Events",new { Id = Model.TheEvent.Id})">&quot;@Model.TheEvent.Name&quot;</a></h2>
     <button id="wish-business-button" class="@((string.IsNullOrWhiteSpace(Model.ChosenName) ? "selected" : "") + " wish-choise-button")">Erhverv</button>
     <button id="wish-person-button" class="@((!string.IsNullOrWhiteSpace(Model.ChosenName) ? "selected" : "") + " wish-choise-button")">Person</button>
 

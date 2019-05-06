@@ -23,7 +23,7 @@ namespace Meetup.Websites.Controllers
 
         /// <summary>
         /// The amount of (page buttons - 1) / 2 to show under the users.
-        /// example: 3 = 7 buttons.
+        /// example: setting it to 3 = 7 buttons.
         /// </summary>
         const int pagesToShow = 3;
 
@@ -88,7 +88,7 @@ namespace Meetup.Websites.Controllers
             {
                 viewModel.IsYou = viewModel.User.Id == this.UserId();
 
-                return View("UserProfile",viewModel);
+                return View(viewModel);
             }
         }
 
