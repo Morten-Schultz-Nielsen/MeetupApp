@@ -11,6 +11,11 @@ namespace Meetup.Entities.Tests
     [TestClass()]
     public class UserTests
     {
+        public static User GetSimpleUser(int userId = 0)
+        {
+            return new User() { Id = userId };
+        }
+
         [TestMethod()]
         public void UserTest()
         {
@@ -182,12 +187,12 @@ namespace Meetup.Entities.Tests
                 Id = 1,
                 UsersInterests = new List<UsersInterest>()
                 {
-                    new UsersInterest() { Interest = new Interest() {Name = "a"} },
-                    new UsersInterest() { Interest = new Interest() {Name = "b"} },
-                    new UsersInterest() { Interest = new Interest() {Name = "c"} },
-                    new UsersInterest() { Interest = new Interest() {Name = "d"} },
-                    new UsersInterest() { Interest = new Interest() {Name = "e"} },
-                    new UsersInterest() { Interest = new Interest() {Name = "f"} }
+                    new UsersInterest() { Interest = new Interest("a") },
+                    new UsersInterest() { Interest = new Interest("b") },
+                    new UsersInterest() { Interest = new Interest("c") },
+                    new UsersInterest() { Interest = new Interest("d") },
+                    new UsersInterest() { Interest = new Interest("e") },
+                    new UsersInterest() { Interest = new Interest("f") }
                 }
             };
 
@@ -204,10 +209,10 @@ namespace Meetup.Entities.Tests
                 Id = 1,
                 UsersBusinesses = new List<UsersBusiness>()
                 {
-                    new UsersBusiness() { Business = new Business() {Name = "a"} },
-                    new UsersBusiness() { Business = new Business() {Name = "b"} },
-                    new UsersBusiness() { Business = new Business() {Name = "c"} },
-                    new UsersBusiness() { Business = new Business() {Name = "d"} }
+                    new UsersBusiness() { Business = new Business("a") },
+                    new UsersBusiness() { Business = new Business("b") },
+                    new UsersBusiness() { Business = new Business("c") },
+                    new UsersBusiness() { Business = new Business("d") }
                 }
             };
 

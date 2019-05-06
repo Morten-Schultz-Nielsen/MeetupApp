@@ -20,9 +20,15 @@ namespace Meetup.Entities
         private ICollection<UsersInterest> usersInterests;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Interest()
+        protected Interest()
         {
             UsersInterests = new HashSet<UsersInterest>();
+        }
+
+        public Interest(string name)
+        {
+            UsersInterests = new HashSet<UsersInterest>();
+            Name = name;
         }
 
         /// <summary>

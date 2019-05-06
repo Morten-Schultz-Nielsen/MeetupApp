@@ -15,12 +15,12 @@ namespace Meetup.Entities.Tests
         public void BusinessTest()
         {
             //Test name
-            new Business() { Name = "My Business" };
-            Assert.ThrowsException<ArgumentException>(() => { new Business() { Name = "[Business]" }; }, "Invalid business name");
-            Assert.ThrowsException<ArgumentException>(() => { new Business() { Name = null }; }, "Name cannot be empty");
+            new Business("My Business");
+            Assert.ThrowsException<ArgumentException>(() => { new Business("[Business]"); }, "Invalid business name");
+            Assert.ThrowsException<ArgumentException>(() => { new Business(null); }, "Name cannot be empty");
 
             //Test if list can be null
-            Assert.ThrowsException<ArgumentNullException>(() => { new Business() { UsersBusinesses = null }; }, "UsersBusinesses cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new Business("business") { UsersBusinesses = null }; }, "UsersBusinesses cannot be null");
         }
     }
 }

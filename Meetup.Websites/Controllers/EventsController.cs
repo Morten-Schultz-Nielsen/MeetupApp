@@ -48,23 +48,31 @@ namespace Meetup.Websites.Controllers
         /// <summary>
         /// An action used to create a new event
         /// </summary>
-        /// <param name="model">The posted model with information about the created event</param>
+        /// <param name="viewModel">The posted model with information about the created event</param>
         /// <returns>If success: the list over all the user's events</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(EventEditCreationModel model)
+        public ActionResult Create(EventEditCreationModel viewModel)
         {
             if(!ModelState.IsValid)
             {
-                return RedirectToAction("EditCreate", model);
+                return RedirectToAction("EditCreate", viewModel);
             }
             else
             {
-                Event newEvent = new Event();
-                newEvent.Address = new Address(model.Address.Country, model.Address.City, Convert.ToInt32(model.Address.CityZipCode), model.Address.StreetName, model.Address.StreetNumber);
-                newEvent.Name = model.Name;
-                newEvent.Description = model.Description;
-                newEvent.BeginningTime = model.Time.Value;
+                //Get event owner and create event
+                MeetupModel model = new MeetupModel();
+                int? infoID = this.UserId();
+                if(infoID is null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                Event newEvent = new Event(viewModel.Name, 
+                    viewModel.Description, 
+                    model.Users.SingleOrDefault(u => u.Id == infoID.Value), 
+                    new Address(viewModel.Address.Country, viewModel.Address.City, Convert.ToInt32(viewModel.Address.CityZipCode), viewModel.Address.StreetName, viewModel.Address.StreetNumber));
+                newEvent.BeginningTime = viewModel.Time.Value;
 
                 //get event ID
                 MeetupModel meetupModel = new MeetupModel();
@@ -76,14 +84,6 @@ namespace Meetup.Websites.Controllers
                 }
                 while(meetupModel.Events.Any(e => e.Id == randomNumber));
                 newEvent.Id = randomNumber;
-
-                //Get event owner
-                int? infoID = this.UserId();
-                if(infoID is null)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                newEvent.HostUserId = infoID.Value;
 
                 //Save event
                 meetupModel.Events.Add(newEvent);

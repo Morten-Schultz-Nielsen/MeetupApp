@@ -36,7 +36,7 @@ namespace Meetup.Entities.Tests
                     new Wish() { EventId = 10, WishUserId = 0 }, //ignored wish (wrong event id)
                     new Wish() { EventId = 0, WishInterests = new List<WishInterests>()
                     {
-                        new WishInterests() { Interest = new Interest() { Id = 1 } }
+                        new WishInterests() { Interest = new Interest("a") { Id = 1 } }
                     }}
                 }
             });
@@ -62,7 +62,7 @@ namespace Meetup.Entities.Tests
                 },
                 UsersInterests = new List<UsersInterest>()
                 {
-                    new UsersInterest() { Interest = new Interest() { Id = 0 } }
+                    new UsersInterest() { Interest = new Interest("a") { Id = 0 } }
                 }
             };
             User testUser2 = new User()

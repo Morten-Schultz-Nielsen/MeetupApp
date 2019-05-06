@@ -19,7 +19,7 @@ namespace Meetup.Entities.Tests
             Assert.ThrowsException<ArgumentNullException>(() => { new Wish() { User = null }; }, "User cannot be empty");
 
             //Test event
-            new Wish() { Event = new Event() };
+            new Wish() { Event = EventTests.GetSimpleEvent() };
             Assert.ThrowsException<ArgumentNullException>(() => { new Wish() { Event = null }; }, "Event cannot be empty");
 
             //test wishUser
@@ -92,10 +92,10 @@ namespace Meetup.Entities.Tests
         {
             Wish wish = new Wish() { WishInterests = new List<WishInterests>()
             {
-                new WishInterests() { Interest = new Interest() { Id = 0 } },
-                new WishInterests() { Interest = new Interest() { Id = 1 } },
-                new WishInterests() { Interest = new Interest() { Id = 2 } },
-                new WishInterests() { Interest = new Interest() { Id = 3 } }
+                new WishInterests() { Interest = new Interest("a") { Id = 0 } },
+                new WishInterests() { Interest = new Interest("a") { Id = 1 } },
+                new WishInterests() { Interest = new Interest("a") { Id = 2 } },
+                new WishInterests() { Interest = new Interest("a") { Id = 3 } }
             }};
 
             List<Interest> interestList = wish.GetInterests().ToList();
@@ -108,10 +108,10 @@ namespace Meetup.Entities.Tests
         {
             Wish wish = new Wish() { WishBusinesses = new List<WishBusinesses>()
             {
-                new WishBusinesses() { Business = new Business() { Id = 0 } },
-                new WishBusinesses() { Business = new Business() { Id = 1 } },
-                new WishBusinesses() { Business = new Business() { Id = 2 } },
-                new WishBusinesses() { Business = new Business() { Id = 3 } }
+                new WishBusinesses() { Business = new Business("a") { Id = 0 } },
+                new WishBusinesses() { Business = new Business("a") { Id = 1 } },
+                new WishBusinesses() { Business = new Business("a") { Id = 2 } },
+                new WishBusinesses() { Business = new Business("a") { Id = 3 } }
             }};
 
             List<Business> businessList = wish.GetBusinesses().ToList();

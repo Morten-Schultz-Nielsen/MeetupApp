@@ -31,10 +31,21 @@ namespace Meetup.Entities
         private ICollection<Seance> seances;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Event()
+        protected Event()
         {
             Invites = new HashSet<Invite>();
             Seances = new HashSet<Seance>();
+        }
+
+        public Event(string name, string description, User eventOwner, Address address)
+        {
+            Invites = new HashSet<Invite>();
+            Seances = new HashSet<Seance>();
+            Name = name;
+            Description = description;
+            User = eventOwner;
+            HostUserId = eventOwner.Id;
+            Address = address;
         }
 
         /// <summary>
@@ -51,7 +62,8 @@ namespace Meetup.Entities
         /// </summary>
         public int HostUserId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -59,7 +71,8 @@ namespace Meetup.Entities
         /// </summary>
         public int AddressId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -137,6 +150,7 @@ namespace Meetup.Entities
                 {
                     throw new ArgumentNullException(nameof(Address), "value may not be null");
                 }
+                AddressId = value.Id;
                 address = value;
             }
         }
@@ -156,6 +170,7 @@ namespace Meetup.Entities
                 {
                     throw new ArgumentNullException(nameof(User), "value may not be null");
                 }
+                HostUserId = value.Id;
                 user = value;
             }
         }

@@ -11,40 +11,41 @@ namespace Meetup.Entities.Tests
     [TestClass()]
     public class EventTests
     {
+        public static Event GetSimpleEvent(int eventId = 0, int ownerId = 0)
+        {
+            return new Event("My 1st Event", "My 783945uisdfsf{[]{£@$@$ event description", UserTests.GetSimpleUser(ownerId), AddressTests.GetSimpleAddress()) { Id = eventId };
+        }
+        
         [TestMethod()]
         public void EventTest()
         {
+            GetSimpleEvent();
+
             //Test event name
-            new Event() { Name = "My 1st Event" };
-            Assert.ThrowsException<ArgumentException>(() => { new Event() { Name = "[MY EVENT] ~~Cool Event~~" }; }, "Invalid event name");
-            Assert.ThrowsException<ArgumentException>(() => { new Event() { Name = null }; }, "Event name cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { new Event("[My Event] ~Cool~", "My event description", UserTests.GetSimpleUser(), AddressTests.GetSimpleAddress()); }, "Invalid event name");
+            Assert.ThrowsException<ArgumentException>(() => { new Event(null, "My event description", UserTests.GetSimpleUser(), AddressTests.GetSimpleAddress()); }, "Event name cannot be empty");
 
             //Test event description
-            new Event() { Description = "My 783945uisdfsf{[]{£@$@$ event description" };
-            Assert.ThrowsException<ArgumentException>(() => { new Event() { Name = "     " }; }, "Invalid event description");
+            Assert.ThrowsException<ArgumentException>(() => { new Event("My 1st Event", "", UserTests.GetSimpleUser(), AddressTests.GetSimpleAddress()); }, "Invalid event description");
 
             //Test address
-            new Event() { Address = AddressTests.GetSimpleAddress() };
-            Assert.ThrowsException<ArgumentNullException>(() => { new Event() { Address = null }; }, "Address cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new Event("My 1st Event", "My event description", UserTests.GetSimpleUser(), null); }, "Address cannot be null");
 
             //Test event owner
-            new Event() { User = new User() };
-            Assert.ThrowsException<ArgumentNullException>(() => { new Event() { User = null }; }, "User cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new Event("My 1st Event", "My event description", null, AddressTests.GetSimpleAddress()); }, "User cannot be null");
 
             //Test user list
-            Assert.ThrowsException<ArgumentNullException>(() => { new Event() { Invites = null }; }, "EventsUsers cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new Event("My 1st Event", "My event description", UserTests.GetSimpleUser(), AddressTests.GetSimpleAddress()) { Invites = null }; }, "EventsUsers cannot be null");
         }
 
         [TestMethod()]
         public void GetUsersTest()
         {
-            Event testEvent = new Event()
+            Event testEvent = GetSimpleEvent();
+            testEvent.Invites = new List<Invite>()
             {
-                Invites = new List<Invite>()
-                {
-                    new Invite() { User = new User() { FirstName = "Name" } },
-                    new Invite() { User = new User() { FirstName = "Person" } }
-                }
+                new Invite() { User = new User() { FirstName = "Name" } },
+                new Invite() { User = new User() { FirstName = "Person" } }
             };
 
             List<User> eventUsers = testEvent.GetUsers().ToList();
@@ -55,9 +56,15 @@ namespace Meetup.Entities.Tests
         [TestMethod()]
         public void SortTest()
         {
-            Event event1 = new Event() { BeginningTime = new DateTime(2001, 10, 13) };
-            Event event2 = new Event() { BeginningTime = new DateTime(2001, 10, 13) };
-            Event event3 = new Event() { BeginningTime = new DateTime(2003, 10, 13) };
+            Event event1 = GetSimpleEvent();
+            event1.BeginningTime = new DateTime(2001, 10, 13);
+
+            Event event2 = GetSimpleEvent();
+            event2.BeginningTime = new DateTime(2001, 10, 13);
+
+
+            Event event3 = GetSimpleEvent();
+            event3.BeginningTime = new DateTime(2003, 10, 13);
 
             Assert.AreEqual(0, Event.Sort(event1, event2));
             Assert.AreEqual(-1, Event.Sort(event1, event3));

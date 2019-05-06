@@ -16,10 +16,10 @@ namespace Meetup.Entities.Tests
         {
             List<WishBusinesses> convertResult = WishBusinesses.Convert(new List<Business>()
             {
-                new Business() { Id = 1 },
-                new Business() { Id = 2 },
-                new Business() { Id = 3 },
-                new Business() { Id = 4 }
+                new Business("a") { Id = 1 },
+                new Business("a") { Id = 2 },
+                new Business("a") { Id = 3 },
+                new Business("a") { Id = 4 }
             }, 10).ToList();
             Assert.AreEqual(4, convertResult.Count, "failed to convert the list");
             Assert.AreEqual(1, convertResult[0].Business.Id, "failed to convert business to the list");

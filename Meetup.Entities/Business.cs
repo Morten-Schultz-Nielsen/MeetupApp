@@ -21,9 +21,15 @@ namespace Meetup.Entities
         private ICollection<UsersBusiness> usersBusinesses;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Business()
+        protected Business()
         {
             UsersBusinesses = new HashSet<UsersBusiness>();
+        }
+
+        public Business(string name)
+        {
+            UsersBusinesses = new HashSet<UsersBusiness>();
+            Name = name;
         }
 
         /// <summary>

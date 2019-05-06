@@ -118,7 +118,7 @@ namespace Meetup.Entities
         {
             if(EndDate is null)
             {
-                return Organization.Name + ": Began " + StartDate.ToString("dd-MM-yyyy");
+                return Organization.Name + ": Ansættelsesdato " + StartDate.ToString("dd-MM-yyyy");
             }
             else
             {
