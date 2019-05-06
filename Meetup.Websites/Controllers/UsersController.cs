@@ -123,6 +123,8 @@ namespace Meetup.Websites.Controllers
             editModel.UnselectedInterests = unselectedInterests;
             editModel.SelectedInterests = selectedInterests;
             editModel.Description = editUser.Description;
+            editModel.FirstName = editUser.FirstName;
+            editModel.LastName = editUser.LastName;
 
             editModel.Address = new AddressModel();
             editModel.Address.City = editUser.Address.CityName;
@@ -322,6 +324,8 @@ namespace Meetup.Websites.Controllers
                 editUser.Address.StreetName = viewModel.Address.StreetName;
                 editUser.Address.StreetNumber = viewModel.Address.StreetNumber;
                 editUser.Address.ZipCode = Convert.ToInt32(viewModel.Address.CityZipCode);
+                editUser.FirstName = viewModel.FirstName;
+                editUser.LastName = viewModel.LastName;
 
                 model.SaveChanges();
                 return RedirectToAction("Profile", "Users", new {editUser.Id});

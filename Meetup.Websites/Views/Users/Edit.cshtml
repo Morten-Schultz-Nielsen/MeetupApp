@@ -13,14 +13,22 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "invalid" })
 
-    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "invalid" })
-    @Html.LabelFor(m => m.Description)
-    @Html.TextAreaFor(m => m.Description)
-
     <div class="form-group">
+        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "invalid" })
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description)
+
         @Html.ValidationMessageFor(m => m.Picture, "", new { @class = "invalid" })
         @Html.LabelFor(m => m.Picture)
         @Html.TextBoxFor(m => m.Picture, new {type = "file"})<br />
+
+        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "invalid" })
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName)
+
+        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "invalid" })
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName)
     </div>
 
     <div class="form-group">
@@ -58,7 +66,7 @@
             </select>
         </div>
         <div class="selection-list">
-            <p>Vaglte intereser:</p>
+            <p>Valgte intereser:</p>
             <select multiple="multiple" id="interest-list-selected">
                 @foreach(Interest interest in Model.SelectedInterests)
                 {

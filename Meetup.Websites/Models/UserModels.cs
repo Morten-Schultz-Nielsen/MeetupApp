@@ -62,6 +62,18 @@ namespace Meetup.Websites.Models
         [RegularExpression(User.DescriptionPattern, ErrorMessage = "Feltet \"{0}\" er en ugyldig beskrivelse.")]
         public string Description { get; set; }
 
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Fornavn")]
+        [StringLength(30, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 2)]
+        [RegularExpression(User.NamePattern, ErrorMessage = "Feltet \"{0}\" indeholder et ugyldigt navn.")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Efternavn")]
+        [StringLength(30, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 2)]
+        [RegularExpression(User.NamePattern, ErrorMessage = "Feltet \"{0}\" indeholder et ugyldigt navn.")]
+        public string LastName { get; set; }
+
         [Display(Name = "Profile picture")]
         public HttpPostedFileBase Picture { get; set; }
 
