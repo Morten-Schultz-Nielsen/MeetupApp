@@ -188,6 +188,7 @@ textarea {
     padding: 20px 10px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
     width: 70%;
 }
 
@@ -200,6 +201,10 @@ select.input-line,
 form:not(.line-form) input {
     width: 40%;
     margin-bottom: 5px;
+}
+
+form input[type=checkbox] {
+    width: auto;
 }
 
 select.input-line,

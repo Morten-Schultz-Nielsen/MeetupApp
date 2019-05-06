@@ -1,32 +1,33 @@
 ﻿@model Meetup.Websites.Models.EventListCreationModel
 @{
-    ViewBag.Title = "Creating List for " + Model.Event.Name;
+    ViewBag.Title = "Create seance list " + Model.Event.Name;
 }
 
-<h2>Create list for @Model.Event.Name</h2>
-<p>Info about the event...</p>
-@using(Html.BeginForm("CreateList", "Events", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", @class = "normal"}))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "invalid" })
-
-    @Html.HiddenFor(m => m.Event.Id)
-
-    <div class="form-group">
-        @Html.ValidationMessageFor(m => m.AmountOfMeetings, "", new { @class = "invalid" })
-        @Html.LabelFor(m => m.AmountOfMeetings)
-        @Html.TextBoxFor(m => m.AmountOfMeetings)
+<div class="white-box">
+    <h3>Create seance list for @Model.Event.Name</h3>
+    @using(Html.BeginForm("CreateList", "Events", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", @class = "normal"}))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "invalid" })
     
-        @Html.ValidationMessageFor(m => m.MinuteInterval, "", new { @class = "invalid" })
-        @Html.LabelFor(m => m.MinuteInterval)
-        @Html.TextBoxFor(m => m.MinuteInterval)
+        @Html.HiddenFor(m => m.Event.Id)
     
-        @Html.ValidationMessageFor(m => m.ForceFillMeetings, "", new { @class = "invalid" })
-        @Html.LabelFor(m => m.ForceFillMeetings)
-        @Html.CheckBoxFor(m => m.ForceFillMeetings)
-    </div>
-    <input type="submit" value="Create list" />
-}
+        <div class="form-group">
+            @Html.ValidationMessageFor(m => m.AmountOfMeetings, "", new { @class = "invalid" })
+            @Html.LabelFor(m => m.AmountOfMeetings)
+            @Html.TextBoxFor(m => m.AmountOfMeetings)
+        
+            @Html.ValidationMessageFor(m => m.MinuteInterval, "", new { @class = "invalid" })
+            @Html.LabelFor(m => m.MinuteInterval)
+            @Html.TextBoxFor(m => m.MinuteInterval)
+        
+            @Html.ValidationMessageFor(m => m.ForceFillMeetings, "", new { @class = "invalid" })
+            @Html.LabelFor(m => m.ForceFillMeetings)
+            @Html.CheckBoxFor(m => m.ForceFillMeetings)
+        </div>
+        <input type="submit" value="Create list" />
+    }
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
