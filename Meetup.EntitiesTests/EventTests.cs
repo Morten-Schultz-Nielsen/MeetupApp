@@ -44,8 +44,8 @@ namespace Meetup.Entities.Tests
             Event testEvent = GetSimpleEvent();
             testEvent.Invites = new List<Invite>()
             {
-                new Invite() { User = new User() { FirstName = "Name" } },
-                new Invite() { User = new User() { FirstName = "Person" } }
+                new Invite(testEvent, new User() { FirstName = "Name" }, DateTime.Now),
+                new Invite(testEvent, new User() { FirstName = "Person" }, DateTime.Now)
             };
 
             List<User> eventUsers = testEvent.GetUsers().ToList();

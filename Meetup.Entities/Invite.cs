@@ -15,6 +15,20 @@ namespace Meetup.Entities
         private User user;
         private DateTime time;
 
+        protected Invite()
+        {
+
+        }
+
+        public Invite(Event @event, User user, DateTime inviteTime)
+        {
+            Event = @event;
+            User = user;
+            UserId = user.Id;
+            EventId = @event.Id;
+            Time = inviteTime;
+        }
+
         /// <summary>
         /// The id of this connection
         /// </summary>
@@ -29,7 +43,8 @@ namespace Meetup.Entities
         /// </summary>
         public int UserId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -37,7 +52,8 @@ namespace Meetup.Entities
         /// </summary>
         public int EventId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
