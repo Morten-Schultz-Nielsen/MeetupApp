@@ -3,9 +3,12 @@
 <section class="user-list">
 @foreach(User user in Model)
 {
-    <a href="@Url.Action("Profile","Users",new { Id = user.Id })" class="user-box">
-        <img src="@user.PictureUri" alt="@user.FullName" />
-        <h3>@user.FullName</h3>
-    </a>
+    <div class="user-box-holder">
+        <a href="@Url.Action("Profile","Users",new { Id = user.Id })" class="user-box">
+            <img src="@user.PictureUri" alt="@user.FullName" />
+            <h3>@user.FullName</h3>
+        </a>
+        <a href="@Url.Action("Invite","Events", new { Id = user.Id })" class="user-box-invite">+</a>
+    </div>
 }
 </section>
