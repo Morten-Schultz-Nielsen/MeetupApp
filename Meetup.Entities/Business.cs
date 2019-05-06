@@ -51,6 +51,10 @@ namespace Meetup.Entities
                     throw new ArgumentException("Value may not be null or empty", nameof(Name));
                 }
                 value = value.Trim();
+                if(value.Length > 30)
+                {
+                    throw new ArgumentException("Value may not be longer than 30 letters", nameof(Name));
+                }
                 if(!Regex.IsMatch(value, BusinessPattern))
                 {
                     throw new ArgumentException($"Value is invalid and should match: {BusinessPattern}", nameof(Name));

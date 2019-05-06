@@ -47,6 +47,10 @@ namespace Meetup.Entities
                 {
                     throw new ArgumentException("value may not be null or empty", nameof(Name));
                 }
+                if(value.Length > 30)
+                {
+                    throw new ArgumentException("Value may not be longer than 30 letters", nameof(Name));
+                }
                 name = value;
             }
         }

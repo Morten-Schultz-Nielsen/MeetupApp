@@ -72,6 +72,10 @@ namespace Meetup.Entities
                     throw new ArgumentException("Value may not be null or empty", nameof(Country));
                 }
                 value = value.Trim();
+                if(value.Length > 30)
+                {
+                    throw new ArgumentException("Value may not be longer than 30 letters", nameof(Country));
+                }
                 if(!Regex.IsMatch(value, CountryPattern))
                 {
                     throw new ArgumentException($"Name is invalid and should match: {CountryPattern}", nameof(Country));
@@ -96,6 +100,10 @@ namespace Meetup.Entities
                     throw new ArgumentException("Value may not be null or empty", nameof(StreetName));
                 }
                 value = value.Trim();
+                if(value.Length > 30)
+                {
+                    throw new ArgumentException("Value may not be longer than 30 letters", nameof(StreetName));
+                }
                 if(!Regex.IsMatch(value, StreetPattern))
                 {
                     throw new ArgumentException($"Name is invalid and should match: {StreetPattern}", nameof(StreetName));
@@ -120,6 +128,10 @@ namespace Meetup.Entities
                     throw new ArgumentException("Value may not be null or empty", nameof(StreetNumber));
                 }
                 value = value.Trim();
+                if(value.Length > 30)
+                {
+                    throw new ArgumentException("Value may not be longer than 30 letters", nameof(StreetNumber));
+                }
                 if(!Regex.IsMatch(value, StreetNumberPattern))
                 {
                     throw new ArgumentException($"Number is invalid and should match: {StreetNumberPattern}", nameof(StreetNumber));
@@ -144,6 +156,10 @@ namespace Meetup.Entities
                     throw new ArgumentException("Value may not be null or empty", nameof(CityName));
                 }
                 value = value.Trim();
+                if(value.Length > 30)
+                {
+                    throw new ArgumentException("Value may not be longer than 30 letters", nameof(CityName));
+                }
                 if(!Regex.IsMatch(value, CityPattern))
                 {
                     throw new ArgumentException($"Name is invalid and should match: {CityPattern}", nameof(CityName));

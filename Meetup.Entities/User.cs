@@ -86,6 +86,10 @@ namespace Meetup.Entities
                     throw new ArgumentException("Value may not be null or empty", nameof(FirstName));
                 }
                 value = value.Trim();
+                if(value.Length > 30)
+                {
+                    throw new ArgumentException("Value may not be longer than 30 letters", nameof(FirstName));
+                }
                 if(!Regex.IsMatch(value, NamePattern))
                 {
                     throw new ArgumentException($"Value is invalid and should match: {NamePattern}", nameof(FirstName));
@@ -111,6 +115,10 @@ namespace Meetup.Entities
                     throw new ArgumentException("Value may not be null or empty", nameof(LastName));
                 }
                 value = value.Trim();
+                if(value.Length > 30)
+                {
+                    throw new ArgumentException("Value may not be longer than 30 letters", nameof(LastName));
+                }
                 if(!Regex.IsMatch(value, NamePattern))
                 {
                     throw new ArgumentException($"Value is invalid and should match: {NamePattern}", nameof(LastName));
@@ -193,6 +201,10 @@ namespace Meetup.Entities
                     throw new ArgumentException("Value may not be null or empty", nameof(Email));
                 }
                 value = value.Trim();
+                if(value.Length > 40)
+                {
+                    throw new ArgumentException("Value may not be longer than 40 letters", nameof(Email));
+                }
                 if(!Regex.IsMatch(value, EmailPattern))
                 {
                     throw new ArgumentException($"Value is invalid and should match: {EmailPattern}", nameof(Email));
