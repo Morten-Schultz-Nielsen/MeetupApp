@@ -41,10 +41,21 @@ namespace Meetup.Entities
         private ICollection<User> users;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Address()
+        protected Address()
         {
             Events = new HashSet<Event>();
             Users = new HashSet<User>();
+        }
+
+        public Address(string country, string city, int zipCode, string street, string streetNumber)
+        {
+            Events = new HashSet<Event>();
+            Users = new HashSet<User>();
+            Country = country;
+            CityName = city;
+            ZipCode = zipCode;
+            StreetName = street;
+            StreetNumber = streetNumber;
         }
 
         /// <summary>

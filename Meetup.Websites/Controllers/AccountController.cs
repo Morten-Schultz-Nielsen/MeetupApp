@@ -191,14 +191,7 @@ namespace Meetup.Websites.Controllers
                         LastName = model.LastName,
                         Description = model.Description,
                         PictureUri = "data:image/png;base64," + pictureDataString, 
-                        Address = new Address()
-                        {
-                            CityName = model.Address.City,
-                            Country = model.Address.Country,
-                            StreetName = model.Address.StreetName,
-                            StreetNumber = model.Address.StreetNumber,
-                            ZipCode = Convert.ToInt32(model.Address.CityZipCode)
-                        }
+                        Address = new Address(model.Address.Country, model.Address.City, Convert.ToInt32(model.Address.CityZipCode), model.Address.StreetName, model.Address.StreetNumber)
                     });
                     meetupModel.SaveChanges();
 

@@ -31,7 +31,7 @@ namespace Meetup.Entities.Tests
             Assert.ThrowsException<ArgumentException>(() => { new User() { PictureUri = "" }; }, "PictureUri cannot be empty");
 
             //Test null address
-            new User() { Address = new Address() };
+            new User() { Address = AddressTests.GetSimpleAddress() };
             Assert.ThrowsException<ArgumentNullException>(() => { new User() { Address = null }; }, "Events cannot be null");
 
             //Test if lists can be null

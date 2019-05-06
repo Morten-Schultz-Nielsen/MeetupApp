@@ -61,12 +61,7 @@ namespace Meetup.Websites.Controllers
             else
             {
                 Event newEvent = new Event();
-                newEvent.Address = new Address();
-                newEvent.Address.CityName = model.Address.City;
-                newEvent.Address.Country = model.Address.Country;
-                newEvent.Address.StreetName = model.Address.StreetName;
-                newEvent.Address.StreetNumber = model.Address.StreetNumber;
-                newEvent.Address.ZipCode = Convert.ToInt32(model.Address.CityZipCode);
+                newEvent.Address = new Address(model.Address.Country, model.Address.City, Convert.ToInt32(model.Address.CityZipCode), model.Address.StreetName, model.Address.StreetNumber);
                 newEvent.Name = model.Name;
                 newEvent.Description = model.Description;
                 newEvent.BeginningTime = model.Time.Value;

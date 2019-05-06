@@ -24,7 +24,7 @@ namespace Meetup.Entities.Tests
             Assert.ThrowsException<ArgumentException>(() => { new Event() { Name = "     " }; }, "Invalid event description");
 
             //Test address
-            new Event() { Address = new Address() };
+            new Event() { Address = AddressTests.GetSimpleAddress() };
             Assert.ThrowsException<ArgumentNullException>(() => { new Event() { Address = null }; }, "Address cannot be null");
 
             //Test event owner

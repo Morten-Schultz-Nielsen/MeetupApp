@@ -11,52 +11,48 @@ namespace Meetup.Entities.Tests
     [TestClass()]
     public class AddressTests
     {
+        public static Address GetSimpleAddress()
+        {
+            return new Address("Denmark", "Vejle", 1500, "My Street", "100ab32");
+        }
+
         [TestMethod()]
         public void AddressTest()
         {
+            GetSimpleAddress();
+
             //test country name
-            new Address() { Country = "Denmark" };
-            Assert.ThrowsException<ArgumentException>(() => { new Address() { Country = "D3nm4rk" }; }, "Invalid country name");
-            Assert.ThrowsException<ArgumentException>(() => { new Address() { Country = "" }; }, "Country cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { new Address("D3nm4rk", "Vejle", 1500, "My Street", "100ab32"); }, "Invalid country name");
+            Assert.ThrowsException<ArgumentException>(() => { new Address("", "Vejle", 1500, "My Street", "100ab32"); }, "Country cannot be empty");
 
             //Test city name
-            new Address() { CityName = "Vejle" };
-            Assert.ThrowsException<ArgumentException>(() => { new Address() { CityName = "Vejle The City" }; }, "Invalid city name");
-            Assert.ThrowsException<ArgumentException>(() => { new Address() { CityName = "" }; }, "CityName cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { new Address("Denmark", "Vejle The City", 1500, "My Street", "100ab32"); }, "Invalid city name");
+            Assert.ThrowsException<ArgumentException>(() => { new Address("Denmark", "", 1500, "My Street", "100ab32"); }, "CityName cannot be empty");
 
             //Test Street name
-            new Address() { StreetName = "My Street" };
-            Assert.ThrowsException<ArgumentException>(() => { new Address() { StreetName = "My 2nd Street" }; }, "Invalid street name");
-            Assert.ThrowsException<ArgumentException>(() => { new Address() { StreetName = "" }; }, "StreetName cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { new Address("Denmark", "Vejle", 1500, "My 2nd Street", "100ab32"); }, "Invalid street name");
+            Assert.ThrowsException<ArgumentException>(() => { new Address("Denmark", "Vejle", 1500, "", "100ab32"); }, "StreetName cannot be empty");
 
             //Test Street number
-            new Address() { StreetNumber = "100ab32" };
-            Assert.ThrowsException<ArgumentException>(() => { new Address() { StreetNumber = "One" }; }, "Invalid street number");
-            Assert.ThrowsException<ArgumentException>(() => { new Address() { StreetNumber = "" }; }, "StreetNumber cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { new Address("Denmark", "Vejle", 1500, "My Street", "One"); }, "Invalid street number");
+            Assert.ThrowsException<ArgumentException>(() => { new Address("Denmark", "Vejle", 1500, "My Street", ""); }, "StreetNumber cannot be empty");
 
             //Test Street number
-            new Address() { ZipCode = 1785 };
-            Assert.ThrowsException<ArgumentException>(() => { new Address() { ZipCode = 23432 }; }, "Invalid zip code");
+            Assert.ThrowsException<ArgumentException>(() => { new Address("Denmark", "Vejle", 234435, "My Street", "100ab32"); }, "Invalid zip code");
+            Assert.ThrowsException<ArgumentException>(() => { new Address("Denmark", "Vejle", 235, "My Street", "100ab32"); }, "Invalid zip code");
 
             //Test event list
-            Assert.ThrowsException<ArgumentNullException>(() => { new Address() { Events = null }; }, "Events cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new Address("Denmark", "Vejle", 1500, "My Street", "100ab32") { Events = null }; }, "Events cannot be null");
 
             //Test user list
-            Assert.ThrowsException<ArgumentNullException>(() => { new Address() { Users = null }; }, "Users cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new Address("Denmark", "Vejle", 1500, "My Street", "100ab32") { Users = null }; }, "Users cannot be null");
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
-            Address addres = new Address()
-            {
-                Country = "Denmark",
-                CityName = "Vejle",
-                StreetNumber = "1A",
-                StreetName = "Street",
-                ZipCode = 1000
-            };
-            Assert.AreEqual("Street 1A Vejle 1000 Denmark", addres.ToString(), "ToString gave wrong result");
+            Address address = GetSimpleAddress();
+            Assert.AreEqual("My Street 100ab32 Vejle 1500 Denmark", address.ToString(), "ToString gave wrong result");
         }
     }
 }
