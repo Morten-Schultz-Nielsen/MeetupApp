@@ -103,5 +103,30 @@ namespace Meetup.Entities
             }
             return 1;
         }
+
+        /// <summary>
+        /// Creates a sorted (highest score at index 0) list of all possible meetings there can be with the given users
+        /// </summary>
+        /// <param name="users">the list of users to create the list from</param>
+        /// <param name="eventId">The id of the event the meetings are for</param>
+        /// <returns>a list of sorted <see cref="MeetingScore"/> objects showing all possible meetings</returns>
+        public static List<MeetingScore> GetPossibleMeetings(List<User> users, int eventId)
+        {
+            if(users is null)
+            {
+                throw new ArgumentNullException(nameof(users), "parameter may not be null");
+            }
+
+            List<MeetingScore> possibleMeetings = new List<MeetingScore>();
+            for(int i = 0; i < users.Count; i++)
+            {
+                for(int j = i + 1; j < users.Count; j++)
+                {
+                    possibleMeetings.Add(new MeetingScore(eventId, users[i], users[j]));
+                }
+            }
+            possibleMeetings.Sort(Sort);
+            return possibleMeetings;
+        }
     }
 }

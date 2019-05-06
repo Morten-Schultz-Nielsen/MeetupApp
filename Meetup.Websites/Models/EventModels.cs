@@ -86,5 +86,9 @@ namespace Meetup.Websites.Models
         [Display(Name = "Amount of meetings")]
         [RegularExpression("^[1-9]{1}[0-9]*$", ErrorMessage = "The number has to be higher than 0")]
         public int AmountOfMeetings { get; set; }
+
+        [Required(ErrorMessage = "The field \"{0}\" is required.")]
+        [Display(Name = "Allow duplicate meetings")]
+        public bool ForceFillMeetings { get; set; }
     }
 }

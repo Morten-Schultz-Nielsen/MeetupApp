@@ -364,7 +364,6 @@ namespace Meetup.Websites.Controllers
             }
 
             //Creates a list of all users in the event
-            List<Invite> eventsUser = theEvent.Invites.ToList();
             List<User> UsersInEvent = theEvent.GetUsers().ToList();
 
             //Clear old meeting list
@@ -375,29 +374,35 @@ namespace Meetup.Websites.Controllers
             model.Seances.RemoveRange(theEvent.Seances);
 
             //Generate list of all possible meetings
-            List<MeetingScore> possibleMeetings = new List<MeetingScore>();
-            for(int i = 0; i < UsersInEvent.Count; i++)
-            {
-                for(int j = i + 1; j < UsersInEvent.Count; j++)
-                {
-                    possibleMeetings.Add(new MeetingScore(viewModel.Event.Id, UsersInEvent[i], UsersInEvent[j]));
-                }
-            }
-            possibleMeetings.Sort(MeetingScore.Sort);
+            List<MeetingScore> possibleMeetings = MeetingScore.GetPossibleMeetings(UsersInEvent, viewModel.Event.Id);
 
             //Generate meetings list
-            int meetingsPerMeetingTime = UsersInEvent.Count / 2;
+            int meetingsPerSeance = UsersInEvent.Count / 2;
             for(int i = 0; i < viewModel.AmountOfMeetings && possibleMeetings.Count != 0; i++)
             {
                 //Create a meeting row (seance)
                 List<MeetingScore> possibleMeetingsThisRow = possibleMeetings.Where(m => true).ToList();
+                List<User> usersNotInMeeting = UsersInEvent.Where(u => true).ToList();
                 Seance eventMeetingsRow = new Seance();
                 eventMeetingsRow.BeginningTime = theEvent.BeginningTime.AddMinutes(viewModel.MinuteInterval * i);
                 eventMeetingsRow.EndTime = eventMeetingsRow.BeginningTime.AddMinutes(viewModel.MinuteInterval);
                 eventMeetingsRow.MeetingNumber = i;
 
-                for(int j = 0; j < meetingsPerMeetingTime && possibleMeetingsThisRow.Count != 0; j++)
+                for(int j = 0; j < meetingsPerSeance; j++)
                 {
+                    if(possibleMeetingsThisRow.Count == 0)
+                    {
+                        //fill with already used meetings if turned on
+                        if(viewModel.ForceFillMeetings)
+                        {
+                            possibleMeetingsThisRow = MeetingScore.GetPossibleMeetings(usersNotInMeeting, viewModel.Event.Id);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
                     //add highest scored meeting to the event
                     MeetingScore meetingToAdd = possibleMeetingsThisRow[0];
 
@@ -408,6 +413,7 @@ namespace Meetup.Websites.Controllers
                         UserTwoId = meetingToAdd.Person2.Id
                     });
                     possibleMeetingsThisRow = possibleMeetingsThisRow.Where(m => m.Person1.Id != meetingToAdd.Person1.Id && m.Person2.Id != meetingToAdd.Person2.Id && m.Person1.Id != meetingToAdd.Person2.Id && m.Person2.Id != meetingToAdd.Person1.Id).ToList();
+                    usersNotInMeeting = usersNotInMeeting.Where(u => u.Id != meetingToAdd.Person1.Id && u.Id != meetingToAdd.Person2.Id).ToList();
                     possibleMeetings.Remove(meetingToAdd);
                 }
 
