@@ -1,12 +1,12 @@
 ﻿@using Meetup.Websites.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Log ind";
 }
 
 <div class="side-boxes">
     <section class="white-box">
-        <h3>Log in</h3>
+        <h3>Log ind</h3>
         @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", @class = "centerform normal" }))
         {
             @Html.AntiForgeryToken()
@@ -25,12 +25,12 @@
                 @Html.LabelFor(m => m.RememberMe)
                 @Html.CheckBoxFor(m => m.RememberMe)
             </div>
-            <input type="submit" value="Log in" class="button" />
+            <input type="submit" value="Log ind" class="button" />
         }
     </section>
     <section class="white-box">
         <h3>Don't have an account?</h3>
-        <p>@Html.ActionLink("Register here", "Register")</p>
+        <p>@Html.ActionLink("Registrer her", "Register")</p>
     </section>
 </div>
 

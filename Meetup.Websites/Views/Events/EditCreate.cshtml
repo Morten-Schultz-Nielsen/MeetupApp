@@ -2,16 +2,16 @@
 @{
     if(Model.Editing)
     {
-        ViewBag.Title = "Edit Event - " + Model.Name;
+        ViewBag.Title = "Rediger event - " + Model.Name;
     }
     else
     {
-        ViewBag.Title = "Create Event";
+        ViewBag.Title = "Lav event";
     }
 }
 
 <section class="white-box">
-    <h3>@(Model.Editing ? "Editing event \"" + Model.Name + "\"" : "Create event")</h3>
+    <h3>@(Model.Editing ? "Rediger event \"" + Model.Name + "\"" : "Lav event")</h3>
     @using(Html.BeginForm(Model.Editing ? "Edit" : "Create", "Events", FormMethod.Post, new { role = "form", @class = "normal" }))
     {
         @Html.AntiForgeryToken()
@@ -35,7 +35,7 @@
             @Html.EditorFor(m => m.Address)
         </div>
 
-        <input type="submit" value="@(Model.Editing ? "Save" : "Create")" class="button" />
+        <input type="submit" value="@(Model.Editing ? "Gem" : "Lav")" class="button" />
     }
 </section>
 

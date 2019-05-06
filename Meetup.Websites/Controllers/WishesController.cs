@@ -232,7 +232,7 @@ namespace Meetup.Websites.Controllers
                     User wishUser = model.Users.SingleOrDefault(u => u.FirstName + " " + u.LastName == viewModel.ChosenName);
                     if(wishUser is null)
                     {
-                        ModelState.AddModelError("ChosenName", "The user \"" + viewModel.ChosenName + "\" is not in this event.");
+                        ModelState.AddModelError("ChosenName", "Brugeren \"" + viewModel.ChosenName + "\" er ikke i denne event.");
                         return RedirectBackToEditCreate(viewModel);
                     }
                     else
@@ -275,7 +275,7 @@ namespace Meetup.Websites.Controllers
                     //Check if wish actually is wishing for something
                     if(theWish.WishBusinesses.Count <= 0 && theWish.WishInterests.Count <= 0 && theWish.WishOrganizationId is null)
                     {
-                        ModelState.AddModelError("OrganizationWish.Name", "You have to chose atleast one business, interest or an organization.");
+                        ModelState.AddModelError("OrganizationWish.Name", "Du skal vælge mindst et erhverv, interese or en organisation.");
                         return RedirectBackToEditCreate(viewModel);
                     }
                 }

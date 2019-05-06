@@ -1,11 +1,11 @@
 ﻿@model Meetup.Websites.Models.UserEditorModel
 @using Meetup.Entities;
 @{
-    ViewBag.Title = "Edit Profile";
+    ViewBag.Title = "Rediger Profile";
 }
 
 <div class="white-box">
-    @Html.ActionLink("Change your password", "ChangePassword", "Manage")
+    @Html.ActionLink("Ændre din kode", "ChangePassword", "Manage")
 </div>
 
 @using(Html.BeginForm("Edit", "Users", FormMethod.Post, new { role = "form", id = "user-edit-form", @class = "white-box normal", enctype = "multipart/form-data" }))
@@ -29,7 +29,7 @@
 
     <div class="selection-list-pair">
         <div class="selection-list">
-            <p>Businesses:</p>
+            <p>Erhverv:</p>
             <select multiple="multiple" id="business-list-unselected">
                 @foreach(Business business in Model.UnselectedBusinesses)
                 {
@@ -38,7 +38,7 @@
             </select>
         </div>
         <div class="selection-list">
-            <p>Selected businesses:</p>
+            <p>Valgte erhverv:</p>
             <select multiple="multiple" id="business-list-selected">
                 @foreach(Business business in Model.SelectedBusinesses)
                 {
@@ -49,7 +49,7 @@
     </div>
     <div class="selection-list-pair">
         <div class="selection-list">
-            <p>Interests:</p>
+            <p>Intereser:</p>
             <select multiple="multiple" id="interest-list-unselected">
                 @foreach(Interest interest in Model.UnselectedInterests)
                 {
@@ -58,7 +58,7 @@
             </select>
         </div>
         <div class="selection-list">
-            <p>Selected interests:</p>
+            <p>Vaglte intereser:</p>
             <select multiple="multiple" id="interest-list-selected">
                 @foreach(Interest interest in Model.SelectedInterests)
                 {
@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <p>Organizations:</p>
+    <p>Organisationer:</p>
     <div id="organization-list">
         @for(int i = 0; i < Model.Organizations.Count; i++)
         {
@@ -87,13 +87,13 @@
                 <input type="date" name="Organizations[@(i)].EndDate" id="Organizations[@(i)].EndDate" value="@(Model.Organizations[i].EndDate?.ToString("yyyy-MM-dd"))" />
                 @Html.HiddenFor(m => m.Organizations[i].State, new { @class = "organization-state" })
                 @Html.HiddenFor(m => m.Organizations[i].Id)
-                <button type="button" class="organization-remove">Delete</button>
+                <button type="button" class="organization-remove">Slet</button>
             </div>
         }
     </div>
     <button type="button" id="organization-add">Add organization</button>
 
-    <input type="submit" name="submitType" value="Save" id="submit" class="button" />
+    <input type="submit" name="submitType" value="Gem" id="submit" class="button" />
 }
 
 

@@ -1,6 +1,6 @@
 ﻿@model Meetup.Websites.Models.UserProfileModel
 @{
-    ViewBag.Title = Model.User.FullName + " Profile";
+    ViewBag.Title = Model.User.FullName + " Profil";
 }
 
 <figure class="white-box profile-top">
@@ -11,10 +11,10 @@
         @if(Request.IsAuthenticated)
         {
             <section class="box-edit-buttons">
-                <a href="@Url.Action("Invite","Events",new { Id = Model.User.Id })" class="button">Invite</a>
+                <a href="@Url.Action("Invite","Events",new { Id = Model.User.Id })" class="button">Inviter</a>
                 @if(Model.IsYou)
                 {
-                    <a href="@Url.Action("Edit", "Users")" class="button">Edit</a>
+                    <a href="@Url.Action("Edit", "Users")" class="button">Rediger</a>
                 }
             </section>
         }
@@ -23,12 +23,12 @@
 <div class="white-box">
     <p>@Model.User.Description</p>
     <br />
-    <p>Address: @Model.User.Address</p>
+    <p>Adresse: @Model.User.Address</p>
     <p>Email: @Model.User.Email</p>
 </div>
 <div class="side-boxes">
     <section class="white-box">
-        <h3>Businesses:</h3>
+        <h3>Erhverv:</h3>
         <ul>
             @foreach(Meetup.Entities.UsersBusiness business in Model.User.UsersBusinesses)
             {
@@ -37,7 +37,7 @@
         </ul>
     </section>
     <section class="white-box">
-        <h3>Interests:</h3>
+        <h3>Intereser:</h3>
         <ul>
             @foreach(Meetup.Entities.UsersInterest interest in Model.User.UsersInterests)
             {
@@ -47,7 +47,7 @@
     </section>
 </div>
 <section class="white-box">
-    <h3>Organizations:</h3>
+    <h3>Organisationer:</h3>
     <section>
         @foreach(Meetup.Entities.UsersOrganizations organization in Model.User.UsersOrganizations)
         {

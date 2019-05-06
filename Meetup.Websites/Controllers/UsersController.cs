@@ -216,17 +216,17 @@ namespace Meetup.Websites.Controllers
                         {
                             if(string.IsNullOrWhiteSpace(organization.Name))
                             {
-                                ModelState.AddModelError("Organizations[" + i + "].Name", "The field Organization name is required.");
+                                ModelState.AddModelError("Organizations[" + i + "].Name", "Feltet Organisation navn skal udfyldes.");
                                 return ReturnEdit(viewModel, editUser, model);
                             }
                             if(organization.StartDate is null)
                             {
-                                ModelState.AddModelError("Organizations[" + i + "].StartDate", "The field Hiring date is required.");
+                                ModelState.AddModelError("Organizations[" + i + "].StartDate", "Feltet ansættelsesdato skal udfyldes.");
                                 return ReturnEdit(viewModel, editUser, model);
                             }
                             if(organization.StartDate > DateTime.Now)
                             {
-                                ModelState.AddModelError("Organizations[" + i + "].StartDate", "The hiring date may not be in the future.");
+                                ModelState.AddModelError("Organizations[" + i + "].StartDate", "Ansættelsesdatoen må ikke være i fremtiden.");
                                 return ReturnEdit(viewModel, editUser, model);
                             }
 
@@ -261,13 +261,13 @@ namespace Meetup.Websites.Controllers
                                         }
                                         else
                                         {
-                                            ModelState.AddModelError("Organizations[" + i + "].Name", "The given organization \"" + organization.Name + "\" doesn't exist.");
+                                            ModelState.AddModelError("Organizations[" + i + "].Name", "Organisationen \"" + organization.Name + "\" eksisterer ikke.");
                                             return ReturnEdit(viewModel, editUser, model);
                                         }
                                     }
                                     catch(WebException)
                                     {
-                                        ModelState.AddModelError("Organizations[" + i + "].Name", "Failed to connect to name API and check if organization name exists. Please try again later");
+                                        ModelState.AddModelError("Organizations[" + i + "].Name", "Fejlede i at bedømme organisation navnet. Prøv igen senerer");
                                         return ReturnEdit(viewModel, editUser, model);
                                     }
                                 }
@@ -281,19 +281,19 @@ namespace Meetup.Websites.Controllers
                             editOrganization.EndDate = organization.EndDate;
                             if(organization.StartDate > DateTime.Now)
                             {
-                                ModelState.AddModelError("Organizations[" + i + "].StartDate", "Hiring date cannot be in the future.");
+                                ModelState.AddModelError("Organizations[" + i + "].StartDate", "Ansættelsesdato må ikke være i fremtiden.");
                                 return ReturnEdit(viewModel, editUser, model);
                             }
                             else if(!(organization.EndDate is null))
                             {
                                 if(organization.StartDate.Value >= organization.EndDate)
                                 {
-                                    ModelState.AddModelError("Organizations[" + i + "].StartDate", "Hiring date cannot be after the ending date.");
+                                    ModelState.AddModelError("Organizations[" + i + "].StartDate", "Ansættelsesdato må ikke være efter slut datoen.");
                                     return ReturnEdit(viewModel, editUser, model);
                                 }
                                 else if (organization.EndDate > DateTime.Now)
                                 {
-                                    ModelState.AddModelError("Organizations[" + i + "].EndDate", "End date cannot be in the future.");
+                                    ModelState.AddModelError("Organizations[" + i + "].EndDate", "Slut datoen kan ikke være i fremtiden.");
                                     return ReturnEdit(viewModel, editUser, model);
                                 }
                             }
@@ -310,7 +310,7 @@ namespace Meetup.Websites.Controllers
                     //Update profile picture
                     if(!viewModel.Picture.ContentType.Contains("image"))
                     {
-                        ModelState.AddModelError("Picture", "The field \"Picture\" only accept image files.");
+                        ModelState.AddModelError("Picture", "Feltet \"Profil Billed\" accepterer kun billeder.");
                         return ReturnEdit(viewModel, editUser, model);
                     }
                     editUser.PictureUri = "data:image/png;base64," + viewModel.Picture.PictureFileToString();

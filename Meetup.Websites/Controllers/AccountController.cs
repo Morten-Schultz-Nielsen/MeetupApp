@@ -92,7 +92,7 @@ namespace Meetup.Websites.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Ugyldigt log ind forsøg.");
                     return View(model);
             }
         }
@@ -171,7 +171,7 @@ namespace Meetup.Websites.Controllers
                 //Check picture
                 if(!model.Picture.ContentType.Contains("image"))
                 {
-                    ModelState.AddModelError("Picture", "The field \"Picture\" only accept image files.");
+                    ModelState.AddModelError("Picture", "Feltet \"Profil billed\" accepterer kun billeder.");
                     return View(model);
                 }
                 string pictureDataString = model.Picture.PictureFileToString();

@@ -2,12 +2,12 @@
 @using Meetup.Entities;
 @using Meetup.Websites.Models;
 @{
-    ViewBag.Title = (Model.EditingWish ? "Edit Wish" : "Create Wish");
+    ViewBag.Title = (Model.EditingWish ? "Rediger Ønske" : "Lav Ønske");
 }
 
 <div class="white-box">
-    <h2>@(Model.EditingWish ? "Editing wish" : "Creating wish") for the event <a href="@Url.Action("Page","Events",new { Id = Model.TheEvent.Id})">&quot;@Model.TheEvent.Name&quot;</a></h2>
-    <button id="wish-business-button" class="@((string.IsNullOrWhiteSpace(Model.ChosenName) ? "selected" : "") + " wish-choise-button")">Business</button>
+    <h2>@(Model.EditingWish ? "Rediger ønske" : "Lav ønske") for the event <a href="@Url.Action("Page","Events",new { Id = Model.TheEvent.Id})">&quot;@Model.TheEvent.Name&quot;</a></h2>
+    <button id="wish-business-button" class="@((string.IsNullOrWhiteSpace(Model.ChosenName) ? "selected" : "") + " wish-choise-button")">Erhverv</button>
     <button id="wish-person-button" class="@((!string.IsNullOrWhiteSpace(Model.ChosenName) ? "selected" : "") + " wish-choise-button")">Person</button>
 
     @using(Html.BeginForm("EditCreate", "Wishes", FormMethod.Post, new { role = "form", id = "wish-person", @class = (string.IsNullOrWhiteSpace(Model.ChosenName) ? "hidden" : "") + " wish-choise normal", enctype = "multipart/form-data" }))
@@ -40,7 +40,7 @@
         }
         <div class="selection-list-pair">
             <div class="selection-list">
-                <p>Businesses:</p>
+                <p>Erhverv:</p>
                 <select multiple="multiple" id="business-list-unselected">
                     @foreach(Business business in Model.UnchosenBusinesses)
                     {
@@ -49,7 +49,7 @@
                 </select>
             </div>
             <div class="selection-list">
-                <p>Selected businesses:</p>
+                <p>Valgte erhverv:</p>
                 <select multiple="multiple" id="business-list-selected">
                     @foreach(Business business in Model.ChosenBusinessesList)
                     {
@@ -60,7 +60,7 @@
         </div>
         <div class="selection-list-pair">
             <div class="selection-list">
-                <p>Interests:</p>
+                <p>Intereser:</p>
                 <select multiple="multiple" id="interest-list-unselected">
                     @foreach(Interest interest in Model.UnchosenInterests)
                     {
@@ -69,7 +69,7 @@
                 </select>
             </div>
             <div class="selection-list">
-                <p>Selected interests:</p>
+                <p>Valgte intereser:</p>
                 <select multiple="multiple" id="interest-list-selected">
                     @foreach(Interest interest in Model.ChosenInterestsList)
                     {
@@ -99,7 +99,7 @@
             @Html.LabelFor(m => m.OrganizationWish.WorkYears)
             @Html.TextBoxFor(m => m.OrganizationWish.WorkYears)
         </div>
-        <input type="submit" value="@(Model.EditingWish ? "Save Changes" : "Create Wish")" id="wish-business-submit" class="button" />
+        <input type="submit" value="@(Model.EditingWish ? "Gem" : "Lav Ønske")" id="wish-business-submit" class="button" />
     }
 </div>
 

@@ -8,7 +8,7 @@
     @if(Model.EventOwner)
     {
         <div class="box-edit-buttons">
-            <a class="button" href="@Url.Action("Edit","Events",new { Id = Model.Event.Id })">Edit this event</a>
+            <a class="button" href="@Url.Action("Edit","Events",new { Id = Model.Event.Id })">Rediger denne event</a>
         </div>
     }
 
@@ -22,12 +22,12 @@
 <section class="event-wishes white-box">
     @if(Model.Invited)
     {
-        <p>You have @Model.UserWishes.Count wishes for this event.</p>
-        <a href="@Url.Action("List","Wishes",new { Id = Model.Event.Id})">Click here to view your wish list.</a>
+        <p>Du har @Model.UserWishes.Count @(Model.UserWishes.Count == 1 ? "ønske" : "ønsker") for denne event.</p>
+        <a href="@Url.Action("List","Wishes",new { Id = Model.Event.Id})">Klik her for at se din ønskeliste.</a>
     }
     else
     {
-        <p>You have not invited yourself to this event.</p>
+        <p>Du har ikke inviteret dig selv til denne event.</p>
         using(Html.BeginForm("Invite", "Events", FormMethod.Post, new
         {
             @class = "post-simple",
@@ -39,7 +39,7 @@
             @Html.Hidden("TheEvent", Model.Event.Id)
             @Html.Hidden("User", Model.UserID)
 
-            <input type="submit" value="Click here to invite yourself." />
+            <input type="submit" value="Klik her for at invitere dig selv." />
         }
     }
 </section>
@@ -47,22 +47,22 @@
 @if(Model.Event.Seances.Count == 0)
 {
     <section class="meeting-line">
-        <h3>Seance list:</h3>
-        <p>No list has been made yet.</p>
+        <h3>Seance liste:</h3>
+        <p>Der er ikke lavet nogen liste endnu.</p>
         @if(Model.EventOwner)
         {
-            <a href="@Url.Action("CreateList", new { Id = Model.Event.Id })" class="button">Create the list</a>
+            <a href="@Url.Action("CreateList", new { Id = Model.Event.Id })" class="button">Lav en liste</a>
         }
     </section>
 }
 else
 {
     <section class="meeting-line">
-        <a class="seance-collapse-button button" href="@Url.Action("Seances","Events", new { Id = Model.Event.Id })">All meetings</a>
-        <h3>Seance list:</h3>
+        <a class="seance-collapse-button button" href="@Url.Action("Seances","Events", new { Id = Model.Event.Id })">Alle møder</a>
+        <h3>Seance liste:</h3>
         @if(Model.EventOwner)
         {
-            <a href="@Url.Action("CreateList", new { Id = Model.Event.Id })" target="_blank" class="button">Create new list</a>
+            <a href="@Url.Action("CreateList", new { Id = Model.Event.Id })" target="_blank" class="button">Lav en ny liste</a>
         }
     </section>
     <div class="horizontal-scroll">
@@ -92,12 +92,12 @@ else
         }
         else
         {
-        <p>You have no meetings for this event.</p>
+        <p>Du har ingen møder for denne event.</p>
         }
     </div>
 }
 
 <div class="white-box spaced-box">
-    <h2>People in this event:</h2>
+    <h2>Personer i denne event:</h2>
 </div>
 @Html.DisplayFor(m => m.InvitedUsers, "Users")

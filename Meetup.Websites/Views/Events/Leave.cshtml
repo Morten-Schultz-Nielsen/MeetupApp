@@ -5,14 +5,14 @@
 }
 
 <div class="white-box">
-    <h3>Are you sure you want to leave the event <a href="@Url.Action("Page",new { eventId = Model.Id })">&quot;@Model.Name&quot;</a></h3>
-    <p>The event contains @eventUsers invited @(eventUsers == 1 ? "user" : "users").</p><br />
-    <p>The event is being held at @Model.BeginningTime.ToString("dd-MM-yyyy HH:mm")<br />on the address: @(Model.Address).</p>
+    <h3>Er du sikker på at du vil forlade <a href="@Url.Action("Page",new { eventId = Model.Id })">&quot;@Model.Name&quot;?</a></h3>
+    <p>Eventen indeholder @eventUsers inviteret @(eventUsers == 1 ? "person" : "personer").</p><br />
+    <p>Eventen finder sted den @Model.BeginningTime.ToString("dd-MM-yyyy HH:mm")<br />på addressen: @(Model.Address).</p>
     @using(Html.BeginForm("Leave", "Events", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", @class = "normal" }))
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.Id)
-        <input type="submit" value="Leave event" class="button" />
+        <input type="submit" value="Forlad event" class="button" />
     }
 </div>
 

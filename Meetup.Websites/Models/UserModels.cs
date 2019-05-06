@@ -11,7 +11,7 @@ namespace Meetup.Websites.Models
     {
         public List<User> Users { get; set; }
 
-        [Display(Name = "Name")]
+        [Display(Name = "Navn")]
         public string SearchString { get; set; }
 
         public int PageNumber { get; set; }
@@ -25,15 +25,15 @@ namespace Meetup.Websites.Models
 
     public class OrganizationModel
     {
-        [Required]
-        [Display(Name = "Organization name")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Organisation")]
         public string Name { get; set; }
 
-        [Required]
-        [Display(Name = "Hiring date")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Ansættelsesdato")]
         public DateTime? StartDate { get; set; }
 
-        [Display(Name = "Ending date")]
+        [Display(Name = "Stop dato")]
         public DateTime? EndDate { get; set; }
 
         public string State { get; set; }
@@ -57,9 +57,9 @@ namespace Meetup.Websites.Models
 
         public string ChosenBusinesses { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "Description")]
-        [StringLength(int.MaxValue, ErrorMessage = "The field \"{0}\" must be atleast {2} characters long.", MinimumLength = 10)]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Beskrivelse")]
+        [RegularExpression(User.DescriptionPattern, ErrorMessage = "Feltet \"{0}\" er en ugyldig beskrivelse.")]
         public string Description { get; set; }
 
         [Display(Name = "Profile picture")]

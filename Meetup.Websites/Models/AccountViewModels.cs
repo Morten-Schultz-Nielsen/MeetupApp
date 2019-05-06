@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Helpers;
+using Meetup.Entities;
 
 namespace Meetup.Websites.Models
 {
@@ -31,11 +32,11 @@ namespace Meetup.Websites.Models
         public string Provider { get; set; }
 
         [Required]
-        [Display(Name = "Code")]
+        [Display(Name = "Kode")]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(Name = "Husk denne browser?")]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -43,85 +44,86 @@ namespace Meetup.Websites.Models
 
     public class ForgotViewModel
     {
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Kode")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Husk mig?")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "First name")]
-        [StringLength(30, ErrorMessage = "The field \"{0}\" must be {2}-{1} characters long.", MinimumLength = 2)]
-        [RegularExpression("[a-zA-Z\\s]*", ErrorMessage = "The field \"{0}\" contains an invalid name")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Fornavn")]
+        [StringLength(30, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 2)]
+        [RegularExpression(User.NamePattern, ErrorMessage = "Feltet \"{0}\" indeholder et ugyldigt navn.")]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "Last name")]
-        [StringLength(30, ErrorMessage = "The field \"{0}\" must be {2}-{1} characters long.", MinimumLength = 2)]
-        [RegularExpression("[a-zA-Z\\s]*", ErrorMessage = "The field \"{0}\" contains an invalid name")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Efternavn")]
+        [StringLength(30, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 2)]
+        [RegularExpression(User.NamePattern, ErrorMessage = "Feltet \"{0}\" indeholder et ugyldigt navn.")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "Description")]
-        [StringLength(int.MaxValue, ErrorMessage = "The field \"{0}\" must be atleast {2} characters long.", MinimumLength = 10)]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Beskrivelse")]
+        [StringLength(int.MaxValue, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 10)]
+        [RegularExpression(User.DescriptionPattern, ErrorMessage = "Feltet \"{0}\" indeholder en ugyldig beskrivelse.")]
         public string Description { get; set; }
 
         public AddressModel Address { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "Profile picture")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Profil billed")]
         public HttpPostedFileBase Picture { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [StringLength(100, ErrorMessage = "The field \"{0}\" must be {2}-{1} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [StringLength(100, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Kode")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Gentag kode")]
+        [Compare("Password", ErrorMessage = "Koden og den gentagene kode er ikke ens.")]
         public string ConfirmPassword { get; set; }
     }
 
     public class ResetPasswordViewModel
     {
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [StringLength(100, ErrorMessage = "Feltet {0} skal være {2}-{1} bogstaver langt.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Kode")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Gentag kode")]
+        [Compare("Password", ErrorMessage = "Koden og den gentagene kode er ikke ens.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
@@ -129,7 +131,7 @@ namespace Meetup.Websites.Models
 
     public class ForgotPasswordViewModel
     {
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

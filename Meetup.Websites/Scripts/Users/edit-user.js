@@ -39,16 +39,16 @@ $("document").ready(() => {
         var id = LastWorkPlaceId++;
         var editPlace = $("<input list=\"organization-list" + id + "\" name=\"Organizations[" + id + "].Name\" id=\"Organizations[" + id + "].Name\" class=\"organization-edit\" />");
         editPlace.keyup(GetCompanyList);
-        var removeButton = $("<button type=\"button\" class=\"organization-remove\">Delete</button>");
+        var removeButton = $("<button type=\"button\" class=\"organization-remove\">Slet</button>");
         removeButton.click(DeleteCompanyItem);
         //Create inputs
         $("#organization-list").append($("<div class=\"form-group\"></div>")
-            .append($("<label for=\"Organizations[" + id + "].Name\">Organization name</label>"))
+            .append($("<label for=\"Organizations[" + id + "].Name\">Organisation navn</label>"))
             .append(editPlace)
             .append($("<datalist id=\"organization-list" + id + "\" class=\"organization-holder\"></datalist>"))
-            .append($("<label for=\"Organizations[" + id + "].StartDate\">Hiriring date</label>"))
+            .append($("<label for=\"Organizations[" + id + "].StartDate\">Ansættelsesdato</label>"))
             .append($("<input type=\"date\" name=\"Organizations[" + id + "].StartDate\" id=\"Organizations[" + id + "].StartDate\" />"))
-            .append($("<label for=\"Organizations[" + id + "].EndDate\">Ending data</label>"))
+            .append($("<label for=\"Organizations[" + id + "].EndDate\">Slut dato</label>"))
             .append($("<input type=\"date\" name=\"Organizations[" + id + "].EndDate\" id=\"Organizations[" + id + "].EndDate\" />"))
             .append($("<input type=\"hidden\" name=\"Organizations[" + id + "].State\" value=\"new\"/ class=\"organization-state\">"))
             .append(removeButton));

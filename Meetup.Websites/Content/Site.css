@@ -371,7 +371,7 @@ form.line-form input {
 /*Users end*/
 /*Events start*/
 .event-information-item {
-    text-align: center;
+    margin-top: 10px;
 }
 
 .seance-holder {

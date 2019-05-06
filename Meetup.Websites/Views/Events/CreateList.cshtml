@@ -1,10 +1,10 @@
 ﻿@model Meetup.Websites.Models.EventListCreationModel
 @{
-    ViewBag.Title = "Create seance list " + Model.Event.Name;
+    ViewBag.Title = "Lav seancer for " + Model.Event.Name;
 }
 
 <div class="white-box">
-    <h3>Create seance list for @Model.Event.Name</h3>
+    <h3>Lav seancer for @Model.Event.Name</h3>
     @using(Html.BeginForm("CreateList", "Events", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", @class = "normal"}))
     {
         @Html.AntiForgeryToken()

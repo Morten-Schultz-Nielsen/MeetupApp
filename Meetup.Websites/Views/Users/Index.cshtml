@@ -1,13 +1,13 @@
 ﻿@model Meetup.Websites.Models.UserListModel
 @using Meetup.Entities;
 @{
-    ViewBag.Title = "Users";
+    ViewBag.Title = "Personer";
 }
 @using(Html.BeginForm("Index", "Users", FormMethod.Get, new { role = "form", @class="line-form white-box" }))
 {
     @Html.LabelFor(m => m.SearchString)
     @Html.TextBoxFor(m => m.SearchString)
-    <input type="submit" value="Search" class="button line-form-item" />
+    <input type="submit" value="Søg" class="button line-form-item" />
 }
 @Html.DisplayFor(m => m.Users, "Users")
 <div class="white-box spaced-box page-button-holder">

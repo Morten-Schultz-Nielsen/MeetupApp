@@ -6,21 +6,21 @@
 
 <div class="side-boxes">
     <section class="white-box">
-        <h3>Upcoming events:</h3>
+        <h3>Opkommende events:</h3>
         <ul>
             @for(int i = 0; i < Model.NextEvents.Count; i++)
             {
                 <li class="item">
                     <div class="item-name">
                         <a href="@Url.Action("Page","Events", new { Id = Model.NextEvents[i].Id })">@Model.NextEvents[i].Name</a><br />
-                        <p>Date: @Model.NextEvents[i].BeginningTime.ToString("dd-MM-yyyy HH:mm")</p>
+                        <p>Dato: @Model.NextEvents[i].BeginningTime.ToString("dd-MM-yyyy HH:mm")</p>
                         @if(Model.NextEvents[i].Seances.Count == 0)
                         {
-                            <p>You have @Model.WishesPerEvent[i] @(Model.WishesPerEvent[i] == 1 ? "wish" : "wishes") for this event.</p>
+                            <p>Du har @Model.WishesPerEvent[i] @(Model.WishesPerEvent[i] == 1 ? "ønske" : "ønsker") for denne event.</p>
                         }
                         else
                         {
-                            <p>The seance list is created for this event.</p>
+                            <p>Der er lavet en liste over seancerne.</p>
                         }
                     </div>
                 </li>
@@ -28,7 +28,7 @@
         </ul>
     </section>
     <section class="white-box">
-        <h3>New invites:</h3>
+        <h3>Nye invitationer:</h3>
         <ul>
             @foreach(Event newEvent in Model.NewEvents)
             {

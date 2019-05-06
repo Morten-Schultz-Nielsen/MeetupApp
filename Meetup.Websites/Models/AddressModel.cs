@@ -9,34 +9,34 @@ namespace Meetup.Websites.Models
 {
     public class AddressModel
     {
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "Country")]
-        [StringLength(30, ErrorMessage = "The field \"{0}\" must be {2}-{1} characters long.", MinimumLength = 2)]
-        [RegularExpression(Address.CountryPattern, ErrorMessage = "The field \"{0}\" contains an invalid name")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Land")]
+        [StringLength(30, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 2)]
+        [RegularExpression(Address.CountryPattern, ErrorMessage = "Feltet \"{0}\" indeholder et ugyldigt navn")]
         public string Country { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "Street name")]
-        [StringLength(30, ErrorMessage = "The field \"{0}\" must be {2}-{1} characters long.", MinimumLength = 2)]
-        [RegularExpression(Address.StreetPattern, ErrorMessage = "The field \"{0}\" contains an invalid name")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Vej navn")]
+        [StringLength(30, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 2)]
+        [RegularExpression(Address.StreetPattern, ErrorMessage = "Feltet \"{0}\" indeholder et ugyldigt navn")]
         public string StreetName { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "Street number")]
-        [StringLength(30, ErrorMessage = "The field \"{0}\" must be less than {1} characters long.")]
-        [RegularExpression(Address.StreetNumberPattern, ErrorMessage = "The field \"{0}\" contains an invalid street number")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Vej nummer")]
+        [StringLength(30, ErrorMessage = "Feltet \"{0}\"mskal være under {1} bogstaver langt.")]
+        [RegularExpression(Address.StreetNumberPattern, ErrorMessage = "Feltet \"{0}\" indeholder et ugyldigt vej nummer")]
         public string StreetNumber { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "City")]
-        [StringLength(30, ErrorMessage = "The field \"{0}\" must be {2}-{1} characters long.", MinimumLength = 2)]
-        [RegularExpression(Address.CityPattern, ErrorMessage = "The field \"{0}\" contains an invalid name")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "By")]
+        [StringLength(30, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 2)]
+        [RegularExpression(Address.CityPattern, ErrorMessage = "Feltet \"{0}\" indeholder en ugyldig vej")]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "City zipcode")]
-        [StringLength(4, ErrorMessage = "The field \"{0}\" must be {1} characters long.", MinimumLength = 4)]
-        [RegularExpression("[1-9]{1}[0-9]{3}", ErrorMessage = "The field \"{0}\" can only contain numbers between 1000 to 9999")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Postnummer")]
+        [StringLength(4, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 4)]
+        [RegularExpression("[1-9]{1}[0-9]{3}", ErrorMessage = "Feltet \"{0}\" kan kun indehole tal mellem 1000 og 9999")]
         public string CityZipCode { get; set; }
     }
 }

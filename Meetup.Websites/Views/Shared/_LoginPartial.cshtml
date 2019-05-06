@@ -5,14 +5,14 @@
     using(Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "post-simple nav-list nav-item line-form", role = "form", enctype = "multipart/form-data"}))
     {
         @Html.AntiForgeryToken()
-        @Html.ActionLink("Your Profile", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Click to go to your profile" })
-        <input type="submit" value="Log off" id="nav-simple-form-send" />
+        @Html.ActionLink("Din profil", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Click for at komme til din profil" })
+        <input type="submit" value="Log af" id="nav-simple-form-send" />
     }
 }
 else
 {
     <div class="nav-login nav-list nav-item">
-        @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
-        @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+        @Html.ActionLink("Registrer", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+        @Html.ActionLink("Log ind", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
     </div>
 }

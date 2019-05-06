@@ -27,34 +27,34 @@ namespace Meetup.Websites.Models
 
     public class SetPasswordViewModel
     {
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [StringLength(100, ErrorMessage = "Feltet {0} skal være mindst {2} bogstaver langt.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Ny kode")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "Gentag kode")]
+        [Compare("NewPassword", ErrorMessage = "Den nye kode og den gentagene kode er ikke ens.")]
         public string ConfirmPassword { get; set; }
     }
 
     public class ChangePasswordViewModel
     {
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "Nuværende kode")]
         public string OldPassword { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [StringLength(100, ErrorMessage = "Feltet {0} skal være mindst {2} bogstaver langt.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Ny kode")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "Gentag ny kode")]
+        [Compare("NewPassword", ErrorMessage = "Den nye kode og den gentagene kode er ikke ens.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -62,19 +62,19 @@ namespace Meetup.Websites.Models
     {
         [Required]
         [Phone]
-        [Display(Name = "Phone Number")]
+        [Display(Name = "Telefon nummer")]
         public string Number { get; set; }
     }
 
     public class VerifyPhoneNumberViewModel
     {
         [Required]
-        [Display(Name = "Code")]
+        [Display(Name = "Kode")]
         public string Code { get; set; }
 
         [Required]
         [Phone]
-        [Display(Name = "Phone Number")]
+        [Display(Name = "Telefon nummer")]
         public string PhoneNumber { get; set; }
     }
 

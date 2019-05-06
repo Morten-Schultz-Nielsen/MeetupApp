@@ -55,18 +55,20 @@ namespace Meetup.Websites.Models
 
         public int? EditingId { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "Event Name")]
-        [StringLength(30, ErrorMessage = "The field \"{0}\" must be {2}-{1} characters long.", MinimumLength = 2)]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Event navn")]
+        [StringLength(30, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 2)]
+        [RegularExpression(Event.NamePattern, ErrorMessage = "Feltet \"{0}\" indeholder et ugyldigt navn.")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "Description")]
-        [StringLength(int.MaxValue, ErrorMessage = "The field \"{0}\" must be atleast {2} characters long.", MinimumLength = 10)]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Beskrivelse")]
+        [StringLength(int.MaxValue, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 10)]
+        [RegularExpression(Event.DescriptionPattern, ErrorMessage = "Feltet \"{0}\" indeholder en ugyldig berskrivelse.")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "Event Start Time")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Event startstidspunkt")]
         public DateTime? Time { get; set; }
 
         public AddressModel Address { get; set; }
@@ -77,18 +79,18 @@ namespace Meetup.Websites.Models
         public Event Event { get; set; }
 
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "Meeting time")]
-        [RegularExpression("^[1-9]{1}[0-9]*$", ErrorMessage = "The number has to be higher than 0")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Tid per møde")]
+        [RegularExpression("^[1-9]{1}[0-9]*$", ErrorMessage = "Tallet skal være højere end 0")]
         public int MinuteInterval { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "Amount of meetings")]
-        [RegularExpression("^[1-9]{1}[0-9]*$", ErrorMessage = "The number has to be higher than 0")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Antal seancer")]
+        [RegularExpression("^[1-9]{1}[0-9]*$", ErrorMessage = "Tallet skal være højere end 0")]
         public int AmountOfMeetings { get; set; }
 
-        [Required(ErrorMessage = "The field \"{0}\" is required.")]
-        [Display(Name = "Allow duplicate meetings")]
+        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
+        [Display(Name = "Tillad ens møder")]
         public bool ForceFillMeetings { get; set; }
     }
 }

@@ -24,10 +24,10 @@ namespace Meetup.Websites.Models
 
     public class WishOrganizationModel
     {
-        [Display(Name = "Organization")]
+        [Display(Name = "Organisation")]
         public string Name { get; set; }
 
-        [Display(Name = "Work years")]
+        [Display(Name = "Arbejdsår")]
         public int? WorkYears { get; set; }
     }
 
@@ -55,6 +55,7 @@ namespace Meetup.Websites.Models
 
         public List<Interest> ChosenInterestsList { get; set; }
 
+        [Display(Name = "Navn")]
         public string ChosenName { get; set; }
 
         public string ChosenInterests { get; set; }

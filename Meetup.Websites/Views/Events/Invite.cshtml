@@ -1,13 +1,13 @@
 ﻿@model Meetup.Websites.Models.InviteToEventModel
 @using Meetup.Entities
 @{
-    ViewBag.Title = "Invite to event";
+    ViewBag.Title = "Inviter til event";
 }
 
 @if (Model.CanInviteTo.Count != 0)
 {
 <div class="white-box">
-    <h3>Invite</h3>
+    <h3>Inviter</h3>
     <ul>
         @foreach(Event hostedEvent in Model.CanInviteTo)
         {
@@ -19,7 +19,7 @@
                     @Html.Hidden("TheEvent", hostedEvent.Id)
                     @Html.Hidden("User", Model.Inviting.Id)
     
-                    <input type="submit" value="Invite" />
+                    <input type="submit" value="Inviter" />
                 }
             </li>
         }
@@ -30,7 +30,7 @@
 @if (Model.IsInvitedTo.Count != 0)
 {
 <div class="white-box">
-    <h3>Uninvite</h3>
+    <h3>Fjern invitation</h3>
     <ul>
         @foreach(Event hostedEvent in Model.IsInvitedTo)
         {
@@ -42,7 +42,7 @@
                     @Html.Hidden("TheEvent", hostedEvent.Id)
                     @Html.Hidden("User", Model.Inviting.Id)
     
-                    <input type="submit" value="Uninvite" />
+                    <input type="submit" value="Fjern" />
                 }
             </li>
         }
@@ -53,8 +53,8 @@
 @if (Model.IsInvitedTo.Count == 0 && Model.CanInviteTo.Count == 0)
 {
 <div class="white-box">
-    <h2>You do not own any events</h2>
-    <a href="@Url.Action("Create")" class="button">Create new event</a>
+    <h2>Du har ikke nogen events</h2>
+    <a href="@Url.Action("Create")" class="button">Lav en ny event</a>
 </div>
 }
 
