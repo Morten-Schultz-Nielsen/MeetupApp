@@ -113,6 +113,7 @@ main {
     background: #EEEEEE;
     border-left: 5px solid rgb(35, 190, 94);
     border-right: 5px solid rgb(35, 190, 94);
+    min-height: 80vh;
 }
 
 .white-box {
@@ -164,6 +165,7 @@ button,
     font-size: 1em;
     cursor: pointer;
     text-align: center;
+    margin: 5px;
 }
 
 a.end-button {
@@ -432,15 +434,29 @@ form.line-form input {
 .meeting-line {
     background: #FFF;
     padding: 10px;
-    justify-content: space-between;
-    display: flex;
     margin-top: 5px;
+    position: relative;
 }
-.meeting-line h3,
+.meeting-line h3 {
+    text-align: center;
+}
+
 .meeting-line a {
-    display: inline-flex;
-    align-items: center;
-    height: 30px;
+    position: absolute;
+    top: 0;
+    margin: 10px;
+}
+
+.meeting-line a.all-seances-button {
+    left: 0;
+}
+
+.meeting-line a.create-seances-button {
+    right: 0;
+}
+
+.no-seances {
+    text-align: center;
 }
 
 .wish-description{
@@ -467,10 +483,13 @@ form.line-form input {
     width: 30%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
 }
 .item-edit a {
     margin: 0 5px;
+}
+.item:last-child {
+    margin-bottom: 15px;
 }
 /*List End*/
 /*Wish Start*/

@@ -48,21 +48,21 @@
 {
     <section class="meeting-line">
         <h3>Dine møder:</h3>
-        <p>Der er ikke lavet nogen liste endnu.</p>
+        <p class="no-seances">Der er ikke lavet nogen liste endnu.</p>
         @if(Model.EventOwner)
         {
-            <a href="@Url.Action("CreateList", new { Id = Model.Event.Id })" class="button">Lav en liste</a>
+            <a href="@Url.Action("CreateList", new { Id = Model.Event.Id })" class="button create-seances-button">Lav en liste</a>
         }
     </section>
 }
 else
 {
     <section class="meeting-line">
-        <a class="seance-collapse-button button" href="@Url.Action("Seances","Events", new { Id = Model.Event.Id })">Alle møder</a>
+        <a class="all-seances-button button" href="@Url.Action("Seances","Events", new { Id = Model.Event.Id })" target="_blank">Alle møder</a>
         <h3>Dine møder:</h3>
         @if(Model.EventOwner)
         {
-            <a href="@Url.Action("CreateList", new { Id = Model.Event.Id })" target="_blank" class="button">Lav en ny liste</a>
+            <a href="@Url.Action("CreateList", new { Id = Model.Event.Id })" class="button create-seances-button">Lav en ny liste</a>
         }
     </section>
     <div class="horizontal-scroll">
