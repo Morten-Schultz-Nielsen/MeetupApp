@@ -61,6 +61,15 @@ namespace Meetup.Entities
             Wishes = new HashSet<Wish>();
         }
 
+        /// <summary>
+        /// Creates a new <see cref="User"/> object
+        /// </summary>
+        /// <param name="firstName">The user's first name</param>
+        /// <param name="lastName">The user's last name</param>
+        /// <param name="description">A description about the user</param>
+        /// <param name="picture">A picture of the user</param>
+        /// <param name="email">The user's email</param>
+        /// <param name="address">The user's address</param>
         public User(string firstName, string lastName, string description, string picture, string email, Address address)
         {
             Events = new HashSet<Event>();

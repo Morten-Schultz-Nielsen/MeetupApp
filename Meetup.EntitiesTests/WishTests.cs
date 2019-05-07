@@ -11,6 +11,12 @@ namespace Meetup.Entities.Tests
     [TestClass()]
     public class WishTests
     {
+        /// <summary>
+        /// Creates a simple <see cref="Wish"/> object
+        /// </summary>
+        /// <param name="userId">the id of the user who is wishing</param>
+        /// <param name="eventId">the id of the event the wish is for</param>
+        /// <returns>A simple <see cref="Wish"/></returns>
         public static Wish GetSimpleWish(int userId = 0, int eventId = 0)
         {
             return new Wish(UserTests.GetSimpleUser(userId), EventTests.GetSimpleEvent(eventId));

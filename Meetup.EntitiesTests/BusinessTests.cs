@@ -11,6 +11,11 @@ namespace Meetup.Entities.Tests
     [TestClass()]
     public class BusinessTests
     {
+        /// <summary>
+        /// Creates a simple <see cref="Business"/> object
+        /// </summary>
+        /// <param name="id">the id the business should have</param>
+        /// <returns>A simple <see cref="Business"/></returns>
         public static Business GetSimpleBusiness(int id = 0)
         {
             return new Business("My Business") { Id = id };

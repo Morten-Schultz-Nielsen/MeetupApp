@@ -18,7 +18,7 @@ namespace Meetup.Entities.Tests
             User userTwo = UserTests.GetSimpleUser(2);
             User userThree = UserTests.GetSimpleUser(3);
 
-            Meeting meeting = new Meeting(userOne, userTwo);
+            Meeting meeting = new Meeting(userOne, userTwo, new Seance(EventTests.GetSimpleEvent(),1, new DateTime(2000,10,10), new DateTime(2000, 10, 11)));
             Assert.IsTrue(meeting.MeetingContainsUser(userOne.Id));
             Assert.IsTrue(meeting.MeetingContainsUser(userTwo.Id));
             Assert.IsFalse(meeting.MeetingContainsUser(userThree.Id));

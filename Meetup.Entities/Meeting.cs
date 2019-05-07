@@ -20,10 +20,17 @@ namespace Meetup.Entities
 
         }
 
-        public Meeting(User userOne, User userTwo)
+        /// <summary>
+        /// Creates a new <see cref="Meeting"/> object
+        /// </summary>
+        /// <param name="userOne">One of the persons in the meeting</param>
+        /// <param name="userTwo">The other person in the meeting</param>
+        /// <param name="seance">The seance the meeting is for</param>
+        public Meeting(User userOne, User userTwo, Seance seance)
         {
             UserOne = userOne;
             UserTwo = userTwo;
+            Seance = seance;
         }
 
         /// <summary>

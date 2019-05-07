@@ -37,6 +37,13 @@ namespace Meetup.Entities
             Seances = new HashSet<Seance>();
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Event"/> object
+        /// </summary>
+        /// <param name="name">The name of the event</param>
+        /// <param name="description">The event's description</param>
+        /// <param name="eventOwner">The owner of the event</param>
+        /// <param name="address">The address the event is held at</param>
         public Event(string name, string description, User eventOwner, Address address)
         {
             Invites = new HashSet<Invite>();

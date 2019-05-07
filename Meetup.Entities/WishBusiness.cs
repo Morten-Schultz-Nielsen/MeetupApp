@@ -19,6 +19,11 @@ namespace Meetup.Entities
 
         }
 
+        /// <summary>
+        /// Creates a new <see cref="WishBusinesses"/> object
+        /// </summary>
+        /// <param name="business">The business in the link</param>
+        /// <param name="wish">The wish in the link</param>
         public WishBusinesses(Business business, Wish wish)
         {
             Business = business;

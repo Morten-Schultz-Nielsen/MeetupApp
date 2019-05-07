@@ -11,6 +11,11 @@ namespace Meetup.Entities.Tests
     [TestClass()]
     public class OrganizationTests
     {
+        /// <summary>
+        /// Creates an simple <see cref="Organization"/> object
+        /// </summary>
+        /// <param name="id">The id the organization should have</param>
+        /// <returns>An simple <see cref="Organization"/></returns>
         public static Organization GetSimpleOrganization(int id = 0)
         {
             return new Organization("My Organization") { Id = 0 };

@@ -375,10 +375,8 @@ namespace Meetup.Websites.Controllers
                 //Create a meeting row (seance)
                 List<MeetingScore> possibleMeetingsThisRow = possibleMeetings.Where(m => true).ToList();
                 List<User> usersNotInMeeting = UsersInEvent.Where(u => true).ToList();
-                Seance eventMeetingsRow = new Seance();
-                eventMeetingsRow.BeginningTime = theEvent.BeginningTime.AddMinutes(viewModel.MinuteInterval * i);
-                eventMeetingsRow.EndTime = eventMeetingsRow.BeginningTime.AddMinutes(viewModel.MinuteInterval);
-                eventMeetingsRow.MeetingNumber = i;
+                DateTime beginningTime = theEvent.BeginningTime.AddMinutes(viewModel.MinuteInterval * i);
+                Seance eventMeetingsRow = new Seance(theEvent, i, beginningTime, beginningTime.AddMinutes(viewModel.MinuteInterval));
 
                 for(int j = 0; j < meetingsPerSeance; j++)
                 {
@@ -399,7 +397,7 @@ namespace Meetup.Websites.Controllers
                     MeetingScore meetingToAdd = possibleMeetingsThisRow[0];
 
                     //remove impossible meetings (meetings containing the users who just have been added to the meeting list)
-                    eventMeetingsRow.Meetings.Add(new Meeting(meetingToAdd.Person1, meetingToAdd.Person2));
+                    eventMeetingsRow.Meetings.Add(new Meeting(meetingToAdd.Person1, meetingToAdd.Person2, eventMeetingsRow));
                     possibleMeetingsThisRow = possibleMeetingsThisRow.Where(m => m.Person1.Id != meetingToAdd.Person1.Id && m.Person2.Id != meetingToAdd.Person2.Id && m.Person1.Id != meetingToAdd.Person2.Id && m.Person2.Id != meetingToAdd.Person1.Id).ToList();
                     usersNotInMeeting = usersNotInMeeting.Where(u => u.Id != meetingToAdd.Person1.Id && u.Id != meetingToAdd.Person2.Id).ToList();
                     possibleMeetings.Remove(meetingToAdd);

@@ -19,6 +19,11 @@ namespace Meetup.Entities
 
         }
 
+        /// <summary>
+        /// Creates a new <see cref="UsersBusiness"/> object
+        /// </summary>
+        /// <param name="business">The business in the link</param>
+        /// <param name="user">The user in the link</param>
         public UsersBusiness(Business business, User user)
         {
             Business = business;

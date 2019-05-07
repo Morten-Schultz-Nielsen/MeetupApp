@@ -47,6 +47,14 @@ namespace Meetup.Entities
             Users = new HashSet<User>();
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Address"/> object
+        /// </summary>
+        /// <param name="country">The name of the country</param>
+        /// <param name="city">The name of the city</param>
+        /// <param name="zipCode">The city's zipcode</param>
+        /// <param name="street">The street name</param>
+        /// <param name="streetNumber">The street number</param>
         public Address(string country, string city, int zipCode, string street, string streetNumber)
         {
             Events = new HashSet<Event>();

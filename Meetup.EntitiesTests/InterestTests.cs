@@ -11,6 +11,11 @@ namespace Meetup.Entities.Tests
     [TestClass()]
     public class InterestTests
     {
+        /// <summary>
+        /// Creates a simple <see cref="Interest"/> object
+        /// </summary>
+        /// <param name="id">the id the interest should have</param>
+        /// <returns>A simple <see cref="Interest"/></returns>
         public static Interest GetSimpleInterest(int id = 0)
         {
             return new Interest("C#") { Id = id };

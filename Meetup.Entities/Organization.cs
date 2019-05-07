@@ -23,6 +23,10 @@ namespace Meetup.Entities
             UsersOrganizations = new HashSet<UsersOrganizations>();
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Organization"/> object
+        /// </summary>
+        /// <param name="name">The name of the organization</param>
         public Organization(string name)
         {
             UsersOrganizations = new HashSet<UsersOrganizations>();

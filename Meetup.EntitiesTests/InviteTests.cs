@@ -11,6 +11,12 @@ namespace Meetup.Entities.Tests
     [TestClass()]
     public class InviteTests
     {
+        /// <summary>
+        /// Creates an simple <see cref="Invite"/> object
+        /// </summary>
+        /// <param name="eventId">the id of the event the invite is for</param>
+        /// <param name="userId">the id of the user the invite is to</param>
+        /// <returns>An simple <see cref="Invite"/></returns>
         public static Invite GetSimpleInvite(int eventId = 0, int userId = 0)
         {
             return new Invite(EventTests.GetSimpleEvent(eventId), UserTests.GetSimpleUser(userId), DateTime.Now);

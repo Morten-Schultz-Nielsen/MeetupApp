@@ -16,9 +16,25 @@
         private Event @event;
         private ICollection<Meeting> meetings;
 
-        public Seance()
+        protected Seance()
         {
             Meetings = new HashSet<Meeting>();
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Seance"/> object
+        /// </summary>
+        /// <param name="event">The <see cref="Event"/> the seance is for</param>
+        /// <param name="number">The number this seance has (used for sorting)</param>
+        /// <param name="beginningTime">The time the seance begins</param>
+        /// <param name="endTime">The time the seance ends</param>
+        public Seance(Event @event, int number ,DateTime beginningTime, DateTime endTime)
+        {
+            Meetings = new HashSet<Meeting>();
+            Event = @event;
+            BeginningTime = beginningTime;
+            EndTime = endTime;
+            MeetingNumber = number;
         }
 
         /// <summary>
@@ -35,7 +51,8 @@
         /// </summary>
         public int EventId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -87,6 +104,14 @@
             }
             set
             {
+                if(value is null)
+                {
+                    EventId = 0;
+                }
+                else
+                {
+                    EventId = value.Id;
+                }
                 @event = value;
             }
         }

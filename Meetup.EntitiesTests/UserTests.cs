@@ -11,6 +11,11 @@ namespace Meetup.Entities.Tests
     [TestClass()]
     public class UserTests
     {
+        /// <summary>
+        /// Creates an simple <see cref="User"/> object
+        /// </summary>
+        /// <param name="userId">The id the user should have</param>
+        /// <returns>An simple <see cref="User"/></returns>
         public static User GetSimpleUser(int userId = 0)
         {
             return new User("Bob","Bobsen","Hello, I'm bob","data:image/png;base64,aaa","a@a.a", AddressTests.GetSimpleAddress()) { Id = userId };

@@ -26,6 +26,11 @@
             WishBusinesses = new HashSet<WishBusinesses>();
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Wish"/> object
+        /// </summary>
+        /// <param name="user">The user who has the wish</param>
+        /// <param name="event">The event the wish is for</param>
         public Wish(User user, Event @event)
         {
             WishInterests = new HashSet<WishInterests>();

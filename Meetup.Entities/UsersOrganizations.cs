@@ -21,6 +21,12 @@ namespace Meetup.Entities
 
         }
 
+        /// <summary>
+        /// Creates a new <see cref="UsersOrganizations"/> object
+        /// </summary>
+        /// <param name="organization">The organization in the link</param>
+        /// <param name="user">The user who worked in the organization</param>
+        /// <param name="startDate">The date the user was hired</param>
         public UsersOrganizations(Organization organization, User user, DateTime startDate)
         {
             Organization = organization;

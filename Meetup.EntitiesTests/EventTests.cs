@@ -11,6 +11,12 @@ namespace Meetup.Entities.Tests
     [TestClass()]
     public class EventTests
     {
+        /// <summary>
+        /// Creates a simple <see cref="Event"/> object
+        /// </summary>
+        /// <param name="eventId">The id the event should have</param>
+        /// <param name="ownerId">The id the event owner should have</param>
+        /// <returns>A simple <see cref="Event"/></returns>
         public static Event GetSimpleEvent(int eventId = 0, int ownerId = 0)
         {
             return new Event("My 1st Event", "My 783945uisdfsf{[]{£@$@$ event description", UserTests.GetSimpleUser(ownerId), AddressTests.GetSimpleAddress()) { Id = eventId };

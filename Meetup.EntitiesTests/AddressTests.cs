@@ -11,6 +11,10 @@ namespace Meetup.Entities.Tests
     [TestClass()]
     public class AddressTests
     {
+        /// <summary>
+        /// Creates an simple <see cref="Address"/> object
+        /// </summary>
+        /// <returns>An simple <see cref="Address"/></returns>
         public static Address GetSimpleAddress()
         {
             return new Address("Denmark", "Vejle", 1500, "My Street", "100ab32");

@@ -20,6 +20,12 @@ namespace Meetup.Entities
 
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Invite"/> object
+        /// </summary>
+        /// <param name="event">The event the invite is for</param>
+        /// <param name="user">The user the invite is inviting</param>
+        /// <param name="inviteTime">The time the invite was created</param>
         public Invite(Event @event, User user, DateTime inviteTime)
         {
             Event = @event;

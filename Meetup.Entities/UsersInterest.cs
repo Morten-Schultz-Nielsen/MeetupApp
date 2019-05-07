@@ -19,6 +19,11 @@ namespace Meetup.Entities
 
         }
 
+        /// <summary>
+        /// Creates a new <see cref="UsersInterest"/> object
+        /// </summary>
+        /// <param name="interest">The interest in the link</param>
+        /// <param name="user">The user in the link</param>
         public UsersInterest(Interest interest, User user)
         {
             Interest = interest;
