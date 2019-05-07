@@ -425,13 +425,16 @@ namespace Meetup.Websites.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            Event theEvent = model.Events.SingleOrDefault(e => e.Id == id && e.Invites.Any(u => u.UserId == infoId));
-            if(theEvent is null)
+
+            LeaveEventModel viewModel = new LeaveEventModel();
+            viewModel.EventInformation = model.Events.SingleOrDefault(e => e.Id == id && e.Invites.Any(u => u.UserId == infoId));
+            if(viewModel.EventInformation is null)
             {
                 return RedirectToAction("Index", "Home");
             }
+            viewModel.EventId = viewModel.EventInformation.Id;
 
-            return View(theEvent);
+            return View(viewModel);
         }
 
         /// <summary>
@@ -441,7 +444,7 @@ namespace Meetup.Websites.Controllers
         /// <returns>The event list page</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Leave(Event theEvent)
+        public ActionResult Leave(LeaveEventModel viewModel)
         {
             //Get all the event data and make sure the user is in the event
             MeetupModel model = new MeetupModel();
@@ -450,14 +453,14 @@ namespace Meetup.Websites.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            theEvent = model.Events.SingleOrDefault(e => e.Id == theEvent.Id && e.Invites.Any(u => u.UserId == infoId));
-            if(theEvent is null)
+            viewModel.EventInformation = model.Events.SingleOrDefault(e => e.Id == viewModel.EventId && e.Invites.Any(u => u.UserId == infoId));
+            if(viewModel.EventInformation is null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
             //Remove invite
-            model.Invites.Remove(theEvent.Invites.SingleOrDefault(u => u.UserId == infoId));
+            model.Invites.Remove(viewModel.EventInformation.Invites.SingleOrDefault(u => u.UserId == infoId));
 
             model.SaveChanges();
             return RedirectToAction("Index");

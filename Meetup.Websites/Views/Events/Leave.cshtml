@@ -1,17 +1,17 @@
-﻿@model Meetup.Entities.Event
+﻿@model Meetup.Websites.Models.LeaveEventModel
 @{
     ViewBag.Title = "Leave";
-    int eventUsers = @Model.Invites.Count;
+    int eventUsers = @Model.EventInformation.Invites.Count;
 }
 
 <div class="white-box">
-    <h3>Er du sikker på at du vil forlade <a href="@Url.Action("Page",new { eventId = Model.Id })">&quot;@Model.Name&quot;?</a></h3>
+    <h3>Er du sikker på at du vil forlade <a href="@Url.Action("Page",new { Id = Model.EventId })">&quot;@Model.EventInformation.Name&quot;?</a></h3>
     <p>Eventen indeholder @eventUsers inviteret @(eventUsers == 1 ? "person" : "personer").</p><br />
-    <p>Eventen finder sted den @Model.BeginningTime.ToString("dd-MM-yyyy HH:mm")<br />på addressen: @(Model.Address).</p>
+    <p>Eventen finder sted den @Model.EventInformation.BeginningTime.ToString("dd-MM-yyyy HH:mm")<br />på addressen: @(Model.EventInformation.Address).</p>
     @using(Html.BeginForm("Leave", "Events", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", @class = "normal" }))
     {
         @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.EventId)
         <input type="submit" value="Forlad event" class="button" />
     }
 </div>

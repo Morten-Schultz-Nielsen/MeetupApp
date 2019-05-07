@@ -7,6 +7,12 @@ using Meetup.Entities;
 
 namespace Meetup.Websites.Models
 {
+    public class LeaveEventModel
+    {
+        public Event EventInformation { get; set; }
+
+        public int EventId { get; set; }
+    }
     public class SeanceViewModel
     {
         public List<Seance> Seances { get; set; }
