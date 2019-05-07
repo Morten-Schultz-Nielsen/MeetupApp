@@ -221,10 +221,11 @@ namespace Meetup.Websites.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            User inviting = model.Users.SingleOrDefault(u => u.Id == user);
             Event inviteToEvent = model.Events.SingleOrDefault(e => e.Id == theEvent && e.HostUserId == infoID);
-            if(!(inviteToEvent is null) && model.Users.Any(u => u.Id == user))
+            if(!(inviteToEvent is null) && !(inviting is null) && !inviteToEvent.GetUsers().Any(u => u.Id == user))
             {
-                inviteToEvent.Invites.Add(new Invite(inviteToEvent,model.Users.SingleOrDefault(u => u.Id == infoID),DateTime.Now));
+                inviteToEvent.Invites.Add(new Invite(inviteToEvent, inviting, DateTime.Now));
                 model.SaveChanges();
             }
 
