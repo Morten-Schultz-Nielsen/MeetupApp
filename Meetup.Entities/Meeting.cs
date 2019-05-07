@@ -40,7 +40,8 @@ namespace Meetup.Entities
         /// </summary>
         public int SeanceId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -72,6 +73,14 @@ namespace Meetup.Entities
             }
             set
             {
+                if(value is null)
+                {
+                    SeanceId = 0;
+                }
+                else
+                {
+                    SeanceId = value.Id;
+                }
                 seance = value;
             }
         }
@@ -87,7 +96,14 @@ namespace Meetup.Entities
             }
             set
             {
-                UserOneId = value.Id;
+                if(value is null)
+                {
+                    UserOneId = 0;
+                }
+                else
+                {
+                    UserOneId = value.Id;
+                }
                 userOne = value;
             }
         }
@@ -103,7 +119,14 @@ namespace Meetup.Entities
             }
             set
             {
-                UserTwoId = value.Id;
+                if(value is null)
+                {
+                    UserTwoId = 0;
+                }
+                else
+                {
+                    UserTwoId = value.Id;
+                }
                 userTwo = value;
             }
         }

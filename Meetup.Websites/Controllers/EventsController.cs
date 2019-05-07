@@ -326,7 +326,8 @@ namespace Meetup.Websites.Controllers
             }
 
             EventListCreationModel viewModel = new EventListCreationModel();
-            viewModel.Event = theEvent;
+            viewModel.EventInformation = theEvent;
+            viewModel.EventId = theEvent.Id;
 
             return View(viewModel);
         }
@@ -344,7 +345,7 @@ namespace Meetup.Websites.Controllers
 
             //Makes sure the user owns the event
             int? infoID = this.UserId();
-            Event theEvent = model.Events.SingleOrDefault(e => e.Id == viewModel.Event.Id && e.HostUserId == infoID);
+            Event theEvent = model.Events.SingleOrDefault(e => e.Id == viewModel.EventId && e.HostUserId == infoID);
             if(theEvent is null)
             {
                 return RedirectToAction("Index", "Home");
@@ -365,7 +366,7 @@ namespace Meetup.Websites.Controllers
             model.Seances.RemoveRange(theEvent.Seances);
 
             //Generate list of all possible meetings
-            List<MeetingScore> possibleMeetings = MeetingScore.GetPossibleMeetings(UsersInEvent, viewModel.Event.Id);
+            List<MeetingScore> possibleMeetings = MeetingScore.GetPossibleMeetings(UsersInEvent, viewModel.EventId);
 
             //Generate meetings list
             int meetingsPerSeance = UsersInEvent.Count / 2;
@@ -386,7 +387,7 @@ namespace Meetup.Websites.Controllers
                         //fill with already used meetings if turned on
                         if(viewModel.ForceFillMeetings)
                         {
-                            possibleMeetingsThisRow = MeetingScore.GetPossibleMeetings(usersNotInMeeting, viewModel.Event.Id);
+                            possibleMeetingsThisRow = MeetingScore.GetPossibleMeetings(usersNotInMeeting, viewModel.EventId);
                         }
                         else
                         {
@@ -409,7 +410,7 @@ namespace Meetup.Websites.Controllers
 
             model.SaveChanges();
 
-            return RedirectToAction("Page", new { EventId = viewModel.Event.Id });
+            return RedirectToAction("Page", new { Id = viewModel.EventId });
         }
 
         /// <summary>

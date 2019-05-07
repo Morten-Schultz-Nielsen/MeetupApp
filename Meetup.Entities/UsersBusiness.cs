@@ -29,7 +29,7 @@ namespace Meetup.Entities
         /// The id of this connection
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        protected int Id
+        public int Id
         {
             get; set;
         }

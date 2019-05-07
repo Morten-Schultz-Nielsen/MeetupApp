@@ -76,8 +76,9 @@ namespace Meetup.Websites.Models
 
     public class EventListCreationModel
     {
-        public Event Event { get; set; }
+        public Event EventInformation { get; set; }
 
+        public int EventId { get; set; }
 
         [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
         [Display(Name = "Tid per møde")]
