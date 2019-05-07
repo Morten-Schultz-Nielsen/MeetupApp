@@ -18,19 +18,19 @@ namespace Meetup.Websites.Models
         [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
         [Display(Name = "Vej navn")]
         [StringLength(30, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 2)]
-        [RegularExpression(Address.StreetPattern, ErrorMessage = "Feltet \"{0}\" indeholder et ugyldigt navn")]
+        [RegularExpression(Address.StreetPattern, ErrorMessage = "Feltet \"{0}\" indeholder en ugyldig vej")]
         public string StreetName { get; set; }
 
         [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
         [Display(Name = "Vej nummer")]
-        [StringLength(30, ErrorMessage = "Feltet \"{0}\"mskal være under {1} bogstaver langt.")]
+        [StringLength(30, ErrorMessage = "Feltet \"{0}\" skal være mindst {1} bogstaver langt.")]
         [RegularExpression(Address.StreetNumberPattern, ErrorMessage = "Feltet \"{0}\" indeholder et ugyldigt vej nummer")]
         public string StreetNumber { get; set; }
 
         [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
         [Display(Name = "By")]
         [StringLength(30, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 2)]
-        [RegularExpression(Address.CityPattern, ErrorMessage = "Feltet \"{0}\" indeholder en ugyldig vej")]
+        [RegularExpression(Address.CityPattern, ErrorMessage = "Feltet \"{0}\" indeholder et ugyldigt navn")]
         public string City { get; set; }
 
         [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]

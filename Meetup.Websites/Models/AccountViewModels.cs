@@ -86,7 +86,7 @@ namespace Meetup.Websites.Models
 
         [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
         [Display(Name = "Beskrivelse")]
-        [StringLength(int.MaxValue, ErrorMessage = "Feltet \"{0}\" skal være {2}-{1} bogstaver langt.", MinimumLength = 10)]
+        [StringLength(int.MaxValue, ErrorMessage = "Feltet \"{0}\" skal være mindst {1} bogstaver langt.", MinimumLength = 10)]
         [RegularExpression(User.DescriptionPattern, ErrorMessage = "Feltet \"{0}\" indeholder en ugyldig beskrivelse.")]
         public string Description { get; set; }
 
