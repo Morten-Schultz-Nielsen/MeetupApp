@@ -14,6 +14,16 @@ namespace Meetup.Websites
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Event Seance Create Not Enough",
+                url: "Events/Information/{id}/Seances/Create",
+                defaults: new
+                {
+                    controller = "Events",
+                    action = "CreateList"
+                }
+            );
+
+            routes.MapRoute(
                 name: "Event seances",
                 url: "Events/Information/{id}/Seances",
                 defaults: new

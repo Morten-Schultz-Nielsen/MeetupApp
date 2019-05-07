@@ -1,0 +1,11 @@
+﻿@model Meetup.Websites.Models.EventListCreationModel
+@{
+    ViewBag.Title = "Lav seancer for " + Model.EventInformation.Name;
+}
+
+<div class="white-box">
+    <h3>Ikke nok personer!</h3>
+    <p>Der skal være mindst 2 personer i en event for at lave en seance liste</p>
+    <a href="@Url.Action("Page", new { Id = Model.EventId })" class="button">Tilbage til eventen</a>
+</div>
+

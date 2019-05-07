@@ -47,7 +47,7 @@
 @if(Model.Event.Seances.Count == 0)
 {
     <section class="meeting-line">
-        <h3>Seance liste:</h3>
+        <h3>Dine møder:</h3>
         <p>Der er ikke lavet nogen liste endnu.</p>
         @if(Model.EventOwner)
         {
@@ -59,7 +59,7 @@ else
 {
     <section class="meeting-line">
         <a class="seance-collapse-button button" href="@Url.Action("Seances","Events", new { Id = Model.Event.Id })">Alle møder</a>
-        <h3>Seance liste:</h3>
+        <h3>Dine møder:</h3>
         @if(Model.EventOwner)
         {
             <a href="@Url.Action("CreateList", new { Id = Model.Event.Id })" target="_blank" class="button">Lav en ny liste</a>
