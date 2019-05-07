@@ -377,10 +377,10 @@ namespace Meetup.Websites.Controllers
             }
             model.Seances.RemoveRange(viewModel.EventInformation.Seances);
 
-            //Generate list of all possible meetings
+            //Get list of all possible meetings
             List<MeetingScore> possibleMeetings = MeetingScore.GetPossibleMeetings(UsersInEvent, viewModel.EventId);
 
-            //Generate meetings list
+            //Generate Seances/meetings list
             int meetingsPerSeance = UsersInEvent.Count / 2;
             for(int i = 0; i < viewModel.AmountOfMeetings && possibleMeetings.Count != 0; i++)
             {
@@ -398,6 +398,10 @@ namespace Meetup.Websites.Controllers
                         if(viewModel.ForceFillMeetings)
                         {
                             possibleMeetingsThisRow = MeetingScore.GetPossibleMeetings(usersNotInMeeting, viewModel.EventId);
+                            if(possibleMeetingsThisRow.Count == 0)
+                            {
+                                break;
+                            }
                         }
                         else
                         {
