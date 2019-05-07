@@ -1,15 +1,17 @@
-﻿@model Meetup.Websites.Models.WishViewModel
+﻿@model Meetup.Websites.Models.WishDeleteModel
 @{
     ViewBag.Title = "Slet Ønske";
 }
 
-<h2>Er du sikker på at du vil slette følgende ønske?</h2>
-<p>&quot;@Model.TheWish.ToString()&quot;</p>
-@using(Html.BeginForm("Delete", "Wishes", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", @class = "normal" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.TheEvent.Id)
-    @Html.HiddenFor(m => m.TheWish.Id)
-    <input type="submit" value="Slet Ønske" class="button" />
-}
+<div class="white-box">
+    <h3>Er du sikker på at du vil slette følgende ønske?</h3>
+    <p>&quot;@Model.WishInformation.ToString()&quot;</p>
+    @using(Html.BeginForm("Delete", "Wishes", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", @class = "normal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.EventId)
+        @Html.HiddenFor(m => m.WishId)
+        <input type="submit" value="Slet Ønske" class="button" />
+    }
+</div>
 

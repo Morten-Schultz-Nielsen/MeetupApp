@@ -310,17 +310,20 @@ namespace Meetup.Websites.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            WishViewModel viewModel = new WishViewModel();
-            viewModel.TheWish = model.Wishes.SingleOrDefault(w => w.Id == id && w.UserId == infoID);
-            if(viewModel.TheWish is null)
+            WishDeleteModel viewModel = new WishDeleteModel();
+            viewModel.WishInformation = model.Wishes.SingleOrDefault(w => w.Id == id && w.UserId == infoID);
+            if(viewModel.WishInformation is null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            viewModel.TheEvent = viewModel.TheWish.Event;
-            if(!viewModel.TheEvent.Invites.Any(u => u.UserId == infoID))
+            viewModel.WishId = viewModel.WishInformation.Id;
+
+            viewModel.EventInformation = viewModel.WishInformation.Event;
+            if(!viewModel.EventInformation.Invites.Any(u => u.UserId == infoID))
             {
                 return RedirectToAction("Index", "Home");
             }
+            viewModel.EventId = viewModel.EventInformation.Id;
 
             return View(viewModel);
         }
@@ -332,7 +335,7 @@ namespace Meetup.Websites.Controllers
         /// <returns>if the user is in the event: The list of all the wishes the user has for the event</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(WishViewModel viewModel)
+        public ActionResult Delete(WishDeleteModel viewModel)
         {
             MeetupModel model = new MeetupModel();
 
@@ -342,17 +345,17 @@ namespace Meetup.Websites.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            Event theEvent = model.Events.SingleOrDefault(e => e.Id == viewModel.TheEvent.Id && e.Invites.Any(u => u.UserId == infoID));
+            Event theEvent = model.Events.SingleOrDefault(e => e.Id == viewModel.EventId && e.Invites.Any(u => u.UserId == infoID));
             if(theEvent is null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
             //Check if the user owns the wish
-            Wish theWish = model.Wishes.SingleOrDefault(w => w.Id == viewModel.TheWish.Id && w.UserId == infoID);
+            Wish theWish = model.Wishes.SingleOrDefault(w => w.Id == viewModel.WishId && w.UserId == infoID);
             if(theWish is null)
             {
-                return RedirectToAction("List", new { viewModel.TheEvent.Id });
+                return RedirectToAction("List", new { viewModel.EventId });
             }
 
             //Delete the wish
@@ -361,7 +364,7 @@ namespace Meetup.Websites.Controllers
             model.Wishes.Remove(theWish);
             model.SaveChanges();
 
-            return RedirectToAction("List", new { viewModel.TheEvent.Id });
+            return RedirectToAction("List", new { Id = viewModel.EventId });
         }
 
         /// <summary>

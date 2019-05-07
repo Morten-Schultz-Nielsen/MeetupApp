@@ -33,12 +33,6 @@ namespace Meetup.Entities.Tests
         {
             Wish testWish = GetSimpleWish();
 
-            //Test user
-            Assert.ThrowsException<ArgumentNullException>(() => { testWish.User = null; }, "User cannot be empty");
-
-            //Test event
-            Assert.ThrowsException<ArgumentNullException>(() => { testWish.Event = null; }, "Event cannot be empty");
-
             //test wishUser
             new Wish(UserTests.GetSimpleUser(0), EventTests.GetSimpleEvent(0)) { WishUser = null };
 

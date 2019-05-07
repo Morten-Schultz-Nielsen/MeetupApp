@@ -22,6 +22,17 @@ namespace Meetup.Websites.Models
         public Event TheEvent { get; set; }
     }
 
+    public class WishDeleteModel
+    {
+        public Wish WishInformation { get; set; }
+
+        public Event EventInformation { get; set; }
+
+        public int WishId { get; set; }
+
+        public int EventId { get; set; }
+    }
+
     public class WishOrganizationModel
     {
         [Display(Name = "Organisation")]

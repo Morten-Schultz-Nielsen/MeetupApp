@@ -105,9 +105,12 @@
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException(nameof(User), "Value may not be null");
+                    UserId = 0;
                 }
-                UserId = value.Id;
+                else
+                {
+                    UserId = value.Id;
+                }
                 user = value;
             }
         }
@@ -125,9 +128,12 @@
             {
                 if(value is null)
                 {
-                    throw new ArgumentNullException(nameof(Event), "Value may not be null");
+                    EventId = 0;
                 }
-                EventId = value.Id;
+                else
+                {
+                    EventId = value.Id;
+                }
                 @event = value;
             }
         }
