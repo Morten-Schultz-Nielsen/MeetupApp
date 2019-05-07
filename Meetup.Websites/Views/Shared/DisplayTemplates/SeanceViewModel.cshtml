@@ -6,7 +6,7 @@
         <tr class="seance">
             <th class="seance-time">
                 <time datetime="@Model.Seances[i].BeginningTime.ToString()">Start: @Model.Seances[i].BeginningTime.ToString("HH:mm")</time>
-                <time datetime="@Model.Seances[i].EndTime.ToString()">End: @Model.Seances[i].EndTime.ToString("HH:mm")</time>
+                <time datetime="@Model.Seances[i].EndTime.ToString()">Slut: @Model.Seances[i].EndTime.ToString("HH:mm")</time>
             </th>
             @foreach(Meeting meeting in Model.Seances[i].Meetings)
             {

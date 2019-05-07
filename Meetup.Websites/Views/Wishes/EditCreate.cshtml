@@ -6,19 +6,19 @@
 }
 
 <div class="white-box">
-    <h2>@(Model.EditingWish ? "Rediger ønske" : "Lav ønske") for eventen <a href="@Url.Action("Page","Events",new { Id = Model.TheEvent.Id})">&quot;@Model.TheEvent.Name&quot;</a></h2>
+    <h2>@(Model.EditingWish ? "Rediger ønske" : "Lav ønske") for eventen <a href="@Url.Action("Page","Events",new { Id = Model.EventId})">&quot;@Model.EventInformation.Name&quot;</a></h2>
     <button id="wish-business-button" class="@((string.IsNullOrWhiteSpace(Model.ChosenName) ? "selected" : "") + " wish-choise-button")">Erhverv</button>
     <button id="wish-person-button" class="@((!string.IsNullOrWhiteSpace(Model.ChosenName) ? "selected" : "") + " wish-choise-button")">Person</button>
 
     @using(Html.BeginForm("EditCreate", "Wishes", FormMethod.Post, new { role = "form", id = "wish-person", @class = (string.IsNullOrWhiteSpace(Model.ChosenName) ? "hidden" : "") + " wish-choise normal", enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.TheEvent.Id)
+        @Html.HiddenFor(m => m.EventId)
         @Html.ValidationSummary(true, "", new { @class = "invalid" })
 
         if(Model.EditingWish)
         {
-            @Html.HiddenFor(m => m.EditWish.Id)
+            @Html.HiddenFor(m => m.WishId)
         }
         <div class="form-group">
             @Html.ValidationMessageFor(m => m.ChosenName, "", new { @class = "invalid" })
@@ -32,11 +32,12 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "invalid" })
 
-        @Html.HiddenFor(m => m.TheEvent.Id)
+        @Html.HiddenFor(m => m.EventId)
         @Html.HiddenFor(m => m.SelectedOrganizationIndex)
+        @Html.HiddenFor(m => m.EditingWish)
         if(Model.EditingWish)
         {
-            @Html.HiddenFor(m => m.EditWish.Id)
+            @Html.HiddenFor(m => m.WishId)
         }
         <div class="selection-list-pair">
             <div class="selection-list">

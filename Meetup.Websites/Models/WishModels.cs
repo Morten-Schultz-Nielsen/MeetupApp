@@ -41,9 +41,13 @@ namespace Meetup.Websites.Models
 
         public bool EditingWish { get; set; }
 
-        public Wish EditWish { get; set; }
+        public Wish WishInformation { get; set; }
 
-        public Event TheEvent { get; set; }
+        public int WishId { get; set; }
+
+        public Event EventInformation { get; set; }
+
+        public int EventId { get; set; }
 
         public List<SelectListItem> UsersInEvent { get; set; }
 

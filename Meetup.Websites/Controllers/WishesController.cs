@@ -61,33 +61,34 @@ namespace Meetup.Websites.Controllers
             }
 
             WishEditCreateModel viewModel = GetFilledWishCreateEditModel(editingWish.Event);
-            viewModel.EditWish = editingWish;
+            viewModel.WishInformation = editingWish;
+            viewModel.WishId = editingWish.Id;
 
             //Creates list of chosen and unchosen interests
-            viewModel.ChosenInterestsList = viewModel.EditWish.GetInterests().ToList();
+            viewModel.ChosenInterestsList = viewModel.WishInformation.GetInterests().ToList();
             viewModel.UnchosenInterests = viewModel.UnchosenInterests.Except(viewModel.ChosenInterestsList).ToList();
 
             //Creates list of chosen and unchosen businesses
-            viewModel.ChosenBusinessesList = viewModel.EditWish.GetBusinesses().ToList();
+            viewModel.ChosenBusinessesList = viewModel.WishInformation.GetBusinesses().ToList();
             viewModel.UnchosenBusinesses = viewModel.UnchosenBusinesses.Except(viewModel.ChosenBusinessesList).ToList();
 
             //Checks if the wish was for another user
-            if(!(viewModel.EditWish.WishUser is null))
+            if(!(viewModel.WishInformation.WishUser is null))
             {
-                viewModel.ChosenName = viewModel.EditWish.WishUser.FullName;
+                viewModel.ChosenName = viewModel.WishInformation.WishUser.FullName;
             }
 
             //Finds the organization the wish was wishing for
-            if(!(viewModel.EditWish.WishOrganizationId is null))
+            if(!(viewModel.WishInformation.WishOrganizationId is null))
             {
-                viewModel.SelectedOrganizationIndex = viewModel.Organizations.IndexOf(viewModel.Organizations.SingleOrDefault(o => o.Id == viewModel.EditWish.WishOrganizationId));
+                viewModel.SelectedOrganizationIndex = viewModel.Organizations.IndexOf(viewModel.Organizations.SingleOrDefault(o => o.Id == viewModel.WishInformation.WishOrganizationId));
             }
             else
             {
                 viewModel.SelectedOrganizationIndex = -1;
             }
             viewModel.OrganizationWish = new WishOrganizationModel();
-            viewModel.OrganizationWish.WorkYears = viewModel.EditWish.WishOrganizationTime;
+            viewModel.OrganizationWish.WorkYears = viewModel.WishInformation.WishOrganizationTime;
 
             //Sets editing flag and returns edit page
             viewModel.EditingWish = true;
@@ -148,20 +149,10 @@ namespace Meetup.Websites.Controllers
             User editUser = model.Users.SingleOrDefault(userInfo => userInfo.Id == infoID);
 
             //Check if user is in the event
-            viewModel.TheEvent = model.Events.SingleOrDefault(e => e.Id == viewModel.TheEvent.Id && e.Invites.Any(u => u.UserId == infoID));
-            if(viewModel.TheEvent is null)
+            viewModel.EventInformation = model.Events.SingleOrDefault(e => e.Id == viewModel.EventId && e.Invites.Any(u => u.UserId == infoID));
+            if(viewModel.EventInformation is null)
             {
                 return RedirectToAction("Index", "Home");
-            }
-
-            //Check if user is editing or creating a wish
-            if(viewModel.EditWish is null)
-            {
-                viewModel.EditingWish = false;
-            }
-            else
-            {
-                viewModel.EditingWish = true;
             }
 
             //Create list of chosen and unchosen businesses
@@ -195,16 +186,16 @@ namespace Meetup.Websites.Controllers
                 if(viewModel.EditingWish)
                 {
                     //If editing a wish, get wish
-                    theWish = model.Wishes.SingleOrDefault(w => w.Id == viewModel.EditWish.Id && w.UserId == infoID);
+                    theWish = model.Wishes.SingleOrDefault(w => w.Id == viewModel.WishId && w.UserId == infoID);
                     if(theWish is null)
                     {
-                        return RedirectToAction("List", new { viewModel.TheEvent.Id });
+                        return RedirectToAction("List", new { viewModel.EventId });
                     }
                 }
                 else
                 {
                     //If creating a wish, create new object
-                    theWish = new Wish(editUser, viewModel.TheEvent);
+                    theWish = new Wish(editUser, viewModel.EventInformation);
 
                     //Get an id for the wish
                     Random random = new Random();
@@ -235,13 +226,13 @@ namespace Meetup.Websites.Controllers
                     }
                     else
                     {
-                        theWish.User = wishUser;
+                        theWish.WishUser = wishUser;
                     }
                 }
                 else
                 {
                     //If the wish is a wish for a user with interests, businesses and such
-                    theWish.User = null;
+                    theWish.WishUser = null;
 
                     //Removes and adds businesses to the wish
                     List<Business> selectedBusinesses = viewModel.ChosenBusinessesList.Where(cb => !theWish.WishBusinesses.Any(w => w.Business.Name == cb.Name)).ToList();
@@ -285,7 +276,7 @@ namespace Meetup.Websites.Controllers
                 }
                 model.SaveChanges();
 
-                return RedirectToAction("List", new { viewModel.TheEvent.Id });
+                return RedirectToAction("List", new { Id = viewModel.EventId });
             }
         }
 
@@ -297,7 +288,7 @@ namespace Meetup.Websites.Controllers
         private ActionResult RedirectBackToEditCreate(WishEditCreateModel viewModel)
         {
             //Get list of users in the event
-            List<User> usersInEvent = viewModel.TheEvent.GetUsers().ToList();
+            List<User> usersInEvent = viewModel.EventInformation.GetUsers().ToList();
             viewModel.UsersInEvent = new List<SelectListItem>();
             viewModel = FillModelWithUsersAndOrganizations(viewModel, usersInEvent);
 
@@ -382,7 +373,8 @@ namespace Meetup.Websites.Controllers
         private static WishEditCreateModel GetFilledWishCreateEditModel(Event eventWithData)
         {
             WishEditCreateModel returnModel = new WishEditCreateModel();
-            returnModel.TheEvent = eventWithData;
+            returnModel.EventInformation = eventWithData;
+            returnModel.EventId = eventWithData.Id;
             List<User> usersInEvent = eventWithData.GetUsers().ToList();
 
             //Create interest list
