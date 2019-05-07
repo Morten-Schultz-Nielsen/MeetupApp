@@ -31,7 +31,7 @@ namespace Meetup.Helper
 
             using(Graphics g = Graphics.FromImage(resizedImage))
             {
-                g.DrawImage(image, new Rectangle(0, 0, imageWidth, imageHeight), new Rectangle(0, 0, pictureWidth, pictureHeight), GraphicsUnit.Pixel);
+                g.DrawImage(image, new Rectangle(0, 0, pictureWidth, pictureHeight), new Rectangle(0, 0, imageWidth, imageHeight), GraphicsUnit.Pixel);
             }
             image = resizedImage;
 
