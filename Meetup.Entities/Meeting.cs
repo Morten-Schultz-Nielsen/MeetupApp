@@ -15,6 +15,17 @@ namespace Meetup.Entities
         private User userTwo;
         private User userOne;
 
+        protected Meeting()
+        {
+
+        }
+
+        public Meeting(User userOne, User userTwo)
+        {
+            UserOne = userOne;
+            UserTwo = userTwo;
+        }
+
         /// <summary>
         /// The id of this meeting
         /// </summary>
@@ -37,7 +48,8 @@ namespace Meetup.Entities
         /// </summary>
         public int UserOneId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -45,7 +57,8 @@ namespace Meetup.Entities
         /// </summary>
         public int UserTwoId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -74,6 +87,7 @@ namespace Meetup.Entities
             }
             set
             {
+                UserOneId = value.Id;
                 userOne = value;
             }
         }
@@ -89,6 +103,7 @@ namespace Meetup.Entities
             }
             set
             {
+                UserTwoId = value.Id;
                 userTwo = value;
             }
         }

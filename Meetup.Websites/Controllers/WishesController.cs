@@ -204,9 +204,7 @@ namespace Meetup.Websites.Controllers
                 else
                 {
                     //If creating a wish, create new object
-                    theWish = new Wish();
-                    theWish.UserId = infoID.Value;
-                    theWish.EventId = viewModel.TheEvent.Id;
+                    theWish = new Wish(editUser, viewModel.TheEvent);
 
                     //Get an id for the wish
                     Random random = new Random();
@@ -237,13 +235,13 @@ namespace Meetup.Websites.Controllers
                     }
                     else
                     {
-                        theWish.WishUserId = wishUser.Id;
+                        theWish.User = wishUser;
                     }
                 }
                 else
                 {
                     //If the wish is a wish for a user with interests, businesses and such
-                    theWish.WishUserId = null;
+                    theWish.User = null;
 
                     //Removes and adds businesses to the wish
                     List<Business> selectedBusinesses = viewModel.ChosenBusinessesList.Where(cb => !theWish.WishBusinesses.Any(w => w.Business.Name == cb.Name)).ToList();
@@ -253,7 +251,7 @@ namespace Meetup.Websites.Controllers
 
                     foreach(Business business in selectedBusinesses)
                     {
-                        theWish.WishBusinesses.Add(new WishBusinesses { Business = business });
+                        theWish.WishBusinesses.Add(new WishBusinesses(business, theWish));
                     }
 
                     //Removes and adds interests to the wish
@@ -264,12 +262,12 @@ namespace Meetup.Websites.Controllers
 
                     foreach(Interest interest in selectedInterests)
                     {
-                        theWish.WishInterests.Add(new WishInterests { Interest = interest });
+                        theWish.WishInterests.Add(new WishInterests(interest, theWish ));
                     }
 
                     //Adds organization (and work time) to the wish if specified
                     Organization wishedOrganization = model.Organizations.SingleOrDefault(o => o.Name == viewModel.OrganizationWish.Name);
-                    theWish.WishOrganizationId = wishedOrganization?.Id;
+                    theWish.WishOrganization = wishedOrganization;
                     theWish.WishOrganizationTime = viewModel.OrganizationWish.WorkYears;
 
                     //Check if wish actually is wishing for something

@@ -177,7 +177,7 @@ namespace Meetup.Websites.Controllers
             businesses = businesses.Where(b => !editUser.UsersBusinesses.Any(ub => ub.BusinessId == b.Id)).ToList();
             foreach(Business business in businesses)
             {
-                editUser.UsersBusinesses.Add(new UsersBusiness { Business = business });
+                editUser.UsersBusinesses.Add(new UsersBusiness(business,editUser));
             }
 
             //Get interests list
@@ -191,7 +191,7 @@ namespace Meetup.Websites.Controllers
             interests = interests.Where(i => !editUser.UsersInterests.Any(ui => ui.InterestId == i.Id)).ToList();
             foreach(Interest interest in interests)
             {
-                editUser.UsersInterests.Add(new UsersInterest { Interest = interest });
+                editUser.UsersInterests.Add(new UsersInterest(interest, editUser));
             }
 
             if(!ModelState.IsValid)
@@ -232,7 +232,10 @@ namespace Meetup.Websites.Controllers
                                 return ReturnEdit(viewModel, editUser, model);
                             }
 
-                            UsersOrganizations editOrganization;
+                            //Check if organization already existed on the user
+                            UsersOrganizations editOrganization = null;
+                            Organization newOrganization = null;
+                            Organization oldOrganization = null;
                             if(organization.State == "old")
                             {
                                 editOrganization = editUser.UsersOrganizations.SingleOrDefault(o => o.Id == organization.Id);
@@ -240,26 +243,24 @@ namespace Meetup.Websites.Controllers
                                 {
                                     continue;
                                 }
+                                oldOrganization = editOrganization.Organization;
                             }
-                            else if(organization.State == "new")
-                            {
-                                editOrganization = new UsersOrganizations();
-                                editOrganization.UserId = editUser.Id;
-                            }
-                            else
+                            else if(organization.State != "new")
                             {
                                 continue;
                             }
-                            if(organization.State == "new" || organization.Name != editOrganization.Organization.Name)
+
+                            //Check new organization name
+                            if(organization.State == "new" || organization.Name != oldOrganization.Name)
                             {
-                                Organization newOrganizationName = model.Organizations.SingleOrDefault(o => o.Name == organization.Name);
-                                if(newOrganizationName is null)
+                                newOrganization = model.Organizations.SingleOrDefault(o => o.Name == organization.Name);
+                                if(newOrganization is null)
                                 {
                                     try
                                     {
                                         if(Organization.NameExists(organization.Name))
                                         {
-                                            editOrganization.Organization = new Organization() { Name = organization.Name };
+                                            newOrganization = new Organization(organization.Name);
                                         }
                                         else
                                         {
@@ -273,13 +274,19 @@ namespace Meetup.Websites.Controllers
                                         return ReturnEdit(viewModel, editUser, model);
                                     }
                                 }
-                                else
-                                {
-                                    editOrganization.Organization = newOrganizationName;
-                                }
                             }
-
-                            editOrganization.StartDate = organization.StartDate.Value;
+                            if(editOrganization is null)
+                            {
+                                editOrganization = new UsersOrganizations(newOrganization, editUser, organization.StartDate.Value);
+                            }
+                            else
+                            {
+                                if(!(newOrganization is null))
+                                {
+                                    editOrganization.Organization = newOrganization;
+                                }
+                                editOrganization.StartDate = organization.StartDate.Value;
+                            }
                             editOrganization.EndDate = organization.EndDate;
                             if(organization.StartDate > DateTime.Now)
                             {

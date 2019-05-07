@@ -14,6 +14,17 @@ namespace Meetup.Entities
         private Interest interest;
         private Wish wish;
 
+        protected WishInterests()
+        {
+
+        }
+
+        public WishInterests(Interest interest, Wish wish)
+        {
+            Interest = interest;
+            Wish = wish;
+        }
+
         /// <summary>
         /// The id of this connection
         /// </summary>
@@ -28,7 +39,8 @@ namespace Meetup.Entities
         /// </summary>
         public int WishId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -36,7 +48,8 @@ namespace Meetup.Entities
         /// </summary>
         public int InterestId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -50,6 +63,7 @@ namespace Meetup.Entities
             }
             set
             {
+                InterestId = value.Id;
                 interest = value;
             }
         }
@@ -65,6 +79,7 @@ namespace Meetup.Entities
             }
             set
             {
+                WishId = value.Id;
                 wish = value;
             }
         }

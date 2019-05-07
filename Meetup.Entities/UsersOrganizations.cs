@@ -16,6 +16,18 @@ namespace Meetup.Entities
         private Organization organization;
         private User user;
 
+        protected UsersOrganizations()
+        {
+
+        }
+
+        public UsersOrganizations(Organization organization, User user, DateTime startDate)
+        {
+            Organization = organization;
+            User = user;
+            StartDate = startDate;
+        }
+
         /// <summary>
         /// The id of this <see cref="object"/>
         /// </summary>

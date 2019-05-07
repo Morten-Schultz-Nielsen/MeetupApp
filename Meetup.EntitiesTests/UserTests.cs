@@ -13,96 +13,89 @@ namespace Meetup.Entities.Tests
     {
         public static User GetSimpleUser(int userId = 0)
         {
-            return new User() { Id = userId };
+            return new User("Bob","Bobsen","Hello, I'm bob","data:image/png;base64,aaa","a@a.a", AddressTests.GetSimpleAddress()) { Id = userId };
         }
 
         [TestMethod()]
         public void UserTest()
         {
+            GetSimpleUser();
+
             //Test if naming works correct
-            new User() { FirstName = "Bob", LastName = "Bob" };
-            Assert.ThrowsException<ArgumentException>(() => { new User() { FirstName = "Bob1", LastName = "Bob1" }; }, "Names were supposed to throw an argument exception");
-            Assert.ThrowsException<ArgumentException>(() => { new User() { FirstName = "" }; }, "FirstName cannot be empty");
-            Assert.ThrowsException<ArgumentException>(() => { new User() { LastName = "" }; }, "LastName cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { new User("Bob1", "Bobsen1", "Hello, I'm bob", "data:image/png;base64,aaa", "a@a.a", AddressTests.GetSimpleAddress()); }, "Names were supposed to throw an argument exception");
+            Assert.ThrowsException<ArgumentException>(() => { new User("", "Bobsen", "Hello, I'm bob", "data:image/png;base64,aaa", "a@a.a", AddressTests.GetSimpleAddress()); }, "FirstName cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { new User("Bob", "", "Hello, I'm bob", "data:image/png;base64,aaa", "a@a.a", AddressTests.GetSimpleAddress()); }, "LastName cannot be empty");
 
             //Test descritption
-            new User() { Description = "Hello world." };
-            Assert.ThrowsException<ArgumentException>(() => { new User() { Description = "   " }; }, "Description is not supposed to be able to be empty");
-            Assert.ThrowsException<ArgumentException>(() => { new User() { Description = "" }; }, "Description cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { new User("Bob", "Bobsen", "", "data:image/png;base64,aaa", "a@a.a", AddressTests.GetSimpleAddress()); }, "Description is not supposed to be able to be empty");
 
             //Test picture uri
-            new User() { PictureUri = @"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAssAAALLCAYAAAAPCM/bAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsM%E2%80%A6" };
-            Assert.ThrowsException<ArgumentException>(() => { new User() { PictureUri = @"data:image;base64,aaa" }; }, "Picture URI should not be able to contain invalid pictures");
-            Assert.ThrowsException<ArgumentException>(() => { new User() { PictureUri = "" }; }, "PictureUri cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { new User("Bob", "Bobsen", "Hello, I'm bob", "data:image/pn;base63,aaa", "a@a.a", AddressTests.GetSimpleAddress()); }, "Picture URI should not be able to contain invalid pictures");
+            Assert.ThrowsException<ArgumentException>(() => { new User("Bob", "Bobsen", "Hello, I'm bob", "", "a@a.a", AddressTests.GetSimpleAddress()); }, "PictureUri cannot be empty");
 
             //Test null address
-            new User() { Address = AddressTests.GetSimpleAddress() };
-            Assert.ThrowsException<ArgumentNullException>(() => { new User() { Address = null }; }, "Events cannot be null");
+            User testUser = GetSimpleUser();
+            testUser.Address = AddressTests.GetSimpleAddress();
+            Assert.ThrowsException<ArgumentNullException>(() => { testUser.Address = null; }, "Events cannot be null");
 
             //Test if lists can be null
-            Assert.ThrowsException<ArgumentNullException>(() => { new User() { Events = null }; }, "Events cannot be null");
-            Assert.ThrowsException<ArgumentNullException>(() => { new User() { Invites = null }; }, "EventsUsers cannot be null");
-            Assert.ThrowsException<ArgumentNullException>(() => { new User() { Meetings = null }; }, "Meetings cannot be null");
-            Assert.ThrowsException<ArgumentNullException>(() => { new User() { Meetings1 = null }; }, "Meetings1 cannot be null");
-            Assert.ThrowsException<ArgumentNullException>(() => { new User() { UsersBusinesses = null }; }, "UsersBusinesses cannot be null");
-            Assert.ThrowsException<ArgumentNullException>(() => { new User() { UsersInterests = null }; }, "UsersInterests cannot be null");
-            Assert.ThrowsException<ArgumentNullException>(() => { new User() { UsersOrganizations = null }; }, "UsersOrganizations cannot be null");
-            Assert.ThrowsException<ArgumentNullException>(() => { new User() { Wishes = null }; }, "Wishes cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { testUser.Events = null; }, "Events cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { testUser.Invites = null; }, "EventsUsers cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { testUser.Meetings = null; }, "Meetings cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { testUser.Meetings1 = null; }, "Meetings1 cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { testUser.UsersBusinesses = null; }, "UsersBusinesses cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { testUser.UsersInterests = null; }, "UsersInterests cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { testUser.UsersOrganizations = null; }, "UsersOrganizations cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { testUser.Wishes = null; }, "Wishes cannot be null");
         }
 
         [TestMethod()]
         public void FullNameTest()
         {
-            User user = new User() { FirstName = "Bob", LastName = "Bob" };
-            Assert.AreEqual("Bob Bob", user.FullName, "FullName property failed to output correct name");
+            Assert.AreEqual("Bob Bobsen", GetSimpleUser().FullName, "FullName property failed to output correct name");
         }
 
         [TestMethod()]
         public void CalculateHappinessScoreTest()
         {
             //Create test user
-            User user = new User()
+            User user = GetSimpleUser(1);
+            user.UsersInterests = new List<UsersInterest>()
             {
-                Id = 1,
-                UsersInterests = new List<UsersInterest>()
-                {
-                    new UsersInterest() { InterestId = 0 },
-                    new UsersInterest() { InterestId = 1 },
-                    new UsersInterest() { InterestId = 2 },
-                    new UsersInterest() { InterestId = 3 },
-                    new UsersInterest() { InterestId = 4 },
-                    new UsersInterest() { InterestId = 5 }
-                },
-                UsersBusinesses = new List<UsersBusiness>()
-                {
-                    new UsersBusiness() { BusinessId = 0 },
-                    new UsersBusiness() { BusinessId = 1 },
-                    new UsersBusiness() { BusinessId = 2 },
-                    new UsersBusiness() { BusinessId = 3 },
-                    new UsersBusiness() { BusinessId = 4 },
-                    new UsersBusiness() { BusinessId = 5 }
-                }
+                new UsersInterest(InterestTests.GetSimpleInterest(0), user),
+                new UsersInterest(InterestTests.GetSimpleInterest(1), user),
+                new UsersInterest(InterestTests.GetSimpleInterest(2), user),
+                new UsersInterest(InterestTests.GetSimpleInterest(3), user),
+                new UsersInterest(InterestTests.GetSimpleInterest(4), user),
+                new UsersInterest(InterestTests.GetSimpleInterest(5), user)
+            };
+            user.UsersBusinesses = new List<UsersBusiness>()
+            {
+                new UsersBusiness(BusinessTests.GetSimpleBusiness(0),user),
+                new UsersBusiness(BusinessTests.GetSimpleBusiness(1),user),
+                new UsersBusiness(BusinessTests.GetSimpleBusiness(2),user),
+                new UsersBusiness(BusinessTests.GetSimpleBusiness(3),user),
+                new UsersBusiness(BusinessTests.GetSimpleBusiness(4),user),
+                new UsersBusiness(BusinessTests.GetSimpleBusiness(5),user)
             };
 
             //Create wish list
             List<Wish> wishList = new List<Wish>()
             {
-                new Wish()
+                new Wish(GetSimpleUser(), EventTests.GetSimpleEvent())
                 {
-                    WishInterests = new List<WishInterests>()
-                    {
-                        new WishInterests() { InterestId = 0 },
-                        new WishInterests() { InterestId = 1 },
-                        new WishInterests() { InterestId = 2 },
-                        new WishInterests() { InterestId = 3 },
-                        new WishInterests() { InterestId = 4 },
-                        new WishInterests() { InterestId = 5 }
-                    }
-                },
-                new Wish()
-                {
-                    WishUserId = 1
+                    WishUser = GetSimpleUser(1)
                 }
+            };
+            wishList.Add(WishTests.GetSimpleWish());
+            wishList[1].WishInterests = new List<WishInterests>()
+            {
+                new WishInterests(InterestTests.GetSimpleInterest(0), wishList[1]),
+                new WishInterests(InterestTests.GetSimpleInterest(1), wishList[1]),
+                new WishInterests(InterestTests.GetSimpleInterest(2), wishList[1]),
+                new WishInterests(InterestTests.GetSimpleInterest(3), wishList[1]),
+                new WishInterests(InterestTests.GetSimpleInterest(4), wishList[1]),
+                new WishInterests(InterestTests.GetSimpleInterest(5), wishList[1])
             };
             Assert.AreEqual(1000, user.CalculateHappinessScore(wishList), "Happiness score was supposed to be the highest score of all the wishes.");
         }
@@ -111,59 +104,54 @@ namespace Meetup.Entities.Tests
         public void CalculateHappinessScoreTest1()
         {
             //Create test user
-            User user = new User()
+            User user = GetSimpleUser(1);
+            user.UsersInterests = new List<UsersInterest>()
             {
-                Id = 1,
-                UsersInterests = new List<UsersInterest>()
-                {
-                    new UsersInterest() { InterestId = 0 },
-                    new UsersInterest() { InterestId = 1 },
-                    new UsersInterest() { InterestId = 2 },
-                    new UsersInterest() { InterestId = 3 },
-                    new UsersInterest() { InterestId = 4 },
-                    new UsersInterest() { InterestId = 5 }
-                },
-                UsersBusinesses = new List<UsersBusiness>()
-                {
-                    new UsersBusiness() { BusinessId = 0 },
-                    new UsersBusiness() { BusinessId = 1 },
-                    new UsersBusiness() { BusinessId = 2 },
-                    new UsersBusiness() { BusinessId = 3 },
-                    new UsersBusiness() { BusinessId = 4 },
-                    new UsersBusiness() { BusinessId = 5 }
-                }
+                new UsersInterest(InterestTests.GetSimpleInterest(0), user),
+                new UsersInterest(InterestTests.GetSimpleInterest(1), user),
+                new UsersInterest(InterestTests.GetSimpleInterest(2), user),
+                new UsersInterest(InterestTests.GetSimpleInterest(3), user),
+                new UsersInterest(InterestTests.GetSimpleInterest(4), user),
+                new UsersInterest(InterestTests.GetSimpleInterest(5), user)
+            };
+            user.UsersBusinesses = new List<UsersBusiness>()
+            {
+                new UsersBusiness(BusinessTests.GetSimpleBusiness(0), user),
+                new UsersBusiness(BusinessTests.GetSimpleBusiness(1), user),
+                new UsersBusiness(BusinessTests.GetSimpleBusiness(2), user),
+                new UsersBusiness(BusinessTests.GetSimpleBusiness(3), user),
+                new UsersBusiness(BusinessTests.GetSimpleBusiness(4), user),
+                new UsersBusiness(BusinessTests.GetSimpleBusiness(5), user)
             };
 
             //Test if 100% interest wish gives correct score
-            Wish wish = new Wish()
+            Wish wish = WishTests.GetSimpleWish();
+            wish.WishInterests = new List<WishInterests>()
             {
-                WishInterests = new List<WishInterests>()
-                {
-                    new WishInterests() { InterestId = 0 },
-                    new WishInterests() { InterestId = 1 },
-                    new WishInterests() { InterestId = 2 },
-                    new WishInterests() { InterestId = 3 },
-                    new WishInterests() { InterestId = 4 },
-                    new WishInterests() { InterestId = 5 }
-                }
+                new WishInterests(InterestTests.GetSimpleInterest(0), wish),
+                new WishInterests(InterestTests.GetSimpleInterest(1), wish),
+                new WishInterests(InterestTests.GetSimpleInterest(2), wish),
+                new WishInterests(InterestTests.GetSimpleInterest(3), wish),
+                new WishInterests(InterestTests.GetSimpleInterest(4), wish),
+                new WishInterests(InterestTests.GetSimpleInterest(5), wish)
             };
             Assert.AreEqual(700, user.CalculateHappinessScore(wish), "Happiness score got the wrong result");
 
             //Test if 50% interest/business gives correct score
-            wish = new Wish()
+            wish = new Wish(GetSimpleUser(), EventTests.GetSimpleEvent())
             {
                 WishInterests = new List<WishInterests>()
                 {
-                    new WishInterests() { InterestId = 0 },
-                    new WishInterests() { InterestId = 1 },
-                    new WishInterests() { InterestId = 2 }
+                    new WishInterests(InterestTests.GetSimpleInterest(0), wish),
+                    new WishInterests(InterestTests.GetSimpleInterest(1), wish),
+                    new WishInterests(InterestTests.GetSimpleInterest(2), wish)
                 },
                 WishBusinesses = new List<WishBusinesses>()
                 {
-                    new WishBusinesses() { BusinessId = 0 },
-                    new WishBusinesses() { BusinessId = 1 },
-                    new WishBusinesses() { BusinessId = 2 },
-                    new WishBusinesses() { BusinessId = 101 }
+                    new WishBusinesses(BusinessTests.GetSimpleBusiness(0), wish),
+                    new WishBusinesses(BusinessTests.GetSimpleBusiness(1), wish),
+                    new WishBusinesses(BusinessTests.GetSimpleBusiness(2), wish),
+                    new WishBusinesses(BusinessTests.GetSimpleBusiness(101), wish)
                 }
             };
             //business score = 600/725
@@ -171,9 +159,9 @@ namespace Meetup.Entities.Tests
             Assert.AreEqual(639, user.CalculateHappinessScore(wish), "Happiness score was not supposed to be 700");
 
             //Test if user wishes outputs correct score
-            wish = new Wish()
+            wish = new Wish(GetSimpleUser(), EventTests.GetSimpleEvent())
             {
-                WishUserId = 1
+                WishUser = GetSimpleUser(1)
             };
             Assert.AreEqual(1000, user.CalculateHappinessScore(wish), "Happiness score was not supposed to be 1000 because it was a user wish");
         }
@@ -182,18 +170,15 @@ namespace Meetup.Entities.Tests
         public void GetInterestsTest()
         {
             //Create test user
-            User user = new User()
+            User user = GetSimpleUser(1);
+            user.UsersInterests = new List<UsersInterest>()
             {
-                Id = 1,
-                UsersInterests = new List<UsersInterest>()
-                {
-                    new UsersInterest() { Interest = new Interest("a") },
-                    new UsersInterest() { Interest = new Interest("b") },
-                    new UsersInterest() { Interest = new Interest("c") },
-                    new UsersInterest() { Interest = new Interest("d") },
-                    new UsersInterest() { Interest = new Interest("e") },
-                    new UsersInterest() { Interest = new Interest("f") }
-                }
+                new UsersInterest(new Interest("a"), user),
+                new UsersInterest(new Interest("b"), user),
+                new UsersInterest(new Interest("c"), user),
+                new UsersInterest(new Interest("d"), user),
+                new UsersInterest(new Interest("e"), user),
+                new UsersInterest(new Interest("f"), user)
             };
 
             List<Interest> interestList = user.GetInterests().ToList();
@@ -204,16 +189,13 @@ namespace Meetup.Entities.Tests
         [TestMethod()]
         public void GetBusinessesTest()
         {
-            User user = new User()
+            User user = GetSimpleUser(1);
+            user.UsersBusinesses = new List<UsersBusiness>()
             {
-                Id = 1,
-                UsersBusinesses = new List<UsersBusiness>()
-                {
-                    new UsersBusiness() { Business = new Business("a") },
-                    new UsersBusiness() { Business = new Business("b") },
-                    new UsersBusiness() { Business = new Business("c") },
-                    new UsersBusiness() { Business = new Business("d") }
-                }
+                new UsersBusiness(new Business("a"), user),
+                new UsersBusiness(new Business("b"), user),
+                new UsersBusiness(new Business("c"), user),
+                new UsersBusiness(new Business("d"), user)
             };
 
             List<Business> businessList = user.GetBusinesses().ToList();
@@ -224,15 +206,12 @@ namespace Meetup.Entities.Tests
         [TestMethod()]
         public void GetOrganizationsTest()
         {
-            User user = new User()
+            User user = GetSimpleUser(1);
+            user.UsersOrganizations = new List<UsersOrganizations>()
             {
-                Id = 1,
-                UsersOrganizations = new List<UsersOrganizations>()
-                {
-                    new UsersOrganizations() { StartDate = new DateTime(2010,10,30), Organization = new Organization() { Name = "TestOrganization" } },
-                    new UsersOrganizations() { StartDate = new DateTime(2005,5,4), Organization = new Organization() { Name = "MyOrganization" } },
-                    new UsersOrganizations() { StartDate = new DateTime(2008,6,19), Organization = new Organization() { Name = "TheirOrganization" } }
-                }
+                new UsersOrganizations(new Organization("TestOrganization"), GetSimpleUser(), new DateTime(2010,10,30)),
+                new UsersOrganizations(new Organization("MyOrganization"), GetSimpleUser(), new DateTime(2005,5,4)),
+                new UsersOrganizations(new Organization("TheirOrganization"), GetSimpleUser(), new DateTime(2008,6,19))
             };
 
             List<Organization> organizationList = user.GetOrganizations().ToList();

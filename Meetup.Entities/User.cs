@@ -49,7 +49,7 @@ namespace Meetup.Entities
         private ICollection<Wish> wishes;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        protected User()
         {
             Events = new HashSet<Event>();
             Invites = new HashSet<Invite>();
@@ -59,6 +59,25 @@ namespace Meetup.Entities
             UsersInterests = new HashSet<UsersInterest>();
             UsersOrganizations = new HashSet<UsersOrganizations>();
             Wishes = new HashSet<Wish>();
+        }
+
+        public User(string firstName, string lastName, string description, string picture, string email, Address address)
+        {
+            Events = new HashSet<Event>();
+            Invites = new HashSet<Invite>();
+            Meetings = new HashSet<Meeting>();
+            Meetings1 = new HashSet<Meeting>();
+            UsersBusinesses = new HashSet<UsersBusiness>();
+            UsersInterests = new HashSet<UsersInterest>();
+            UsersOrganizations = new HashSet<UsersOrganizations>();
+            Wishes = new HashSet<Wish>();
+
+            FirstName = firstName;
+            LastName = lastName;
+            Description = description;
+            PictureUri = picture;
+            Email = email;
+            Address = address;
         }
 
         /// <summary>

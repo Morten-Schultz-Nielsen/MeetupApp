@@ -44,13 +44,13 @@ namespace Meetup.Entities.Tests
             Event testEvent = GetSimpleEvent();
             testEvent.Invites = new List<Invite>()
             {
-                new Invite(testEvent, new User() { FirstName = "Name" }, DateTime.Now),
-                new Invite(testEvent, new User() { FirstName = "Person" }, DateTime.Now)
+                new Invite(testEvent, UserTests.GetSimpleUser(), DateTime.Now),
+                new Invite(testEvent, UserTests.GetSimpleUser(), DateTime.Now)
             };
 
             List<User> eventUsers = testEvent.GetUsers().ToList();
             Assert.AreEqual(2, eventUsers.Count, "The list doesnt contain all the users in the event");
-            Assert.AreEqual("Person", eventUsers[1].FirstName, "The users arent correct");
+            Assert.AreEqual("Bob", eventUsers[1].FirstName, "The users arent correct");
         }
 
         [TestMethod()]

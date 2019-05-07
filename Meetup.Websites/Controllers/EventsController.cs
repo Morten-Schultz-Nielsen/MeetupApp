@@ -398,11 +398,7 @@ namespace Meetup.Websites.Controllers
                     MeetingScore meetingToAdd = possibleMeetingsThisRow[0];
 
                     //remove impossible meetings (meetings containing the users who just have been added to the meeting list)
-                    eventMeetingsRow.Meetings.Add(new Meeting()
-                    {
-                        UserOneId = meetingToAdd.Person1.Id,
-                        UserTwoId = meetingToAdd.Person2.Id
-                    });
+                    eventMeetingsRow.Meetings.Add(new Meeting(meetingToAdd.Person1, meetingToAdd.Person2));
                     possibleMeetingsThisRow = possibleMeetingsThisRow.Where(m => m.Person1.Id != meetingToAdd.Person1.Id && m.Person2.Id != meetingToAdd.Person2.Id && m.Person1.Id != meetingToAdd.Person2.Id && m.Person2.Id != meetingToAdd.Person1.Id).ToList();
                     usersNotInMeeting = usersNotInMeeting.Where(u => u.Id != meetingToAdd.Person1.Id && u.Id != meetingToAdd.Person2.Id).ToList();
                     possibleMeetings.Remove(meetingToAdd);

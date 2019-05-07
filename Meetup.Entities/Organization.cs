@@ -18,9 +18,15 @@ namespace Meetup.Entities
         private ICollection<UsersOrganizations> usersOrganizations;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Organization()
+        protected Organization()
         {
             UsersOrganizations = new HashSet<UsersOrganizations>();
+        }
+
+        public Organization(string name)
+        {
+            UsersOrganizations = new HashSet<UsersOrganizations>();
+            Name = name;
         }
 
         /// <summary>

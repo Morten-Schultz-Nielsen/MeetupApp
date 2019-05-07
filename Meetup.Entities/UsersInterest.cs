@@ -14,6 +14,17 @@ namespace Meetup.Entities
         private Interest interest;
         private User user;
 
+        protected UsersInterest()
+        {
+
+        }
+
+        public UsersInterest(Interest interest, User user)
+        {
+            Interest = interest;
+            User = user;
+        }
+
         /// <summary>
         /// The interest's id
         /// </summary>
@@ -28,7 +39,8 @@ namespace Meetup.Entities
         /// </summary>
         public int UserId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -36,7 +48,8 @@ namespace Meetup.Entities
         /// </summary>
         public int InterestId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -50,6 +63,7 @@ namespace Meetup.Entities
             }
             set
             {
+                InterestId = value.Id;
                 interest = value;
             }
         }
@@ -65,6 +79,7 @@ namespace Meetup.Entities
             }
             set
             {
+                UserId = value.Id;
                 user = value;
             }
         }

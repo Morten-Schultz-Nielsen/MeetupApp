@@ -20,10 +20,18 @@
         private ICollection<WishInterests> wishInterests;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Wish()
+        protected Wish()
         {
             WishInterests = new HashSet<WishInterests>();
             WishBusinesses = new HashSet<WishBusinesses>();
+        }
+
+        public Wish(User user, Event @event)
+        {
+            WishInterests = new HashSet<WishInterests>();
+            WishBusinesses = new HashSet<WishBusinesses>();
+            User = user;
+            Event = @event;
         }
 
         /// <summary>
@@ -40,7 +48,8 @@
         /// </summary>
         public int UserId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -48,7 +57,8 @@
         /// </summary>
         public int EventId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -56,7 +66,8 @@
         /// </summary>
         public int? WishUserId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -64,7 +75,8 @@
         /// </summary>
         public int? WishOrganizationId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -90,6 +102,7 @@
                 {
                     throw new ArgumentNullException(nameof(User), "Value may not be null");
                 }
+                UserId = value.Id;
                 user = value;
             }
         }
@@ -109,6 +122,7 @@
                 {
                     throw new ArgumentNullException(nameof(Event), "Value may not be null");
                 }
+                EventId = value.Id;
                 @event = value;
             }
         }
@@ -124,6 +138,7 @@
             }
             set
             {
+                WishUserId = value?.Id;
                 wishUser = value;
             }
         }
@@ -139,6 +154,7 @@
             }
             set
             {
+                WishOrganizationId = value?.Id;
                 wishOrganization = value;
             }
         }

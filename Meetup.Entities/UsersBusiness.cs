@@ -14,11 +14,22 @@ namespace Meetup.Entities
         private Business business;
         private User user;
 
+        protected UsersBusiness()
+        {
+
+        }
+
+        public UsersBusiness(Business business, User user)
+        {
+            Business = business;
+            User = user;
+        }
+
         /// <summary>
         /// The id of this connection
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id
+        protected int Id
         {
             get; set;
         }
@@ -28,7 +39,8 @@ namespace Meetup.Entities
         /// </summary>
         public int UserId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -36,7 +48,8 @@ namespace Meetup.Entities
         /// </summary>
         public int BusinessId
         {
-            get; set;
+            get;
+            private set;
         }
 
         /// <summary>
@@ -50,6 +63,7 @@ namespace Meetup.Entities
             }
             set
             {
+                BusinessId = value.Id;
                 business = value;
             }
         }
@@ -65,6 +79,7 @@ namespace Meetup.Entities
             }
             set
             {
+                UserId = value.Id;
                 user = value;
             }
         }

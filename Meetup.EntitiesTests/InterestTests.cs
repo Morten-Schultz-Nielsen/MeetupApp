@@ -11,11 +11,17 @@ namespace Meetup.Entities.Tests
     [TestClass()]
     public class InterestTests
     {
+        public static Interest GetSimpleInterest(int id = 0)
+        {
+            return new Interest("C#") { Id = id };
+        }
+
         [TestMethod()]
         public void InterestTest()
         {
+            GetSimpleInterest();
+
             //Test name
-            new Interest("c#");
             Assert.ThrowsException<ArgumentException>(() => { new Interest(null); }, "Name cannot be empty");
 
             //Test if list can be null

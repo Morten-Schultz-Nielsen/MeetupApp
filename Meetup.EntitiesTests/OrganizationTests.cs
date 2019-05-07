@@ -11,15 +11,21 @@ namespace Meetup.Entities.Tests
     [TestClass()]
     public class OrganizationTests
     {
+        public static Organization GetSimpleOrganization(int id = 0)
+        {
+            return new Organization("My Organization") { Id = 0 };
+        }
+
         [TestMethod()]
         public void OrganizationTest()
         {
+            GetSimpleOrganization();
+
             //Test name
-            new Organization() { Name = "My Organization" };
-            Assert.ThrowsException<ArgumentException>(() => { new Organization() { Name = null }; }, "Name cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { new Organization(null); }, "Name cannot be empty");
 
             //Test if list can be null
-            Assert.ThrowsException<ArgumentNullException>(() => { new Organization() { UsersOrganizations = null }; }, "UsersOrganizations cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { new Organization("Bla") { UsersOrganizations = null }; }, "UsersOrganizations cannot be null");
         }
 
         [TestMethod()]

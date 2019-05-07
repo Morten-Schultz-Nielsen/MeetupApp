@@ -15,31 +15,26 @@ namespace Meetup.Entities.Tests
         public void MeetingScoreTest()
         {
             //test users
-            new MeetingScore(0, new User(), new User());
-            Assert.ThrowsException<ArgumentNullException>(() => { new MeetingScore(0, null, new User()); });
-            Assert.ThrowsException<ArgumentNullException>(() => { new MeetingScore(0, new User(), null); });
+            new MeetingScore(0, UserTests.GetSimpleUser(), UserTests.GetSimpleUser());
+            Assert.ThrowsException<ArgumentNullException>(() => { new MeetingScore(0, null, UserTests.GetSimpleUser()); });
+            Assert.ThrowsException<ArgumentNullException>(() => { new MeetingScore(0, UserTests.GetSimpleUser(), null); });
 
             //test score
-            MeetingScore meetingScore = new MeetingScore(0, new User()
+            User user1 = UserTests.GetSimpleUser(0);
+            User user2 = UserTests.GetSimpleUser(1);
+            user1.Wishes = new List<Wish>()
             {
-                Id = 0,
-                Wishes = new List<Wish>()
-                {
-                    new Wish() { EventId = 0, WishUserId = 1 }
-                }
-            },
-            new User()
+                new Wish(UserTests.GetSimpleUser(1), EventTests.GetSimpleEvent(0)) { WishUser = user2 }
+            };
+            user2.Wishes = new List<Wish>()
             {
-                Id = 1,
-                Wishes = new List<Wish>()
+                new Wish(UserTests.GetSimpleUser(1), EventTests.GetSimpleEvent(10)) {  WishUser = UserTests.GetSimpleUser(0) }, //ignored wish (wrong event id)
+                new Wish(UserTests.GetSimpleUser(1), EventTests.GetSimpleEvent(0)) {WishInterests = new List<WishInterests>()
                 {
-                    new Wish() { EventId = 10, WishUserId = 0 }, //ignored wish (wrong event id)
-                    new Wish() { EventId = 0, WishInterests = new List<WishInterests>()
-                    {
-                        new WishInterests() { Interest = new Interest("a") { Id = 1 } }
-                    }}
-                }
-            });
+                    new WishInterests(new Interest("a") { Id = 1 }, WishTests.GetSimpleWish())
+                }}
+            };
+            MeetingScore meetingScore = new MeetingScore(0, user1, user2);
             Assert.AreEqual(1000, meetingScore.Score, "Wrong score calculated");
         }
 
@@ -47,48 +42,40 @@ namespace Meetup.Entities.Tests
         public void SortTest()
         {
             //test meetings
-            MeetingScore.Sort(new MeetingScore(0, new User(), new User()), new MeetingScore(0, new User(), new User()));
-            Assert.ThrowsException<ArgumentNullException>(() => { MeetingScore.Sort(null, new MeetingScore(0, new User(), new User())); });
-            Assert.ThrowsException<ArgumentNullException>(() => { MeetingScore.Sort(new MeetingScore(0, new User(), new User()), null); });
+            MeetingScore.Sort(new MeetingScore(0, UserTests.GetSimpleUser(), UserTests.GetSimpleUser()), new MeetingScore(0, UserTests.GetSimpleUser(), UserTests.GetSimpleUser()));
+            Assert.ThrowsException<ArgumentNullException>(() => { MeetingScore.Sort(null, new MeetingScore(0, UserTests.GetSimpleUser(), UserTests.GetSimpleUser())); });
+            Assert.ThrowsException<ArgumentNullException>(() => { MeetingScore.Sort(new MeetingScore(0, UserTests.GetSimpleUser(), UserTests.GetSimpleUser()), null); });
 
             //Test sorting
+            Event @event = EventTests.GetSimpleEvent(0);
             //Create test users
-            User testUser1 = new User()
+            User testUser1 = UserTests.GetSimpleUser(1);
+            User testUser2 = UserTests.GetSimpleUser(2);
+            User testUser3 = UserTests.GetSimpleUser(3);
+            testUser1.Wishes = new List<Wish>()
             {
-                Id = 1,
-                Wishes = new List<Wish>()
-                {
-                    new Wish() { WishUserId = 2 }
-                },
-                UsersInterests = new List<UsersInterest>()
-                {
-                    new UsersInterest() { Interest = new Interest("a") { Id = 0 } }
-                }
+                new Wish(testUser1, @event) { WishUser = testUser2 }
             };
-            User testUser2 = new User()
+            testUser1.UsersInterests = new List<UsersInterest>()
             {
-                Id = 2,
-                Wishes = new List<Wish>()
-                {
-                    new Wish() { WishUserId = 1 }
-                }
+                new UsersInterest(InterestTests.GetSimpleInterest(0), testUser1)
             };
-            User testUser3 = new User()
+            testUser2.Wishes = new List<Wish>()
             {
-                Id = 3,
-                Wishes = new List<Wish>()
+                new Wish(testUser2, @event) { WishUser = testUser1 }
+            };
+            testUser3.Wishes = new List<Wish>()
+            {
+                new Wish(testUser3, @event) {WishInterests = new List<WishInterests>()
                 {
-                    new Wish() {WishInterests = new List<WishInterests>()
-                    {
-                        new WishInterests() { InterestId = 0 }
-                    }}
-                }
+                    new WishInterests(InterestTests.GetSimpleInterest(), WishTests.GetSimpleWish())
+                }}
             };
 
             //Create test meeting scores
-            MeetingScore testMeeting1 = new MeetingScore(0, testUser1, testUser2);
-            MeetingScore testMeeting2 = new MeetingScore(0, testUser2, testUser1);
-            MeetingScore testMeeting3 = new MeetingScore(0, testUser3, testUser1);
+            MeetingScore testMeeting1 = new MeetingScore(@event.Id, testUser1, testUser2);
+            MeetingScore testMeeting2 = new MeetingScore(@event.Id, testUser2, testUser1);
+            MeetingScore testMeeting3 = new MeetingScore(@event.Id, testUser3, testUser1);
 
             //do tests
             Assert.AreEqual(0, MeetingScore.Sort(testMeeting1, testMeeting2));
@@ -105,10 +92,10 @@ namespace Meetup.Entities.Tests
             //Test creation
             List<User> users = new List<User>()
             {
-                new User() { Id = 1 },
-                new User() { Id = 2 },
-                new User() { Id = 3 },
-                new User() { Id = 4 }
+                UserTests.GetSimpleUser(1),
+                UserTests.GetSimpleUser(2),
+                UserTests.GetSimpleUser(3),
+                UserTests.GetSimpleUser(4)
             };
             List<MeetingScore> meetings = MeetingScore.GetPossibleMeetings(users, 1);
             //3+2+1 = 6

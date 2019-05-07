@@ -14,11 +14,11 @@ namespace Meetup.Entities.Tests
         [TestMethod()]
         public void MeetingContainsUserTest()
         {
-            User userOne = new User() { Id = 1 };
-            User userTwo = new User() { Id = 2 };
-            User userThree = new User() { Id = 3 };
+            User userOne = UserTests.GetSimpleUser(1);
+            User userTwo = UserTests.GetSimpleUser(2);
+            User userThree = UserTests.GetSimpleUser(3);
 
-            Meeting meeting = new Meeting() { UserOneId = userOne.Id, UserTwoId  = userTwo.Id };
+            Meeting meeting = new Meeting(userOne, userTwo);
             Assert.IsTrue(meeting.MeetingContainsUser(userOne.Id));
             Assert.IsTrue(meeting.MeetingContainsUser(userTwo.Id));
             Assert.IsFalse(meeting.MeetingContainsUser(userThree.Id));
