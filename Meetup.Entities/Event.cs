@@ -16,7 +16,7 @@ namespace Meetup.Entities
         /// <summary>
         /// Pattern to check if a event name is valid
         /// </summary>
-        public const string NamePattern = @"^[\w\s]*$";
+        public const string NamePattern = @"^[\w][\s\S]*$";
 
         /// <summary>
         /// Pattern to check if an description is valid

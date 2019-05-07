@@ -75,19 +75,18 @@ namespace Meetup.Websites.Controllers
                 newEvent.BeginningTime = viewModel.Time.Value;
 
                 //get event ID
-                MeetupModel meetupModel = new MeetupModel();
                 int randomNumber;
                 Random random = new Random();
                 do
                 {
                     randomNumber = random.Next(0, int.MaxValue);
                 }
-                while(meetupModel.Events.Any(e => e.Id == randomNumber));
+                while(model.Events.Any(e => e.Id == randomNumber));
                 newEvent.Id = randomNumber;
 
                 //Save event
-                meetupModel.Events.Add(newEvent);
-                meetupModel.SaveChanges();
+                model.Events.Add(newEvent);
+                model.SaveChanges();
 
                 return RedirectToAction("Index");
             }
