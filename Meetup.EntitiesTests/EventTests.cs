@@ -21,7 +21,13 @@ namespace Meetup.Entities.Tests
         {
             return new Event("My 1st Event", "My 783945uisdfsf{[]{£@$@$ event description", UserTests.GetSimpleUser(ownerId), AddressTests.GetSimpleAddress()) { Id = eventId };
         }
-        
+
+        [TestMethod()]
+        public void GetSimpleTest()
+        {
+            GetSimpleEvent();
+        }
+
         [TestMethod()]
         public void EventTest()
         {

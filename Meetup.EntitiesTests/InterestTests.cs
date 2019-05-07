@@ -22,6 +22,12 @@ namespace Meetup.Entities.Tests
         }
 
         [TestMethod()]
+        public void GetSimpleTest()
+        {
+            GetSimpleInterest();
+        }
+
+        [TestMethod()]
         public void InterestTest()
         {
             GetSimpleInterest();

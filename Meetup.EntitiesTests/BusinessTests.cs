@@ -22,6 +22,12 @@ namespace Meetup.Entities.Tests
         }
 
         [TestMethod()]
+        public void GetSimpleTest()
+        {
+            GetSimpleBusiness();
+        }
+
+        [TestMethod()]
         public void BusinessTest()
         {
             GetSimpleBusiness();

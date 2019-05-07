@@ -23,6 +23,12 @@ namespace Meetup.Entities.Tests
         }
 
         [TestMethod()]
+        public void GetSimpleTest()
+        {
+            GetSimpleWish();
+        }
+
+        [TestMethod()]
         public void WishTest()
         {
             Wish testWish = GetSimpleWish();

@@ -22,6 +22,12 @@ namespace Meetup.Entities.Tests
             return new Invite(EventTests.GetSimpleEvent(eventId), UserTests.GetSimpleUser(userId), DateTime.Now);
         }
 
+        [TestMethod()]
+        public void GetSimpleTest()
+        {
+            GetSimpleInvite();
+        }
+
         [TestMethod]
         public void EventsUserTest()
         {
