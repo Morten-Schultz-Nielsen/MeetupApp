@@ -189,7 +189,7 @@ namespace Meetup.Websites.Controllers
                     meetupModel.Users.Add(newUser);
                     meetupModel.SaveChanges();
 
-                    return RedirectToAction("UserProfile", "Users", new { user = randomID });
+                    return RedirectToAction("Profile", "Users", new { Id = randomID });
                 }
                 AddErrors(result);
             }
