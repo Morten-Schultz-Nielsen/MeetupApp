@@ -251,12 +251,19 @@ form.post-simple {
     display:inline;
 }
 
+form.item-edit {
+    display: flex;
+}
+
 form.post-simple input[type=submit] {
     border: none;
     background: none;
     color: black;
     cursor: pointer;
     font-size: 0.95em;
+    display: inline;
+    width: auto;
+    padding: 0;
 }
 
 form.post-simple input[type=submit]:hover {
@@ -484,17 +491,25 @@ form.line-form input {
     background: #F0F0F0;
 }
 .item-name {
-    width: 70%;
+    width: 50%;
 }
 .item-edit {
-    width: 30%;
+    min-width: 48%;
+    padding-right: 2%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
+
+item-edit input,
 .item-edit a {
     margin: 0 5px;
 }
+
+item-edit input {
+    display: block;
+}
+
 .item:last-child {
     margin-bottom: 15px;
 }
@@ -530,11 +545,6 @@ footer {
 
 @media screen and (min-width: 450px) {
     /*main start*/
-    /*form start*/
-    body .end-button {
-        margin: 20px 10px 10px auto;
-    }
-    /*form end*/
     /*users start*/
     .user-list {
         display: grid;
@@ -549,6 +559,15 @@ footer {
     /*Event start*/
 
     /*Event end*/
+    /*List start*/
+    .item-name {
+        width: 70%;
+    }
+
+    .item-edit {
+        min-width: 28%;
+    }
+    /*List end*/
     /*wish start*/
     .wish-description {
         display: inline;
@@ -562,9 +581,6 @@ footer {
 }
 
 @media screen and (min-width: 950px) {
-    main {
-        width: 930px;
-    }
 
     /*header start*/
     nav {
@@ -593,6 +609,10 @@ footer {
     }
     /*header end*/
     /*main start*/
+    main {
+        width: 930px;
+    }
+
     .side-boxes {
         display: flex;
         justify-content: space-between;
@@ -603,6 +623,11 @@ footer {
     .side-boxes .white-box {
         width: 47.3%;
     }
+    /*form start*/
+    body .end-button {
+        margin: 20px 10px 10px auto;
+    }
+    /*form end*/
     /*users start*/
     .user-list {
         grid-template-columns: repeat(4, 1fr);

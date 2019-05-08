@@ -30,7 +30,7 @@
 
 @if (Model.IsInvitedTo.Count != 0)
 {
-<div class="white-box">
+<div class="white-box spaced-box">
     <h3>Fjern invitation</h3>
     <ul>
         @foreach(Event hostedEvent in Model.IsInvitedTo)
@@ -43,7 +43,7 @@
                     @Html.Hidden("TheEvent", hostedEvent.Id)
                     @Html.Hidden("User", Model.Inviting.Id)
                     @Html.Hidden("ReturnTo", Model.CameFrom)
-    
+                    
                     <input type="submit" value="Fjern" />
                 }
             </li>
