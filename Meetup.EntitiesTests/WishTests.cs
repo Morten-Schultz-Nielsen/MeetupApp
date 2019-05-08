@@ -51,20 +51,16 @@ namespace Meetup.Entities.Tests
             //test wish for user tostring
             Wish wish = GetSimpleWish();
             wish.WishUser = UserTests.GetSimpleUser(1);
-            Assert.AreEqual("Wishing to talk with Bob Bobsen.", wish.ToString(), "ToString not correct for user wish");
+            Assert.AreEqual("Ønsker at snakke med Bob Bobsen.", wish.ToString(), "ToString not correct for user wish");
 
             //test organization
             wish.WishUser = null;
             wish.WishOrganization = new Organization("Org") { Id = 1 };
-            Assert.AreEqual("Wishing to talk with a person who worked in the organization \"Org\".", wish.ToString(), "ToString not correct for organization.");
+            Assert.AreEqual("Ønsker at snakke med en person som har arbejdet i organisationen \"Org\".", wish.ToString(), "ToString not correct for organization.");
             wish.WishOrganizationTime = 1;
-            Assert.AreEqual("Wishing to talk with a person who worked in the organization \"Org\" for 1 year.", wish.ToString(), "ToString not correct for organization (single year).");
-            wish.WishOrganizationTime = 10;
-            Assert.AreEqual("Wishing to talk with a person who worked in the organization \"Org\" for 10 years.", wish.ToString(), "ToString not correct for organization (multiple years).");
+            Assert.AreEqual("Ønsker at snakke med en person som har arbejdet i organisationen \"Org\" i 1 år.", wish.ToString(), "ToString not correct for organization (years).");
             wish.WishOrganization = null;
-            Assert.AreEqual("Wishing to talk with a person who worked in an organization for 10 years.", wish.ToString(), "ToString not correct for organization time (multiple years).");
-            wish.WishOrganizationTime = 1;
-            Assert.AreEqual("Wishing to talk with a person who worked in an organization for 1 year.", wish.ToString(), "ToString not correct for organization time (single year).");
+            Assert.AreEqual("Ønsker at snakke med en person som har arbejdet i en organisation i 1 år.", wish.ToString(), "ToString not correct for organization time.");
 
             //Test interests
             wish = GetSimpleWish();
@@ -72,9 +68,9 @@ namespace Meetup.Entities.Tests
             {
                 new WishInterests(InterestTests.GetSimpleInterest(), wish)
             };
-            Assert.AreEqual("Wishing to talk with a person who has 1 interest.", wish.ToString(), "ToString not correct for single interest");
+            Assert.AreEqual("Ønsker at snakke med en person som har 1 interesse.", wish.ToString(), "ToString not correct for single interest");
             wish.WishInterests.Add(new WishInterests(InterestTests.GetSimpleInterest(), wish));
-            Assert.AreEqual("Wishing to talk with a person who has 2 interests.", wish.ToString(), "ToString not correct for multiple interests");
+            Assert.AreEqual("Ønsker at snakke med en person som har 2 interesser.", wish.ToString(), "ToString not correct for multiple interests");
 
             //Test businesses
             wish = GetSimpleWish();
@@ -82,20 +78,18 @@ namespace Meetup.Entities.Tests
             {
                 new WishBusinesses(BusinessTests.GetSimpleBusiness(), wish)
             };
-            Assert.AreEqual("Wishing to talk with a person who works in 1 business.", wish.ToString(), "ToString not correct for single business");
-            wish.WishBusinesses.Add(new WishBusinesses(BusinessTests.GetSimpleBusiness(), wish));
-            Assert.AreEqual("Wishing to talk with a person who works in 2 businesses.", wish.ToString(), "ToString not correct for multiple businesses");
+            Assert.AreEqual("Ønsker at snakke med en person som arbejder i 1 erhverv.", wish.ToString(), "ToString not correct for single business");
 
             //Test wish with 2 parts
             wish.WishInterests = new List<WishInterests>()
             {
                 new WishInterests(InterestTests.GetSimpleInterest(), wish)
             };
-            Assert.AreEqual("Wishing to talk with a person who has 1 interest and works in 2 businesses.", wish.ToString(), "ToString not correct with 2 wish parts");
+            Assert.AreEqual("Ønsker at snakke med en person som har 1 interesse og arbejder i 1 erhverv.", wish.ToString(), "ToString not correct with 2 wish parts");
 
             //Test wish with 3 parts
             wish.WishOrganization = new Organization("Org") { Id = 1 };
-            Assert.AreEqual("Wishing to talk with a person who has 1 interest, works in 2 businesses and worked in the organization \"Org\".", wish.ToString(), "ToString not correct with 3 wish parts");
+            Assert.AreEqual("Ønsker at snakke med en person som har 1 interesse, arbejder i 1 erhverv og har arbejdet i organisationen \"Org\".", wish.ToString(), "ToString not correct with 3 wish parts");
         }
 
         [TestMethod()]

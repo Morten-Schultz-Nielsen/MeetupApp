@@ -528,18 +528,25 @@ item-edit input {
 /*List End*/
 /*Wish Start*/
 .wish-choise {
-    border: 5px solid silver;
+    border: 5px solid #EEE;
     padding: 10px;
 }
 .wish-choise-button {
     display: inline;
     border-radius: 0;
+    margin: 0;
 }
 .wish-choise-button.selected {
-    background: silver;
+    background: #EEE;
 }
 .wish-choise-button:not(.selected) {
-    background: gray;
+    background: #CCC;
+}
+.wish-choise-button:hover {
+    box-shadow: none;
+}
+.wish-choise-button:not(.selected):hover {
+    background: #DDD;
 }
 /*Wish End*/
 .hidden {

@@ -219,35 +219,35 @@
             if(WishUserId is null)
             {
                 //If the wish isnt for a specific user
-                string returnString = "Wishing to talk with a person who";
+                string returnString = "Ønsker at snakke med en person som";
                 List<string> parts = new List<string>();
                 if(WishInterests.Count != 0)
                 {
-                    parts.Add(" has " + WishInterests.Count + (WishInterests.Count == 1 ? " interest" : " interests"));
+                    parts.Add(" har " + WishInterests.Count + (WishInterests.Count == 1 ? " interesse" : " interesser"));
                 }
                 if(WishBusinesses.Count != 0)
                 {
-                    parts.Add(" works in " + WishBusinesses.Count + (WishBusinesses.Count == 1 ? " business" : " businesses"));
+                    parts.Add(" arbejder i " + WishBusinesses.Count + " erhverv");
                 }
 
                 if(WishOrganizationTime is null)
                 {
                     if(!(WishOrganizationId is null))
                     {
-                        parts.Add(" worked in the organization \"" + WishOrganization.Name + "\"");
+                        parts.Add(" har arbejdet i organisationen \"" + WishOrganization.Name + "\"");
                     }
                 }
                 else
                 {
                     if(!(WishOrganizationId is null))
                     {
-                        parts.Add(" worked in the organization \"" + WishOrganization.Name + "\"");
+                        parts.Add(" har arbejdet i organisationen \"" + WishOrganization.Name + "\"");
                     }
                     else
                     {
-                        parts.Add(" worked in an organization");
+                        parts.Add(" har arbejdet i en organisation");
                     }
-                    parts[parts.Count - 1] += " for " + WishOrganizationTime + (WishOrganizationTime == 1 ? " year" : " years");
+                    parts[parts.Count - 1] += " i " + WishOrganizationTime + " år";
                 }
 
                 //add wish parts together into one single string
@@ -261,14 +261,14 @@
                 }
                 if(parts.Count > 1)
                 {
-                    returnString += " and" + parts[parts.Count - 1];
+                    returnString += " og" + parts[parts.Count - 1];
                 }
                 return returnString + ".";
             }
             else
             {
                 //If the wish is for a specific user
-                return "Wishing to talk with " + WishUser.FullName + ".";
+                return "Ønsker at snakke med " + WishUser.FullName + ".";
             }
         }
 
