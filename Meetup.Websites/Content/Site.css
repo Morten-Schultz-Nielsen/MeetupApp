@@ -264,7 +264,7 @@ form.post-simple input[type=submit] {
     color: black;
     cursor: pointer;
     font-size: 0.95em;
-    display: inline;
+    display: inline-block;
     width: auto;
     padding: 0;
 }
@@ -470,11 +470,11 @@ form.line-form input {
     margin: 10px;
 }
 
-.meeting-line a.all-seances-button {
+.meeting-line .all-seances-button {
     left: 0;
 }
 
-.meeting-line a.create-seances-button {
+.meeting-line .create-seances-button {
     right: 0;
 }
 
@@ -532,7 +532,7 @@ item-edit input {
     padding: 10px;
 }
 .wish-choise-button {
-    display: inline;
+    display: inline-block;
     border-radius: 0;
     margin: 0;
 }
