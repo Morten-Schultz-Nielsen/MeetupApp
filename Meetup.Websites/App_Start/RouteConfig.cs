@@ -14,7 +14,7 @@ namespace Meetup.Websites
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Event Seance Create Not Enough",
+                name: "Event Seance Create",
                 url: "Events/Information/{id}/Seances/Create",
                 defaults: new
                 {
@@ -40,6 +40,17 @@ namespace Meetup.Websites
                 {
                     controller = "Events",
                     action = "Page"
+                }
+            );
+
+            routes.MapRoute(
+                name: "User List",
+                url: "Users/{PageNumber}",
+                defaults: new
+                {
+                    controller = "Users",
+                    action = "Index",
+                    PageNumber = "1"
                 }
             );
 
