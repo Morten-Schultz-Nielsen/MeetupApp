@@ -264,7 +264,7 @@ namespace Meetup.Websites.Controllers
                     //Check if wish actually is wishing for something
                     if(theWish.WishBusinesses.Count <= 0 && theWish.WishInterests.Count <= 0 && theWish.WishOrganizationId is null)
                     {
-                        ModelState.AddModelError("OrganizationWish.Name", "Du skal vælge mindst et erhverv, interese or en organisation.");
+                        ModelState.AddModelError("OrganizationWish.Name", "Du skal vælge mindst et erhverv, interesse or en organisation.");
                         return RedirectBackToEditCreate(viewModel);
                     }
                 }
