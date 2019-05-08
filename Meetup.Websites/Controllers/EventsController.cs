@@ -199,6 +199,8 @@ namespace Meetup.Websites.Controllers
                 return RedirectToAction("List", "User");
             }
 
+            viewModel.CameFrom = Request.UrlReferrer.ToString();
+
             return View(viewModel);
         }
 
@@ -210,7 +212,7 @@ namespace Meetup.Websites.Controllers
         /// <returns>if success: Returns to the event's page</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Invite(int user, int theEvent)
+        public ActionResult Invite(int user, int theEvent, string returnTo)
         {
             //Check if user owns the event and add the other user to it
             MeetupModel model = new MeetupModel();
@@ -222,13 +224,27 @@ namespace Meetup.Websites.Controllers
 
             User inviting = model.Users.SingleOrDefault(u => u.Id == user);
             Event inviteToEvent = model.Events.SingleOrDefault(e => e.Id == theEvent && e.HostUserId == infoID);
-            if(!(inviteToEvent is null) && !(inviting is null) && !inviteToEvent.GetUsers().Any(u => u.Id == user))
+            if(inviting is null || inviteToEvent is null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            //Make sure user isnt invited already
+            if(!inviteToEvent.GetUsers().Any(u => u.Id == user))
             {
                 inviteToEvent.Invites.Add(new Invite(inviteToEvent, inviting, DateTime.Now));
                 model.SaveChanges();
             }
 
-            return RedirectToAction("Page", "Events", new { Id = theEvent });
+            //Redirect back to last page if possible
+            if(string.IsNullOrWhiteSpace(returnTo))
+            {
+                return RedirectToAction("Page", "Events", new { Id = theEvent });
+            }
+            else
+            {
+                return Redirect(returnTo);
+            }
         }
 
         /// <summary>
@@ -239,7 +255,7 @@ namespace Meetup.Websites.Controllers
         /// <returns>if success: Returns to the event's page</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Uninvite(int user, int theEvent)
+        public ActionResult Uninvite(int user, int theEvent, string returnTo)
         {
             //Check if user owns the event and remove the other user from it
             MeetupModel model = new MeetupModel();
@@ -251,13 +267,19 @@ namespace Meetup.Websites.Controllers
 
             Event uninviteToEvent = model.Events.SingleOrDefault(e => e.Id == theEvent && e.HostUserId == infoID);
             Invite invite = model.Invites.SingleOrDefault(i => i.EventId == theEvent && i.UserId == user);
-            if(!(uninviteToEvent is null) && !(invite is null))
+            if(uninviteToEvent is null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            //Remove invite
+            if(!(invite is null))
             {
                 model.Invites.Remove(invite);
                 model.SaveChanges();
             }
 
-            return RedirectToAction("Page", "Events", new { Id = theEvent });
+            return Redirect(returnTo);
         }
 
         /// <summary>

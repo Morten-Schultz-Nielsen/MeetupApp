@@ -8,7 +8,10 @@
             <img src="@user.PictureUri" alt="@user.FullName" />
             <h3>@user.FullName</h3>
         </a>
-        <a href="@Url.Action("Invite","Events", new { Id = user.Id })" class="user-box-invite">+</a>
+        @if(Request.IsAuthenticated)
+        {
+            <a href="@Url.Action("Invite","Events", new { Id = user.Id })" class="user-box-invite">+</a>
+        }
     </div>
 }
 </section>

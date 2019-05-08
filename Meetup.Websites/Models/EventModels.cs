@@ -36,6 +36,8 @@ namespace Meetup.Websites.Models
         public List<Event> IsInvitedTo { get; set; }
 
         public User Inviting { get; set; }
+
+        public string CameFrom { get; set; }
     }
 
     public class EventPageModel
