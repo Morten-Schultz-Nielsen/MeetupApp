@@ -209,7 +209,8 @@ namespace Meetup.Websites.Controllers
         /// </summary>
         /// <param name="user">the id of the user to invite</param>
         /// <param name="theEvent">the id of the event to invite to</param>
-        /// <returns>if success: Returns to the event's page</returns>
+        /// <param name="returnTo">A link to the page to load after te user is invited</param>
+        /// <returns>if success: Returns to the <paramref name="returnTo"/> page</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Invite(int user, int theEvent, string returnTo)
@@ -252,7 +253,8 @@ namespace Meetup.Websites.Controllers
         /// </summary>
         /// <param name="user">the id of the user to uninvite</param>
         /// <param name="theEvent">the id of the event to invite to</param>
-        /// <returns>if success: Returns to the event's page</returns>
+        /// <param name="returnTo">A link to the page to load after te user is uninvited</param>
+        /// <returns>if success: Returns to the <paramref name="returnTo"/> page</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Uninvite(int user, int theEvent, string returnTo)

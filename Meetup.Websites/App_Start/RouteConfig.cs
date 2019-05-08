@@ -44,6 +44,16 @@ namespace Meetup.Websites
             );
 
             routes.MapRoute(
+                name: "User Actions",
+                url: "Users/Profile/Edit",
+                defaults: new
+                {
+                    controller = "Users",
+                    action = "Edit"
+                }
+            );
+
+            routes.MapRoute(
                 name: "User List",
                 url: "Users/{PageNumber}",
                 defaults: new
