@@ -468,13 +468,16 @@ form.line-form input {
 }
 /*Events end*/
 /*List Start*/
-.item:first-of-type {
-    border-top: 1px solid black;
-}
 .item {
-    border-bottom: 1px solid black;
     padding: 10px;
     display: flex;
+}
+.item:nth-child(2n) {
+    background: #E0E0E0;
+}
+
+.item:nth-child(2n+1) {
+    background: #F0F0F0;
 }
 .item-name {
     width: 70%;
