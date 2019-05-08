@@ -193,10 +193,12 @@ textarea {
     flex-wrap: wrap;
     justify-content: flex-start;
     width: 70%;
+    padding-right: 30%;
 }
 
 .full-form-group {
     width: 100%;
+    padding-right: 0;
 }
 
 form.normal label {
@@ -222,6 +224,7 @@ form.normal input:not([type=file]) {
     margin-bottom: 10px;
 }
 
+form.normal input[type=date],
 form.normal input[type=datetime-local] {
     font-size: 1.15em;
 }
@@ -402,7 +405,7 @@ form.line-form input {
 }
 
 #organization-list {
-    max-height: 150px;
+    max-height: 300px;
     overflow-y: scroll;
     border: 1px solid silver;
 }
@@ -411,6 +414,10 @@ form.line-form input {
 }
 #organization-add {
     margin: 5px 0 20px 0;
+}
+.organization-remove {
+    width: 20%;
+    margin: 0;
 }
 /*Users end*/
 /*Events start*/

@@ -25,11 +25,9 @@ namespace Meetup.Websites.Models
 
     public class OrganizationModel
     {
-        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
         [Display(Name = "Organisation")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Feltet \"{0}\" skal udfyldes.")]
         [Display(Name = "Ansættelsesdato")]
         public DateTime? StartDate { get; set; }
 

@@ -77,29 +77,31 @@
     </div>
 
     <p>Organisationer:</p>
-    <div id="organization-list">
+    <ul id="organization-list">
         @for(int i = 0; i < Model.Organizations.Count; i++)
         {
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.Organizations[i].Name, "", new { @class = "invalid" })
-                @Html.LabelFor(m => m.Organizations[i].Name)
-                <input list="organization-list@(i)" name="Organizations[@(i)].Name" id="Organizations[@(i)].Name" class="organization-edit" value="@Model.Organizations[i].Name" />
-                <datalist id="organization-list@(i)" class="organization-holder"></datalist>
+            <li class="item">
+                <div class="form-group">
+                    @Html.ValidationMessageFor(m => m.Organizations[i].Name, "", new { @class = "invalid" })
+                    @Html.LabelFor(m => m.Organizations[i].Name)
+                    <input list="organization-list@(i)" name="Organizations[@(i)].Name" id="Organizations[@(i)].Name" class="organization-edit" value="@Model.Organizations[i].Name" />
+                    <datalist id="organization-list@(i)" class="organization-holder"></datalist>
 
-                @Html.ValidationMessageFor(m => m.Organizations[i].StartDate, "", new { @class = "invalid" })
-                @Html.LabelFor(m => m.Organizations[i].StartDate)
-                <input type="date" name="Organizations[@(i)].StartDate" id="Organizations[@(i)].StartDate" value="@(Model.Organizations[i].StartDate?.ToString("yyyy-MM-dd"))" />
+                    @Html.ValidationMessageFor(m => m.Organizations[i].StartDate, "", new { @class = "invalid" })
+                    @Html.LabelFor(m => m.Organizations[i].StartDate)
+                    <input type="date" name="Organizations[@(i)].StartDate" id="Organizations[@(i)].StartDate" value="@(Model.Organizations[i].StartDate?.ToString("yyyy-MM-dd"))" />
 
-                @Html.ValidationMessageFor(m => m.Organizations[i].EndDate, "", new { @class = "invalid" })
-                @Html.LabelFor(m => m.Organizations[i].EndDate)
-                <input type="date" name="Organizations[@(i)].EndDate" id="Organizations[@(i)].EndDate" value="@(Model.Organizations[i].EndDate?.ToString("yyyy-MM-dd"))" />
-                @Html.HiddenFor(m => m.Organizations[i].State, new { @class = "organization-state" })
-                @Html.HiddenFor(m => m.Organizations[i].Id)
-                <button type="button" class="organization-remove">Slet</button>
-            </div>
+                    @Html.ValidationMessageFor(m => m.Organizations[i].EndDate, "", new { @class = "invalid" })
+                    @Html.LabelFor(m => m.Organizations[i].EndDate)
+                    <input type="date" name="Organizations[@(i)].EndDate" id="Organizations[@(i)].EndDate" value="@(Model.Organizations[i].EndDate?.ToString("yyyy-MM-dd"))" />
+                    @Html.HiddenFor(m => m.Organizations[i].State, new { @class = "organization-state" })
+                    @Html.HiddenFor(m => m.Organizations[i].Id)
+                    <button type="button" class="organization-remove">Slet</button>
+                </div>
+            </li>
         }
-    </div>
-    <button type="button" id="organization-add">Add organization</button>
+    </ul>
+    <button type="button" id="organization-add">Tilføj organisation</button>
 
     <input type="submit" name="submitType" value="Gem" id="submit" class="button" />
 }

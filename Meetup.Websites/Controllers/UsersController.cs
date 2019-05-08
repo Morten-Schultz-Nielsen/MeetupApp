@@ -194,6 +194,9 @@ namespace Meetup.Websites.Controllers
                 editUser.UsersInterests.Add(new UsersInterest(interest, editUser));
             }
 
+            //Remove new removed organizations
+            viewModel.Organizations = viewModel.Organizations.Where(o => o.State != "new-removed").ToList();
+
             if(!ModelState.IsValid)
             {
                 return ReturnEdit(viewModel, editUser, model);
@@ -224,11 +227,6 @@ namespace Meetup.Websites.Controllers
                             if(organization.StartDate is null)
                             {
                                 ModelState.AddModelError("Organizations[" + i + "].StartDate", "Feltet ansættelsesdato skal udfyldes.");
-                                return ReturnEdit(viewModel, editUser, model);
-                            }
-                            if(organization.StartDate > DateTime.Now)
-                            {
-                                ModelState.AddModelError("Organizations[" + i + "].StartDate", "Ansættelsesdatoen må ikke være i fremtiden.");
                                 return ReturnEdit(viewModel, editUser, model);
                             }
 
@@ -275,6 +273,24 @@ namespace Meetup.Websites.Controllers
                                     }
                                 }
                             }
+                            if(organization.StartDate > DateTime.Now)
+                            {
+                                ModelState.AddModelError("Organizations[" + i + "].StartDate", "Ansættelsesdato må ikke være i fremtiden.");
+                                return ReturnEdit(viewModel, editUser, model);
+                            }
+                            else if(!(organization.EndDate is null))
+                            {
+                                if(organization.StartDate.Value >= organization.EndDate)
+                                {
+                                    ModelState.AddModelError("Organizations[" + i + "].StartDate", "Ansættelsesdato må ikke være efter slut datoen.");
+                                    return ReturnEdit(viewModel, editUser, model);
+                                }
+                                else if(organization.EndDate > DateTime.Now)
+                                {
+                                    ModelState.AddModelError("Organizations[" + i + "].EndDate", "Slut datoen kan ikke være i fremtiden.");
+                                    return ReturnEdit(viewModel, editUser, model);
+                                }
+                            }
                             if(editOrganization is null)
                             {
                                 editOrganization = new UsersOrganizations(newOrganization, editUser, organization.StartDate.Value);
@@ -288,24 +304,6 @@ namespace Meetup.Websites.Controllers
                                 editOrganization.StartDate = organization.StartDate.Value;
                             }
                             editOrganization.EndDate = organization.EndDate;
-                            if(organization.StartDate > DateTime.Now)
-                            {
-                                ModelState.AddModelError("Organizations[" + i + "].StartDate", "Ansættelsesdato må ikke være i fremtiden.");
-                                return ReturnEdit(viewModel, editUser, model);
-                            }
-                            else if(!(organization.EndDate is null))
-                            {
-                                if(organization.StartDate.Value >= organization.EndDate)
-                                {
-                                    ModelState.AddModelError("Organizations[" + i + "].StartDate", "Ansættelsesdato må ikke være efter slut datoen.");
-                                    return ReturnEdit(viewModel, editUser, model);
-                                }
-                                else if (organization.EndDate > DateTime.Now)
-                                {
-                                    ModelState.AddModelError("Organizations[" + i + "].EndDate", "Slut datoen kan ikke være i fremtiden.");
-                                    return ReturnEdit(viewModel, editUser, model);
-                                }
-                            }
                             if(organization.State == "new")
                             {
                                 model.UsersOrganizations.Add(editOrganization);

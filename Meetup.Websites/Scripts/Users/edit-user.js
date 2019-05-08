@@ -42,7 +42,8 @@ $("document").ready(() => {
         var removeButton = $("<button type=\"button\" class=\"organization-remove\">Slet</button>");
         removeButton.click(DeleteCompanyItem);
         //Create inputs
-        $("#organization-list").append($("<div class=\"form-group\"></div>")
+        $("#organization-list").append($("<li class=\"item\"></li>")
+            .append($("<div class=\"form-group\"></div>")
             .append($("<label for=\"Organizations[" + id + "].Name\">Organisation navn</label>"))
             .append(editPlace)
             .append($("<datalist id=\"organization-list" + id + "\" class=\"organization-holder\"></datalist>"))
@@ -51,7 +52,7 @@ $("document").ready(() => {
             .append($("<label for=\"Organizations[" + id + "].EndDate\">Slut dato</label>"))
             .append($("<input type=\"date\" name=\"Organizations[" + id + "].EndDate\" id=\"Organizations[" + id + "].EndDate\" />"))
             .append($("<input type=\"hidden\" name=\"Organizations[" + id + "].State\" value=\"new\"/ class=\"organization-state\">"))
-            .append(removeButton));
+            .append(removeButton)));
     });
 
     //make submit
