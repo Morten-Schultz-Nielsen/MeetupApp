@@ -1,8 +1,10 @@
 ﻿var Search;
 var GetCompanyList = function (event) {
+    //stop last search if its still going
     if (Search !== undefined) {
         Search.abort();
     }
+
     var value = $(event.target).val();
     if (value !== "") {
         //Call API and get suggested companies
@@ -21,9 +23,22 @@ var GetCompanyList = function (event) {
 }
 
 var DeleteCompanyItem = function (event) {
+    //Deletes/hiddes the organization clicked on
     $(event.target).parent().addClass("hidden");
     $(event.target).parent().find(".organization-state[value=old]").val("removed");
     $(event.target).parent().find(".organization-state[value=new]").val("new-removed");
+
+    var readdButton = $("<button type=\"button\" class=\"readd-organization\">Fortyd sletning</button>");
+    readdButton.click(UndoDeletion);
+    $(event.target).parent().parent().append(readdButton);
+}
+
+var UndoDeletion = function (event) {
+    //Undo the the deletion of an organization
+    $(event.target).siblings(".form-group").removeClass("hidden");
+    $(event.target).siblings(".form-group").find(".organization-state[value=removed]").val("old");
+    $(event.target).siblings(".form-group").find(".organization-state[value=new-removed]").val("new");
+    $(event.target).remove();
 }
 
 var LastWorkPlaceId;
@@ -41,7 +56,7 @@ $("document").ready(() => {
         editPlace.keyup(GetCompanyList);
         var removeButton = $("<button type=\"button\" class=\"organization-remove\">Slet</button>");
         removeButton.click(DeleteCompanyItem);
-        //Create inputs
+        //Create organization form
         $("#organization-list").append($("<li class=\"item\"></li>")
             .append($("<div class=\"form-group\"></div>")
             .append($("<label for=\"Organizations[" + id + "].Name\">Organisation navn</label>"))

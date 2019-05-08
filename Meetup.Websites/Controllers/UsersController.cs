@@ -158,6 +158,7 @@ namespace Meetup.Websites.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserEditorModel viewModel)
         {
+            //Get user
             MeetupModel model = new MeetupModel();
             int? userId = this.UserId();
             if(userId == null)
@@ -194,9 +195,7 @@ namespace Meetup.Websites.Controllers
                 editUser.UsersInterests.Add(new UsersInterest(interest, editUser));
             }
 
-            //Remove new removed organizations
-            viewModel.Organizations = viewModel.Organizations.Where(o => o.State != "new-removed").ToList();
-
+            //Make sure model is valid
             if(!ModelState.IsValid)
             {
                 return ReturnEdit(viewModel, editUser, model);
@@ -211,6 +210,7 @@ namespace Meetup.Websites.Controllers
                         OrganizationModel organization = viewModel.Organizations[i];
                         if(organization.State == "removed")
                         {
+                            //Remove removed organizations
                             UsersOrganizations removeOrganization = editUser.UsersOrganizations.SingleOrDefault(o => o.Id == organization.Id);
                             if(!(removeOrganization is null))
                             {
@@ -219,6 +219,7 @@ namespace Meetup.Websites.Controllers
                         }
                         else if (organization.State == "old" || organization.State == "new")
                         {
+                            //Make sure organization is in a valid state
                             if(string.IsNullOrWhiteSpace(organization.Name))
                             {
                                 ModelState.AddModelError("Organizations[" + i + "].Name", "Feltet Organisation navn skal udfyldes.");
@@ -229,8 +230,26 @@ namespace Meetup.Websites.Controllers
                                 ModelState.AddModelError("Organizations[" + i + "].StartDate", "Feltet ansættelsesdato skal udfyldes.");
                                 return ReturnEdit(viewModel, editUser, model);
                             }
+                            if(organization.StartDate > DateTime.Now)
+                            {
+                                ModelState.AddModelError("Organizations[" + i + "].StartDate", "Ansættelsesdato må ikke være i fremtiden.");
+                                return ReturnEdit(viewModel, editUser, model);
+                            }
+                            else if(!(organization.EndDate is null))
+                            {
+                                if(organization.StartDate.Value >= organization.EndDate)
+                                {
+                                    ModelState.AddModelError("Organizations[" + i + "].StartDate", "Ansættelsesdato må ikke være efter slut datoen.");
+                                    return ReturnEdit(viewModel, editUser, model);
+                                }
+                                else if(organization.EndDate > DateTime.Now)
+                                {
+                                    ModelState.AddModelError("Organizations[" + i + "].EndDate", "Slut datoen kan ikke være i fremtiden.");
+                                    return ReturnEdit(viewModel, editUser, model);
+                                }
+                            }
 
-                            //Check if organization already existed on the user
+                            //Get the organization the user is editing or create a new one latter
                             UsersOrganizations editOrganization = null;
                             Organization newOrganization = null;
                             Organization oldOrganization = null;
@@ -254,6 +273,7 @@ namespace Meetup.Websites.Controllers
                                 newOrganization = model.Organizations.SingleOrDefault(o => o.Name == organization.Name);
                                 if(newOrganization is null)
                                 {
+                                    //Call api to check organization name
                                     try
                                     {
                                         if(Organization.NameExists(organization.Name))
@@ -268,32 +288,16 @@ namespace Meetup.Websites.Controllers
                                     }
                                     catch(WebException)
                                     {
-                                        ModelState.AddModelError("Organizations[" + i + "].Name", "Fejlede i at bedømme organisation navnet. Prøv igen senerer");
+                                        ModelState.AddModelError("Organizations[" + i + "].Name", "Fejlede i at bedømme organisation navnet. Prøv igen senere");
                                         return ReturnEdit(viewModel, editUser, model);
                                     }
                                 }
                             }
-                            if(organization.StartDate > DateTime.Now)
-                            {
-                                ModelState.AddModelError("Organizations[" + i + "].StartDate", "Ansættelsesdato må ikke være i fremtiden.");
-                                return ReturnEdit(viewModel, editUser, model);
-                            }
-                            else if(!(organization.EndDate is null))
-                            {
-                                if(organization.StartDate.Value >= organization.EndDate)
-                                {
-                                    ModelState.AddModelError("Organizations[" + i + "].StartDate", "Ansættelsesdato må ikke være efter slut datoen.");
-                                    return ReturnEdit(viewModel, editUser, model);
-                                }
-                                else if(organization.EndDate > DateTime.Now)
-                                {
-                                    ModelState.AddModelError("Organizations[" + i + "].EndDate", "Slut datoen kan ikke være i fremtiden.");
-                                    return ReturnEdit(viewModel, editUser, model);
-                                }
-                            }
+                            //Create new organization object or fill old object
                             if(editOrganization is null)
                             {
                                 editOrganization = new UsersOrganizations(newOrganization, editUser, organization.StartDate.Value);
+                                model.UsersOrganizations.Add(editOrganization);
                             }
                             else
                             {
@@ -304,10 +308,6 @@ namespace Meetup.Websites.Controllers
                                 editOrganization.StartDate = organization.StartDate.Value;
                             }
                             editOrganization.EndDate = organization.EndDate;
-                            if(organization.State == "new")
-                            {
-                                model.UsersOrganizations.Add(editOrganization);
-                            }
                         }
                     }
                 }
@@ -323,6 +323,7 @@ namespace Meetup.Websites.Controllers
                     editUser.PictureUri = "data:image/png;base64," + viewModel.Picture.PictureFileToString();
                 }
 
+                //Update everything else
                 editUser.Description = viewModel.Description;
                 editUser.Address.CityName = viewModel.Address.City;
                 editUser.Address.Country = viewModel.Address.Country;
