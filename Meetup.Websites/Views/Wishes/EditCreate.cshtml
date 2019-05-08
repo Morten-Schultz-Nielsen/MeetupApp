@@ -25,7 +25,7 @@
             @Html.LabelFor(m => m.ChosenName)
             @Html.DropDownListFor(m => m.ChosenName, Model.UsersInEvent, new { @class = "input-line" })
         </div>
-        <input type="submit" value="@(Model.EditingWish ? "Save Changes" : "Create Wish")" class="button" />
+        <input type="submit" value="@(Model.EditingWish ? "Gem" : "Lav ønske")" class="button" />
     }
     @using(Html.BeginForm("EditCreate", "Wishes", FormMethod.Post, new { role = "form", id = "wish-business", @class = (!string.IsNullOrWhiteSpace(Model.ChosenName) ? "hidden" : "") + " wish-choise normal", enctype = "multipart/form-data" }))
     {
@@ -100,7 +100,7 @@
             @Html.LabelFor(m => m.OrganizationWish.WorkYears)
             @Html.TextBoxFor(m => m.OrganizationWish.WorkYears)
         </div>
-        <input type="submit" value="@(Model.EditingWish ? "Gem" : "Lav Ønske")" id="wish-business-submit" class="button" />
+        <input type="submit" value="@(Model.EditingWish ? "Gem" : "Lav ønske")" id="wish-business-submit" class="button" />
     }
 </div>
 
