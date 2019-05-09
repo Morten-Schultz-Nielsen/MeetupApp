@@ -116,6 +116,10 @@ main {
     min-height: 80vh;
 }
 
+.allow-newline {
+    white-space: pre-line;
+}
+
 .white-box {
     background: white;
     padding: 10px;
