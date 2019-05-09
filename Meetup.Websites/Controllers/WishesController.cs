@@ -30,7 +30,7 @@ namespace Meetup.Websites.Controllers
             viewModel.TheEvent = model.Events.SingleOrDefault(e => e.Id == id);
             if(viewModel.TheEvent is null)
             {
-                return RedirectToAction("index");
+                return RedirectToAction("Index", "Home");
             }
 
             //Gets wish list
@@ -57,7 +57,7 @@ namespace Meetup.Websites.Controllers
             Wish editingWish = model.Wishes.SingleOrDefault(w => w.UserId == infoID && w.Id == id);
             if(editingWish is null || !editingWish.Event.Invites.Any(u => u.UserId == infoID))
             {
-                return RedirectToAction("index");
+                return RedirectToAction("Index", "Home");
             }
 
             WishEditCreateModel viewModel = GetFilledWishCreateEditModel(editingWish.Event);
@@ -107,7 +107,7 @@ namespace Meetup.Websites.Controllers
             Event theEvent = model.Events.SingleOrDefault(e => e.Id == id);
             if(theEvent is null)
             {
-                return RedirectToAction("index");
+                return RedirectToAction("Index", "Home");
             }
 
             List<User> usersInEvent = theEvent.GetUsers().ToList();
