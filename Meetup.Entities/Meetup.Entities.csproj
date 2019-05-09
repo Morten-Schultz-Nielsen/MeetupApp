@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
+    <Compile Include="PauseUser.cs" />
     <Compile Include="Seance.cs" />
     <Compile Include="Invite.cs" />
     <Compile Include="Interest.cs" />

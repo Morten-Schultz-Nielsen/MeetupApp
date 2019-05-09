@@ -77,6 +77,11 @@ namespace Meetup.Entities
             get; set;
         }
 
+        public virtual DbSet<UserPause> UserPauses
+        {
+            get; set;
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Address>()
@@ -106,6 +111,11 @@ namespace Meetup.Entities
 
             modelBuilder.Entity<Seance>()
                 .HasMany(e => e.Meetings)
+                .WithRequired(e => e.Seance)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Seance>()
+                .HasMany(e => e.UserPauses)
                 .WithRequired(e => e.Seance)
                 .WillCascadeOnDelete(false);
 
@@ -159,6 +169,11 @@ namespace Meetup.Entities
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.UsersOrganizations)
+                .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.UserPauses)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
         }

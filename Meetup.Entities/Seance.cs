@@ -15,10 +15,12 @@
         private DateTime endTime;
         private Event @event;
         private ICollection<Meeting> meetings;
+        private ICollection<UserPause> userPauses;
 
         protected Seance()
         {
             Meetings = new HashSet<Meeting>();
+            UserPauses = new HashSet<UserPause>();
         }
 
         /// <summary>
@@ -31,6 +33,8 @@
         public Seance(Event @event, int number ,DateTime beginningTime, DateTime endTime)
         {
             Meetings = new HashSet<Meeting>();
+            UserPauses = new HashSet<UserPause>();
+
             Event = @event;
             BeginningTime = beginningTime;
             EndTime = endTime;
@@ -133,6 +137,26 @@
                     throw new ArgumentNullException(nameof(Meetings), "value may not be null");
                 }
                 meetings = value;
+            }
+        }
+
+        /// <summary>
+        /// A list of users who arent in this seance
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserPause> UserPauses
+        {
+            get
+            {
+                return userPauses;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException(nameof(UserPauses), "value may not be null");
+                }
+                userPauses = value;
             }
         }
     }

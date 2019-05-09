@@ -47,6 +47,7 @@ namespace Meetup.Entities
         private ICollection<UsersInterest> usersInterests;
         private ICollection<UsersOrganizations> usersOrganizations;
         private ICollection<Wish> wishes;
+        private ICollection<UserPause> userPauses;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         protected User()
@@ -59,6 +60,7 @@ namespace Meetup.Entities
             UsersInterests = new HashSet<UsersInterest>();
             UsersOrganizations = new HashSet<UsersOrganizations>();
             Wishes = new HashSet<Wish>();
+            UserPauses = new HashSet<UserPause>();
         }
 
         /// <summary>
@@ -80,6 +82,7 @@ namespace Meetup.Entities
             UsersInterests = new HashSet<UsersInterest>();
             UsersOrganizations = new HashSet<UsersOrganizations>();
             Wishes = new HashSet<Wish>();
+            UserPauses = new HashSet<UserPause>();
 
             FirstName = firstName;
             LastName = lastName;
@@ -419,6 +422,26 @@ namespace Meetup.Entities
                     throw new ArgumentNullException(nameof(Wishes), "value may not be null");
                 }
                 wishes = value;
+            }
+        }
+
+        /// <summary>
+        /// A list over all seance pauses this user has
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserPause> UserPauses
+        {
+            get
+            {
+                return userPauses;
+            }
+            set
+            {
+                if(value is null)
+                {
+                    throw new ArgumentNullException(nameof(UserPauses), "value may not be null");
+                }
+                userPauses = value;
             }
         }
 

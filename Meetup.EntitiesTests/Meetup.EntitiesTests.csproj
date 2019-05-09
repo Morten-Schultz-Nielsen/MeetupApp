@@ -66,6 +66,7 @@
     <Compile Include="OrganizationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeanceTests.cs" />
+    <Compile Include="UserPauseTests.cs" />
     <Compile Include="UsersBusinessTests.cs" />
     <Compile Include="UsersInterestTests.cs" />
     <Compile Include="UsersOrganizationsTests.cs" />

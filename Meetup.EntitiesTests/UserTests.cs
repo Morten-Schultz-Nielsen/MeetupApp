@@ -58,6 +58,7 @@ namespace Meetup.Entities.Tests
             Assert.ThrowsException<ArgumentNullException>(() => { testUser.UsersInterests = null; }, "UsersInterests cannot be null");
             Assert.ThrowsException<ArgumentNullException>(() => { testUser.UsersOrganizations = null; }, "UsersOrganizations cannot be null");
             Assert.ThrowsException<ArgumentNullException>(() => { testUser.Wishes = null; }, "Wishes cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { testUser.UserPauses = null; }, "UserPauses cannot be null");
         }
 
         [TestMethod()]
