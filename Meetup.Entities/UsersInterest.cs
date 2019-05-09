@@ -68,7 +68,14 @@ namespace Meetup.Entities
             }
             set
             {
-                InterestId = value.Id;
+                if(value is null)
+                {
+                    InterestId = 0;
+                }
+                else
+                {
+                    InterestId = value.Id;
+                }
                 interest = value;
             }
         }
@@ -84,7 +91,14 @@ namespace Meetup.Entities
             }
             set
             {
-                UserId = value.Id;
+                if(value is null)
+                {
+                    UserId = 0;
+                }
+                else
+                {
+                    UserId = value.Id;
+                }
                 user = value;
             }
         }

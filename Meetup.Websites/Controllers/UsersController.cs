@@ -19,7 +19,7 @@ namespace Meetup.Websites.Controllers
         /// The amount of users each page will show.
         /// The number is best when its divisible by 4.
         /// </summary>
-        const int usersPerPage = 40;
+        const int usersPerPage = 12;
 
         /// <summary>
         /// The amount of (page buttons - 1) / 2 to show under the users.

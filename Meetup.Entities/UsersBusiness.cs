@@ -68,7 +68,14 @@ namespace Meetup.Entities
             }
             set
             {
-                BusinessId = value.Id;
+                if(value is null)
+                {
+                    BusinessId = 0;
+                }
+                else
+                {
+                    BusinessId = value.Id;
+                }
                 business = value;
             }
         }
@@ -84,7 +91,14 @@ namespace Meetup.Entities
             }
             set
             {
-                UserId = value.Id;
+                if(value is null)
+                {
+                    UserId = 0;
+                }
+                else
+                {
+                    UserId = value.Id;
+                }
                 user = value;
             }
         }

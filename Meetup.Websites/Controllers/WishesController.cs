@@ -293,6 +293,7 @@ namespace Meetup.Websites.Controllers
             viewModel.UsersInEvent = new List<SelectListItem>();
 
             viewModel = FillModelWithUsersAndOrganizations(viewModel, usersInEvent);
+            viewModel.SelectedOrganizationIndex = -1;
 
             return View("EditCreate", viewModel);
         }
