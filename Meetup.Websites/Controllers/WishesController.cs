@@ -155,14 +155,15 @@ namespace Meetup.Websites.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            WishEditCreateModel infoModel = GetFilledWishCreateEditModel(viewModel.EventInformation, infoID.Value);
             //Create list of chosen and unchosen businesses
             if(string.IsNullOrEmpty(viewModel.ChosenBusinesses))
             {
                 viewModel.ChosenBusinesses = "";
             }
             string[] businessesStringList = viewModel.ChosenBusinesses.Split(',');
-            viewModel.ChosenBusinessesList = model.Businesses.Where(b => businessesStringList.Any(bl => bl.Contains(b.Name))).ToList();
-            viewModel.UnchosenBusinesses = model.Businesses.ToList();
+            viewModel.ChosenBusinessesList = infoModel.UnchosenBusinesses.Where(b => businessesStringList.Any(bl => bl.Contains(b.Name))).ToList();
+            viewModel.UnchosenBusinesses = infoModel.UnchosenBusinesses.ToList();
             viewModel.UnchosenBusinesses = viewModel.UnchosenBusinesses.Except(viewModel.ChosenBusinessesList).ToList();
 
             //Create list of chosen and unchosen interests
@@ -171,13 +172,13 @@ namespace Meetup.Websites.Controllers
                 viewModel.ChosenInterests = "";
             }
             string[] interestsStringList = viewModel.ChosenInterests.Split(',');
-            viewModel.ChosenInterestsList = model.Interests.Where(i => interestsStringList.Any(il => il.Contains(i.Name))).ToList();
-            viewModel.UnchosenInterests = model.Interests.ToList();
+            viewModel.ChosenInterestsList = infoModel.UnchosenInterests.Where(i => interestsStringList.Any(il => il.Contains(i.Name))).ToList();
+            viewModel.UnchosenInterests = infoModel.UnchosenInterests.ToList();
             viewModel.UnchosenInterests = viewModel.UnchosenInterests.Except(viewModel.ChosenInterestsList).ToList();
 
             if(!ModelState.IsValid)
             {
-                return RedirectBackToEditCreate(viewModel);
+                return RedirectBackToEditCreate(viewModel, infoID.Value);
             }
             else
             {
@@ -222,7 +223,7 @@ namespace Meetup.Websites.Controllers
                     if(wishUser is null)
                     {
                         ModelState.AddModelError("ChosenName", "Brugeren \"" + viewModel.ChosenName + "\" er ikke i denne event.");
-                        return RedirectBackToEditCreate(viewModel);
+                        return RedirectBackToEditCreate(viewModel, infoID.Value);
                     }
                     else
                     {
@@ -267,7 +268,7 @@ namespace Meetup.Websites.Controllers
                     if(theWish.WishBusinesses.Count <= 0 && theWish.WishInterests.Count <= 0 && theWish.WishOrganizationId is null)
                     {
                         ModelState.AddModelError("OrganizationWish.Name", "Du skal vælge mindst et erhverv, interesse eller en organisation.");
-                        return RedirectBackToEditCreate(viewModel);
+                        return RedirectBackToEditCreate(viewModel, infoID.Value);
                     }
                 }
 
@@ -282,12 +283,15 @@ namespace Meetup.Websites.Controllers
         /// Returns an action result which returns the user back to the creation/editing page (used in case wish state is invalid)
         /// </summary>
         /// <param name="viewModel">information about the wish</param>
+        /// <param name="userId">The id of the user</param>
         /// <returns>Returns an action result which returns the edit/creation page</returns>
-        private ActionResult RedirectBackToEditCreate(WishEditCreateModel viewModel)
+        [NonAction]
+        private ActionResult RedirectBackToEditCreate(WishEditCreateModel viewModel, int userId)
         {
             //Get list of users in the event
-            List<User> usersInEvent = viewModel.EventInformation.GetUsers().ToList();
+            List<User> usersInEvent = viewModel.EventInformation.GetUsers().Where(u => u.Id != userId).ToList();
             viewModel.UsersInEvent = new List<SelectListItem>();
+
             viewModel = FillModelWithUsersAndOrganizations(viewModel, usersInEvent);
 
             return View("EditCreate", viewModel);
