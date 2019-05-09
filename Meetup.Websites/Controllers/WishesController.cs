@@ -194,9 +194,6 @@ namespace Meetup.Websites.Controllers
                 }
                 else
                 {
-                    //If creating a wish, create new object
-                    theWish = new Wish(editUser, viewModel.EventInformation, 10);
-
                     //Get an id for the wish
                     Random random = new Random();
                     int newId;
@@ -205,7 +202,10 @@ namespace Meetup.Websites.Controllers
                         newId = random.Next(0, int.MaxValue);
                     }
                     while(model.Wishes.Any(w => w.Id == newId));
-                    theWish.Id = newId;
+
+                    //If creating a wish, create new object
+                    theWish = new Wish(editUser, viewModel.EventInformation, newId);
+                    model.Wishes.Add(theWish);
                 }
 
                 if(!string.IsNullOrWhiteSpace(viewModel.ChosenName))
@@ -270,10 +270,6 @@ namespace Meetup.Websites.Controllers
                 }
 
                 //Save wish
-                if(!viewModel.EditingWish)
-                {
-                    model.Wishes.Add(theWish);
-                }
                 model.SaveChanges();
 
                 return RedirectToAction("List", new { Id = viewModel.EventId });
