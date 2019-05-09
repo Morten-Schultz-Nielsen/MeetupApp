@@ -13,6 +13,7 @@ namespace Meetup.Entities
     {
         private User person1;
         private User person2;
+        private readonly int eventId;
 
         /// <summary>
         /// Creates a new meeting score from 2 <see cref="User"/>s
@@ -22,6 +23,8 @@ namespace Meetup.Entities
         /// <param name="eventId">The Id of the <see cref="Event"/> with this meeting</param>
         public MeetingScore(int eventId, User person1, User person2)
         {
+            this.eventId = eventId;
+
             Person1 = person1;
             Person2 = person2;
             List<Wish> person1Wishes = person1.Wishes.Where(w => w.EventId == eventId).ToList();
@@ -45,6 +48,10 @@ namespace Meetup.Entities
                 {
                     throw new ArgumentNullException(nameof(Person1), "Value may not be null.");
                 }
+                if(!value.Invites.Any(i => i.EventId == eventId))
+                {
+                    throw new ArgumentException("User must have an invite to the event", nameof(Person1));
+                }
                 person1 = value;
             }
         }
@@ -63,6 +70,10 @@ namespace Meetup.Entities
                 if(value is null)
                 {
                     throw new ArgumentNullException(nameof(Person2), "Value may not be null.");
+                }
+                if(!value.Invites.Any(i => i.EventId == eventId))
+                {
+                    throw new ArgumentException("User must have an invite to the event", nameof(Person2));
                 }
                 person2 = value;
             }
@@ -99,7 +110,19 @@ namespace Meetup.Entities
             }
             else if(meeting1.Score == meeting2.Score)
             {
-                return 0;
+                //If scores are equal output -1 if meeting1 has the first invited person
+                long meeting1InviteScore = meeting1.Person1.Invites.SingleOrDefault(i => i.EventId == meeting1.eventId).Time.Ticks / 2 + meeting1.Person2.Invites.SingleOrDefault(i => i.EventId == meeting1.eventId).Time.Ticks / 2;
+                long meeting2InviteScore = meeting2.Person1.Invites.SingleOrDefault(i => i.EventId == meeting2.eventId).Time.Ticks / 2 + meeting2.Person2.Invites.SingleOrDefault(i => i.EventId == meeting2.eventId).Time.Ticks / 2;
+
+                if(meeting1InviteScore < meeting2InviteScore)
+                {
+                    return -1;
+                }
+                if(meeting1InviteScore == meeting2InviteScore)
+                {
+                    return 0;
+                }
+                return 1;
             }
             return 1;
         }
