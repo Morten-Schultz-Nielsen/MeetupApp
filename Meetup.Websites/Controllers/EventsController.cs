@@ -523,7 +523,7 @@ namespace Meetup.Websites.Controllers
                 return RedirectToAction("Index", "Home");
             }
             SeanceViewModel viewModel = new SeanceViewModel();
-            viewModel.Event = model.Events.SingleOrDefault(e => e.Id == id && e.Invites.Any(u => u.UserId == infoId));
+            viewModel.Event = model.Events.SingleOrDefault(e => e.Id == id && (e.HostUserId == infoId || e.Invites.Any(u => u.UserId == infoId)));
             if(viewModel.Event is null)
             {
                 return RedirectToAction("Index", "Home");
