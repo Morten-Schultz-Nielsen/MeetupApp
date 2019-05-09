@@ -56,7 +56,7 @@ namespace Meetup.Websites.Controllers
         {
             if(!ModelState.IsValid)
             {
-                return RedirectToAction("EditCreate", viewModel);
+                return View("EditCreate", viewModel);
             }
             else
             {

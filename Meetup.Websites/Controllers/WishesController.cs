@@ -60,7 +60,7 @@ namespace Meetup.Websites.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            WishEditCreateModel viewModel = GetFilledWishCreateEditModel(editingWish.Event);
+            WishEditCreateModel viewModel = GetFilledWishCreateEditModel(editingWish.Event, infoID.Value);
             viewModel.WishInformation = editingWish;
             viewModel.WishId = editingWish.Id;
 
@@ -122,7 +122,7 @@ namespace Meetup.Websites.Controllers
             }
 
             //Setup view model
-            WishEditCreateModel viewModel = GetFilledWishCreateEditModel(theEvent);
+            WishEditCreateModel viewModel = GetFilledWishCreateEditModel(theEvent, infoID.Value);
             viewModel.ChosenInterestsList = new List<Interest>();
             viewModel.ChosenBusinessesList = new List<Business>();
             viewModel.SelectedOrganizationIndex = -1;
@@ -257,14 +257,16 @@ namespace Meetup.Websites.Controllers
                     }
 
                     //Adds organization (and work time) to the wish if specified
-                    Organization wishedOrganization = model.Organizations.SingleOrDefault(o => o.Name == viewModel.OrganizationWish.Name);
-                    theWish.WishOrganization = wishedOrganization;
-                    theWish.WishOrganizationTime = viewModel.OrganizationWish.WorkYears;
+                    if(!(viewModel.OrganizationWish is null))
+                    {
+                        theWish.WishOrganization = model.Organizations.SingleOrDefault(o => o.Name == viewModel.OrganizationWish.Name);
+                        theWish.WishOrganizationTime = viewModel.OrganizationWish.WorkYears;
+                    }
 
                     //Check if wish actually is wishing for something
                     if(theWish.WishBusinesses.Count <= 0 && theWish.WishInterests.Count <= 0 && theWish.WishOrganizationId is null)
                     {
-                        ModelState.AddModelError("OrganizationWish.Name", "Du skal vælge mindst et erhverv, interesse or en organisation.");
+                        ModelState.AddModelError("OrganizationWish.Name", "Du skal vælge mindst et erhverv, interesse eller en organisation.");
                         return RedirectBackToEditCreate(viewModel);
                     }
                 }
@@ -369,12 +371,14 @@ namespace Meetup.Websites.Controllers
         /// <param name="eventWithData">The event the <see cref="WishEditCreateModel"/> should get information from.</param>
         /// <returns>Returns a <see cref="WishEditCreateModel"/> with <see cref="WishEditCreateModel.UnchosenBusinesses"/>, <see cref="WishEditCreateModel.UnchosenInterests"/> and <see cref="WishEditCreateModel.Organizations"/></returns>
         [NonAction]
-        private static WishEditCreateModel GetFilledWishCreateEditModel(Event eventWithData)
+        private static WishEditCreateModel GetFilledWishCreateEditModel(Event eventWithData, int userId)
         {
             WishEditCreateModel returnModel = new WishEditCreateModel();
             returnModel.EventInformation = eventWithData;
             returnModel.EventId = eventWithData.Id;
-            List<User> usersInEvent = eventWithData.GetUsers().ToList();
+
+            //Get list of users
+            List<User> usersInEvent = eventWithData.GetUsers().Where(u => u.Id != userId).ToList();
 
             //Create interest list
             returnModel.UnchosenInterests = new List<Interest>();
