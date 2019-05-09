@@ -489,6 +489,27 @@ form.line-form input {
 .highlight .your-meeting {
     background: #E0E0E0;
 }
+
+.meeting-pause {
+    cursor: pointer;
+    background: #D0D0D0;
+}
+.meeting-pause.collapsed a {
+    display: none;
+}
+.toggle-icon {
+    font-size: 3em;
+    margin: -15px;
+}
+.meeting-pause:not(.collapsed) .toggle-icon {
+    display: none;
+}
+.pause-text {
+    display: none;
+}
+.meeting-pause:not(.collapsed) .pause-text {
+    display: inline;
+}
 /*Events end*/
 /*List Start*/
 .item {

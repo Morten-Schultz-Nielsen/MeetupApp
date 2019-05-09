@@ -397,6 +397,7 @@ namespace Meetup.Websites.Controllers
             foreach(Seance meetingRow in viewModel.EventInformation.Seances)
             {
                 model.Meetings.RemoveRange(meetingRow.Meetings);
+                model.UserPauses.RemoveRange(meetingRow.UserPauses);
             }
             model.Seances.RemoveRange(viewModel.EventInformation.Seances);
 
@@ -418,16 +419,17 @@ namespace Meetup.Websites.Controllers
                     if(possibleMeetingsThisRow.Count == 0)
                     {
                         //fill with already used meetings if turned on
-                        if(viewModel.ForceFillMeetings)
+                        if(viewModel.ForceFillMeetings && usersNotInMeeting.Count >= 2)
                         {
                             possibleMeetingsThisRow = MeetingScore.GetPossibleMeetings(usersNotInMeeting, viewModel.EventId);
-                            if(possibleMeetingsThisRow.Count == 0)
-                            {
-                                break;
-                            }
                         }
                         else
                         {
+                            //Create list of users not in meetings in this seance
+                            foreach(User userNotInMeeting in usersNotInMeeting)
+                            {
+                                eventMeetingsRow.UserPauses.Add(new UserPause(userNotInMeeting, eventMeetingsRow));
+                            }
                             break;
                         }
                     }
