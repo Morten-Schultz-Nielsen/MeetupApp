@@ -55,10 +55,8 @@ namespace Meetup.Entities
         /// <param name="zipCode">The city's zipcode</param>
         /// <param name="street">The street name</param>
         /// <param name="streetNumber">The street number</param>
-        public Address(string country, string city, int zipCode, string street, string streetNumber)
+        public Address(string country, string city, int zipCode, string street, string streetNumber) : this()
         {
-            Events = new HashSet<Event>();
-            Users = new HashSet<User>();
             Country = country;
             CityName = city;
             ZipCode = zipCode;

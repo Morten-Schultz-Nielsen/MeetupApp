@@ -68,12 +68,6 @@ namespace Meetup.Websites.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                Event newEvent = new Event(viewModel.Name, 
-                    viewModel.Description, 
-                    model.Users.SingleOrDefault(u => u.Id == infoID.Value), 
-                    new Address(viewModel.Address.Country, viewModel.Address.City, Convert.ToInt32(viewModel.Address.CityZipCode), viewModel.Address.StreetName, viewModel.Address.StreetNumber));
-                newEvent.BeginningTime = viewModel.Time.Value;
-
                 //get event ID
                 int randomNumber;
                 Random random = new Random();
@@ -82,7 +76,14 @@ namespace Meetup.Websites.Controllers
                     randomNumber = random.Next(0, int.MaxValue);
                 }
                 while(model.Events.Any(e => e.Id == randomNumber));
-                newEvent.Id = randomNumber;
+
+                //Create event
+                Event newEvent = new Event(viewModel.Name, 
+                    viewModel.Description, 
+                    model.Users.SingleOrDefault(u => u.Id == infoID.Value), 
+                    new Address(viewModel.Address.Country, viewModel.Address.City, Convert.ToInt32(viewModel.Address.CityZipCode), viewModel.Address.StreetName, viewModel.Address.StreetNumber),
+                    randomNumber);
+                newEvent.BeginningTime = viewModel.Time.Value;
 
                 //Save event
                 model.Events.Add(newEvent);

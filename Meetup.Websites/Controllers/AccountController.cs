@@ -184,8 +184,7 @@ namespace Meetup.Websites.Controllers
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     Address usersAddress = new Address(model.Address.Country, model.Address.City, Convert.ToInt32(model.Address.CityZipCode), model.Address.StreetName, model.Address.StreetNumber);
-                    User newUser = new User(model.FirstName, model.LastName, model.Description, "data:image/png;base64," + pictureDataString, model.Email, usersAddress);
-                    newUser.Id = randomID;
+                    User newUser = new User(model.FirstName, model.LastName, model.Description, "data:image/png;base64," + pictureDataString, model.Email, usersAddress, randomID);
                     meetupModel.Users.Add(newUser);
                     meetupModel.SaveChanges();
 

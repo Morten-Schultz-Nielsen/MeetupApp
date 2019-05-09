@@ -195,7 +195,7 @@ namespace Meetup.Websites.Controllers
                 else
                 {
                     //If creating a wish, create new object
-                    theWish = new Wish(editUser, viewModel.EventInformation);
+                    theWish = new Wish(editUser, viewModel.EventInformation, 10);
 
                     //Get an id for the wish
                     Random random = new Random();

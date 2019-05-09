@@ -27,9 +27,8 @@ namespace Meetup.Entities
         /// Creates a new <see cref="Organization"/> object
         /// </summary>
         /// <param name="name">The name of the organization</param>
-        public Organization(string name)
+        public Organization(string name) : this()
         {
-            UsersOrganizations = new HashSet<UsersOrganizations>();
             Name = name;
         }
 

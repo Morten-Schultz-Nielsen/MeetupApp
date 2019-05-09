@@ -19,7 +19,7 @@ namespace Meetup.Entities.Tests
         /// <returns>A simple <see cref="Wish"/></returns>
         public static Wish GetSimpleWish(int userId = 0, int eventId = 0)
         {
-            return new Wish(UserTests.GetSimpleUser(userId), EventTests.GetSimpleEvent(eventId));
+            return new Wish(UserTests.GetSimpleUser(userId), EventTests.GetSimpleEvent(eventId), 10);
         }
 
         [TestMethod()]
@@ -34,11 +34,11 @@ namespace Meetup.Entities.Tests
             Wish testWish = GetSimpleWish();
 
             //test wishUser
-            new Wish(UserTests.GetSimpleUser(0), EventTests.GetSimpleEvent(0)) { WishUser = null };
+            new Wish(UserTests.GetSimpleUser(0), EventTests.GetSimpleEvent(0), 10) { WishUser = null };
 
             //Test wishorganization
-            new Wish(UserTests.GetSimpleUser(0), EventTests.GetSimpleEvent(0)) { WishOrganization = null };
-            new Wish(UserTests.GetSimpleUser(0), EventTests.GetSimpleEvent(0)) { WishOrganizationTime = null };
+            new Wish(UserTests.GetSimpleUser(0), EventTests.GetSimpleEvent(0), 10) { WishOrganization = null };
+            new Wish(UserTests.GetSimpleUser(0), EventTests.GetSimpleEvent(0), 10) { WishOrganizationTime = null };
 
             //Test lists
             Assert.ThrowsException<ArgumentNullException>(() => { testWish.WishBusinesses = null; }, "WishBusinesses cannot be empty");

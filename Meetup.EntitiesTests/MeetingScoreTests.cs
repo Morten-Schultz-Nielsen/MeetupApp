@@ -31,12 +31,12 @@ namespace Meetup.Entities.Tests
             //test score
             user1.Wishes = new List<Wish>()
             {
-                new Wish(UserTests.GetSimpleUser(1), @event) { WishUser = user2 }
+                new Wish(UserTests.GetSimpleUser(1), @event, 10) { WishUser = user2 }
             };
             user2.Wishes = new List<Wish>()
             {
-                new Wish(UserTests.GetSimpleUser(1), EventTests.GetSimpleEvent(10)) {  WishUser = UserTests.GetSimpleUser(0) }, //ignored wish (wrong event id)
-                new Wish(UserTests.GetSimpleUser(1), @event) {WishInterests = new List<WishInterests>()
+                new Wish(UserTests.GetSimpleUser(1), EventTests.GetSimpleEvent(10), 10) {  WishUser = UserTests.GetSimpleUser(0) }, //ignored wish (wrong event id)
+                new Wish(UserTests.GetSimpleUser(1), @event, 10) {WishInterests = new List<WishInterests>()
                 {
                     new WishInterests(new Interest("a") { Id = 1 }, WishTests.GetSimpleWish())
                 }}
@@ -56,8 +56,8 @@ namespace Meetup.Entities.Tests
             User testUser4 = UserTests.GetSimpleUser(4);
             testUser1.Wishes = new List<Wish>()
             {
-                new Wish(testUser1, @event) { WishUser = testUser2 },
-                new Wish(testUser1, @event) { WishUser = testUser4 }
+                new Wish(testUser1, @event, 10) { WishUser = testUser2 },
+                new Wish(testUser1, @event, 10) { WishUser = testUser4 }
             };
             testUser1.UsersInterests = new List<UsersInterest>()
             {
@@ -65,18 +65,18 @@ namespace Meetup.Entities.Tests
             };
             testUser2.Wishes = new List<Wish>()
             {
-                new Wish(testUser2, @event) { WishUser = testUser1 }
+                new Wish(testUser2, @event, 10) { WishUser = testUser1 }
             };
             testUser3.Wishes = new List<Wish>()
             {
-                new Wish(testUser3, @event) {WishInterests = new List<WishInterests>()
+                new Wish(testUser3, @event, 10) {WishInterests = new List<WishInterests>()
                 {
                     new WishInterests(InterestTests.GetSimpleInterest(), WishTests.GetSimpleWish())
                 }}
             };
             testUser4.Wishes = new List<Wish>()
             {
-                new Wish(testUser4, @event) { WishUser = testUser1 }
+                new Wish(testUser4, @event, 10) { WishUser = testUser1 }
             };
             testUser1.Invites.Add(new Invite(@event, testUser1, new DateTime(2000, 10, 9)));
             testUser2.Invites.Add(new Invite(@event, testUser2, new DateTime(2000, 10, 9)));

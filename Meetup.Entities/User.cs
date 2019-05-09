@@ -72,24 +72,16 @@ namespace Meetup.Entities
         /// <param name="picture">A picture of the user</param>
         /// <param name="email">The user's email</param>
         /// <param name="address">The user's address</param>
-        public User(string firstName, string lastName, string description, string picture, string email, Address address)
+        /// <param name="id">The user's id</param>
+        public User(string firstName, string lastName, string description, string picture, string email, Address address, int id) : this()
         {
-            Events = new HashSet<Event>();
-            Invites = new HashSet<Invite>();
-            Meetings = new HashSet<Meeting>();
-            Meetings1 = new HashSet<Meeting>();
-            UsersBusinesses = new HashSet<UsersBusiness>();
-            UsersInterests = new HashSet<UsersInterest>();
-            UsersOrganizations = new HashSet<UsersOrganizations>();
-            Wishes = new HashSet<Wish>();
-            UserPauses = new HashSet<UserPause>();
-
             FirstName = firstName;
             LastName = lastName;
             Description = description;
             PictureUri = picture;
             Email = email;
             Address = address;
+            Id = id;
         }
 
         /// <summary>

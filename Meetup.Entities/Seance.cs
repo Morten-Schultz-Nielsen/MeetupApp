@@ -30,11 +30,8 @@
         /// <param name="number">The number this seance has (used for sorting)</param>
         /// <param name="beginningTime">The time the seance begins</param>
         /// <param name="endTime">The time the seance ends</param>
-        public Seance(Event @event, int number ,DateTime beginningTime, DateTime endTime)
+        public Seance(Event @event, int number ,DateTime beginningTime, DateTime endTime) : this()
         {
-            Meetings = new HashSet<Meeting>();
-            UserPauses = new HashSet<UserPause>();
-
             Event = @event;
             BeginningTime = beginningTime;
             EndTime = endTime;

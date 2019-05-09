@@ -44,15 +44,15 @@ namespace Meetup.Entities
         /// <param name="description">The event's description</param>
         /// <param name="eventOwner">The owner of the event</param>
         /// <param name="address">The address the event is held at</param>
-        public Event(string name, string description, User eventOwner, Address address)
+        /// <param name="id">The id of the event</param>
+        public Event(string name, string description, User eventOwner, Address address, int id) : this()
         {
-            Invites = new HashSet<Invite>();
-            Seances = new HashSet<Seance>();
             Name = name;
             Description = description;
             User = eventOwner;
             HostUserId = eventOwner.Id;
             Address = address;
+            Id = id;
         }
 
         /// <summary>

@@ -19,7 +19,7 @@ namespace Meetup.Entities.Tests
         /// <returns>A simple <see cref="Event"/></returns>
         public static Event GetSimpleEvent(int eventId = 0, int ownerId = 0)
         {
-            return new Event("My 1st Event", "My 783945uisdfsf{[]{£@$@$ event description", UserTests.GetSimpleUser(ownerId), AddressTests.GetSimpleAddress()) { Id = eventId };
+            return new Event("My 1st Event", "My 783945uisdfsf{[]{£@$@$ event description", UserTests.GetSimpleUser(ownerId), AddressTests.GetSimpleAddress(), eventId);
         }
 
         [TestMethod()]
@@ -31,23 +31,23 @@ namespace Meetup.Entities.Tests
         [TestMethod()]
         public void EventTest()
         {
-            GetSimpleEvent();
+            Event testEvent = GetSimpleEvent();
 
             //Test event name
-            Assert.ThrowsException<ArgumentException>(() => { new Event("[My Event] ~Cool~", "My event description", UserTests.GetSimpleUser(), AddressTests.GetSimpleAddress()); }, "Invalid event name");
-            Assert.ThrowsException<ArgumentException>(() => { new Event(null, "My event description", UserTests.GetSimpleUser(), AddressTests.GetSimpleAddress()); }, "Event name cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { testEvent.Name = "[My Event] ~Cool~"; }, "Invalid event name");
+            Assert.ThrowsException<ArgumentException>(() => { testEvent.Name = string.Empty; }, "Event name cannot be empty");
 
             //Test event description
-            Assert.ThrowsException<ArgumentException>(() => { new Event("My 1st Event", "", UserTests.GetSimpleUser(), AddressTests.GetSimpleAddress()); }, "Invalid event description");
+            Assert.ThrowsException<ArgumentException>(() => { testEvent.Description = string.Empty; }, "Invalid event description");
 
             //Test address
-            Assert.ThrowsException<ArgumentNullException>(() => { new Event("My 1st Event", "My event description", UserTests.GetSimpleUser(), null); }, "Address cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { testEvent.Address = null; }, "Address cannot be null");
 
             //Test event owner
-            Assert.ThrowsException<ArgumentNullException>(() => { new Event("My 1st Event", "My event description", null, AddressTests.GetSimpleAddress()); }, "User cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { testEvent.User = null; }, "User cannot be null");
 
             //Test user list
-            Assert.ThrowsException<ArgumentNullException>(() => { new Event("My 1st Event", "My event description", UserTests.GetSimpleUser(), AddressTests.GetSimpleAddress()) { Invites = null }; }, "EventsUsers cannot be null");
+            Assert.ThrowsException<ArgumentNullException>(() => { testEvent.Invites = null; }, "EventsUsers cannot be null");
         }
 
         [TestMethod()]

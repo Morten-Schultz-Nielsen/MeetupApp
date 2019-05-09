@@ -31,12 +31,12 @@
         /// </summary>
         /// <param name="user">The user who has the wish</param>
         /// <param name="event">The event the wish is for</param>
-        public Wish(User user, Event @event)
+        /// <param name="id">The wish's id</param>
+        public Wish(User user, Event @event, int id) : this()
         {
-            WishInterests = new HashSet<WishInterests>();
-            WishBusinesses = new HashSet<WishBusinesses>();
             User = user;
             Event = @event;
+            Id = id;
         }
 
         /// <summary>

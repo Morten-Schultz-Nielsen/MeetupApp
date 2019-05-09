@@ -18,7 +18,7 @@ namespace Meetup.Entities.Tests
         /// <returns>An simple <see cref="User"/></returns>
         public static User GetSimpleUser(int userId = 0)
         {
-            return new User("Bob","Bobsen","Hello, I'm bob","data:image/png;base64,aaa","a@a.a", AddressTests.GetSimpleAddress()) { Id = userId };
+            return new User("Bob","Bobsen","Hello, I'm bob","data:image/png;base64,aaa","a@a.a", AddressTests.GetSimpleAddress(), userId);
         }
 
         [TestMethod()]
@@ -30,22 +30,22 @@ namespace Meetup.Entities.Tests
         [TestMethod()]
         public void UserTest()
         {
-            GetSimpleUser();
+            User testUser = GetSimpleUser();
 
             //Test if naming works correct
-            Assert.ThrowsException<ArgumentException>(() => { new User("Bob1", "Bobsen1", "Hello, I'm bob", "data:image/png;base64,aaa", "a@a.a", AddressTests.GetSimpleAddress()); }, "Names were supposed to throw an argument exception");
-            Assert.ThrowsException<ArgumentException>(() => { new User("", "Bobsen", "Hello, I'm bob", "data:image/png;base64,aaa", "a@a.a", AddressTests.GetSimpleAddress()); }, "FirstName cannot be empty");
-            Assert.ThrowsException<ArgumentException>(() => { new User("Bob", "", "Hello, I'm bob", "data:image/png;base64,aaa", "a@a.a", AddressTests.GetSimpleAddress()); }, "LastName cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { testUser.FirstName = "Bob1"; }, "FirstName can only contains letter and spaces");
+            Assert.ThrowsException<ArgumentException>(() => { testUser.LastName = "Bob1"; }, "LastName can only contains letter and spaces");
+            Assert.ThrowsException<ArgumentException>(() => { testUser.FirstName = string.Empty; }, "FirstName cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { testUser.LastName = string.Empty; }, "LastName cannot be empty");
 
             //Test descritption
-            Assert.ThrowsException<ArgumentException>(() => { new User("Bob", "Bobsen", "", "data:image/png;base64,aaa", "a@a.a", AddressTests.GetSimpleAddress()); }, "Description is not supposed to be able to be empty");
+            Assert.ThrowsException<ArgumentException>(() => { testUser.Description = null; }, "Description is not supposed to be able to be empty");
 
             //Test picture uri
-            Assert.ThrowsException<ArgumentException>(() => { new User("Bob", "Bobsen", "Hello, I'm bob", "data:image/pn;base63,aaa", "a@a.a", AddressTests.GetSimpleAddress()); }, "Picture URI should not be able to contain invalid pictures");
-            Assert.ThrowsException<ArgumentException>(() => { new User("Bob", "Bobsen", "Hello, I'm bob", "", "a@a.a", AddressTests.GetSimpleAddress()); }, "PictureUri cannot be empty");
+            Assert.ThrowsException<ArgumentException>(() => { testUser.PictureUri = "data:image/pn;base63,aaa"; }, "Picture URI should not be able to contain invalid pictures");
+            Assert.ThrowsException<ArgumentException>(() => { testUser.PictureUri = string.Empty; }, "PictureUri cannot be empty");
 
             //Test null address
-            User testUser = GetSimpleUser();
             testUser.Address = AddressTests.GetSimpleAddress();
             Assert.ThrowsException<ArgumentNullException>(() => { testUser.Address = null; }, "Events cannot be null");
 
@@ -94,7 +94,7 @@ namespace Meetup.Entities.Tests
             //Create wish list
             List<Wish> wishList = new List<Wish>()
             {
-                new Wish(GetSimpleUser(), EventTests.GetSimpleEvent())
+                new Wish(GetSimpleUser(), EventTests.GetSimpleEvent(), 10)
                 {
                     WishUser = GetSimpleUser(1)
                 }
@@ -150,7 +150,7 @@ namespace Meetup.Entities.Tests
             Assert.AreEqual(700, user.CalculateHappinessScore(wish), "Happiness score got the wrong result");
 
             //Test if 50% interest/business gives correct score
-            wish = new Wish(GetSimpleUser(), EventTests.GetSimpleEvent())
+            wish = new Wish(GetSimpleUser(), EventTests.GetSimpleEvent(), 10)
             {
                 WishInterests = new List<WishInterests>()
                 {
@@ -171,7 +171,7 @@ namespace Meetup.Entities.Tests
             Assert.AreEqual(639, user.CalculateHappinessScore(wish), "Happiness score was not supposed to be 700");
 
             //Test if user wishes outputs correct score
-            wish = new Wish(GetSimpleUser(), EventTests.GetSimpleEvent())
+            wish = new Wish(GetSimpleUser(), EventTests.GetSimpleEvent(), 10)
             {
                 WishUser = GetSimpleUser(1)
             };
